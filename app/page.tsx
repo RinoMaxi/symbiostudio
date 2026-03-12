@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bg from "@/assets/images/symbio-backgr.png";
+import bg from "../src/assets/images/symbio-backgr.png";
 // app/page.tsx
 export default function HomePage() {
   return (
