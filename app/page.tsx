@@ -1,23 +1,24 @@
 import Image from "next/image";
-import bg from "../src/assets/images/symbio-backgr.png";
-// app/page.tsx
+
 export default function HomePage() {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen flex items-center justify-center text-white">
       <Image
-        src={bg}
-        alt="SymbioStudio background"
+        src="/symbio-backgr.png"
+        alt="background"
         fill
-        priority
         className="object-cover"
       />
 
-      {/* Your existing hero content stays EXACTLY where it is */}
-      <div className="relative z-10">
-        {/* Whatever you already have in your hero goes here */}
+      <div className="relative z-10 text-center">
+        <h1 className="text-5xl font-bold mb-4">SymbioStudio</h1>
+        <p className="text-xl opacity-90">
+          Where creativity and structure meet.
+        </p>
       </div>
     </div>
   );
 }
+
 
 
