@@ -7,8 +7,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        symbio: ['"YourCustomFont"', 'sans-serif'],
-      },
+  symbio: ['"MontserratSemiBold"', 'sans-serif'],
+  connected: ['sans-serif'],
+  livingmind: ['"NotoSansBold"', 'sans-serif'],
+},
     },
   },
   plugins: [],
