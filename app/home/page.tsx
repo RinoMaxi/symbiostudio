@@ -25,10 +25,3 @@ export default function HomePage() {
   className="mt-6 w-full"
  />
 </div>
-   <section
-  className="relative w-full h-screen bg-contain bg-center bg-no-repeat flex items-center justify-center"
-  style={{ backgroundImage: "url('/hero-background.png')" }}
-  );
-}
-
-
