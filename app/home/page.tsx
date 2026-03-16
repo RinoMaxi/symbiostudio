@@ -22,7 +22,7 @@ export default function HomePage() {
   <img
     src="/symbio-logo-line.png"
     alt="Symbio logo bar"
-    className="mt-6 w-full max-w-4xl"
+    className="mt-6 w-full max-w-4xl" style={{ height: "120px" }}
   />
 </div>
     </section>
