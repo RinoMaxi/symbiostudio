@@ -10,9 +10,9 @@ export default function HomePage() {
   symbio AI
 </h1>
 
-  <h2 className="text-3xl font-semibold tracking-wide uppercase">
-    STAY CONNECTED
-  </h2>
+  <h2 className="text-3xl font-bold tracking-wide">
+  STAY CONNECTED
+</h2>
 
   <p className="text-2xl font-medium max-w-3xl leading-relaxed">
     Living Mind — a hybrid intelligence system where<br />
