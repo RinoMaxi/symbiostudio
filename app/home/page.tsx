@@ -15,9 +15,9 @@ export default function HomePage() {
 </h2>
 
   <p className="text-2xl font-medium max-w-3xl leading-relaxed">
-    Living Mind — a hybrid intelligence system where<br />
-    you can speaks, responds, supports, and guides
-  </p>
+  Living Mind — a hybrid intelligence system where<br />
+  you can speaks, responds, supports, and guides
+</p>
 
   <img
   src="/symbio-logo-line.png"
