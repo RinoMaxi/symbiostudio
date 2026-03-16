@@ -6,9 +6,9 @@ export default function HomePage() {
     >
       {/* Dark overlay */}
       <div className="relative z-10 flex flex-col items-center text-center text-white space-y-4">
-  <h1 className="text-7xl font-extrabold tracking-tight uppercase">
-    symbio AI
-  </h1>
+  <h1 className="text-7xl font-extrabold tracking-tight">
+  symbio AI
+</h1>
 
   <h2 className="text-3xl font-semibold tracking-wide uppercase">
     STAY CONNECTED
