@@ -4,7 +4,7 @@ export default function HomePage() {
       className="relative w-full h-screen bg-cover bg-center flex items-center justify-center"
       style={{ backgroundImage: "url('/hero-background.png')" }}
     >
-      {/* Dark overlay for readability */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content */}
@@ -32,4 +32,5 @@ export default function HomePage() {
     </section>
   );
 }
+
 
