@@ -11,7 +11,8 @@ export default function HomePage() {
       <div className="relative z-10 flex flex-col items-center text-center text-white px-4">
         <h1 className="font-symbio text-5xl md:text-7xl lg:text-8xl tracking-tight">
           symbio AI
-        </h1>
+        THIS IS THE REAL HOMEPAGE</h1>
+
 
         <h2 className="font-connected text-2xl md:text-3xl lg:text-4xl mt-4 tracking-wide">
           STAY CONNECTED
