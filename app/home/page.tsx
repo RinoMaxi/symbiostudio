@@ -21,7 +21,6 @@ export default function HomePage() {
         <div className="mt-10 w-full max-w-4xl border-t-4 border-[#6B4C3B] pt-6">
           <img
             src="/symbio-logo-line.png"
-            alt="Symbio logo bar"
             className="w-full h-auto"
           />
         </div>
