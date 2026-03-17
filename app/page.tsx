@@ -1,16 +1,42 @@
 export default function HomePage() {
   return (
-    <section>
-      {/* LOGO GOES HERE */}
-      <img src="/symbio_logo.png" alt="Symbio Logo" />
+    <section
+      className="relative w-full h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/hero-background.png')" }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/40" />
 
-      {/* The rest of your text */}
-      <h1>symbio AI</h1>
-      <h2>STAY CONNECTED</h2>
-      <p>Living Mind — a hybrid intelligence system...</p>
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4">
+
+        {/* Logo */}
+        <img
+          src="/symbio_logo.png"
+          alt="Symbio Logo"
+          className="w-32 h-auto mb-6"
+        />
+
+        {/* Main Title */}
+        <h1 className="font-symbio text-5xl md:text-7xl lg:text-8xl">
+          symbio AI
+        </h1>
+
+        {/* Subtitle */}
+        <h2 className="font-connected text-2xl md:text-3xl lg:text-4xl mt-4">
+          STAY CONNECTED
+        </h2>
+
+        {/* Paragraph */}
+        <p className="font-livingmind text-lg md:text-xl lg:text-2xl mt-6 max-w-3xl leading-relaxed">
+          Living Mind — a hybrid intelligence system<br />
+          where you can speaks, responds, supports, and guides
+        </p>
+      </div>
     </section>
   );
 }
+
 
 
 
