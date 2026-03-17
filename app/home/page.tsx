@@ -17,14 +17,6 @@ export default function HomePage() {
           Living Mind – a hybrid intelligence system where<br />
           you can speak, respond, support, and guide
         </p>
-
-        <div className="mt-10 w-full max-w-4xl border-t-4 border-[#6B4C3B] pt-6">
-          <img
-            src="/symbio-logo-line.png"
-            className="w-full h-auto"
-          />
-        </div>
-      </div>
     </section>
   );
 }
