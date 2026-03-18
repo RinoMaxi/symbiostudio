@@ -20,6 +20,7 @@ export default function HomePage() {
         {/* Main Title */}
        <h1 style={{ fontFamily: "MontserratSemiBold" }}>
   symbio AI
+ className="text-6xl md:text-8xl lg:text-9xl" 
         </h1>
 
         {/* Subtitle */}
