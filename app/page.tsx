@@ -10,30 +10,30 @@ export default function HomePage() {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4">
 
-        {/* Logo */}
-        <img
-          src="/symbio_logo.png"
-          alt="Symbio Logo"
-          className="w-40 h-auto mb-10"
-        />
+        {/* LOGO + TITLE IN ONE LINE */}
+        <div className="flex items-center gap-6 mb-4">
+          <img
+            src="/symbio_logo.png"
+            alt="Symbio Logo"
+            className="w-28 h-auto"
+          />
+          <h1
+            style={{ fontFamily: "MontserratSemiBold" }}
+            className="text-6xl md:text-8xl lg:text-9xl"
+          >
+            symbio AI
+          </h1>
+        </div>
 
-        {/* Main Title */}
-        <h1
-          style={{ fontFamily: "MontserratSemiBold" }}
-          className="text-6xl md:text-8xl lg:text-9xl"
-        >
-          symbio AI
-        </h1>
-
-        {/* Subtitle */}
+        {/* SUBTITLE */}
         <h2
           style={{ fontFamily: "MontserratSemiBold" }}
-          className="text-3xl md:text-4xl lg:text-5xl mt-6 tracking-wide"
+          className="text-3xl md:text-4xl lg:text-5xl tracking-wide"
         >
           STAY CONNECTED
         </h2>
 
-        {/* Paragraph */}
+        {/* PARAGRAPH — TWO LINES */}
         <p
           style={{ fontFamily: "NotoSansBold" }}
           className="text-xl md:text-2xl lg:text-3xl mt-8 max-w-4xl leading-relaxed"
