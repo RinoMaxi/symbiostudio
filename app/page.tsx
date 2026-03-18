@@ -12,18 +12,18 @@ export default function HomePage() {
 
         {/* LOGO + TITLE IN ONE LINE */}
         <div className="flex items-center gap-6 mb-4">
-          <img
-            src="/symbio_logo.png"
-            alt="Symbio Logo"
-            className="w-28 h-auto"
-          />
-          <h1
-            style={{ fontFamily: "MontserratSemiBold" }}
-            className="text-6xl md:text-8xl lg:text-9xl"
-          >
-            symbio AI
-          </h1>
-        </div>
+  <img
+    src="/symbio_logo.png"
+    alt="Symbio Logo"
+    className="w-36 h-auto relative top-1"
+  />
+  <h1
+    style={{ fontFamily: "MontserratSemiBold" }}
+    className="text-7xl md:text-8xl lg:text-9xl leading-none"
+  >
+    symbio AI
+  </h1>
+</div>
 
         {/* SUBTITLE */}
         <h2
