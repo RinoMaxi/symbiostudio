@@ -14,7 +14,7 @@ export default function HomePage() {
         <img
           src="/symbio_logo.png"
           alt="Symbio Logo"
-          className="w-32 h-auto mb-6"
+          className="w-40 h-auto mb-6"
         />
 
         {/* Main Title */}
