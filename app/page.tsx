@@ -14,30 +14,40 @@ export default function HomePage() {
         <img
           src="/symbio_logo.png"
           alt="Symbio Logo"
-          className="w-40 h-auto mb-6"
+          className="w-40 h-auto mb-10"
         />
 
         {/* Main Title */}
-       <h1 style={{ fontFamily: "MontserratSemiBold" }}>
-  symbio AI
- className="text-6xl md:text-8xl lg:text-9xl" 
+        <h1
+          style={{ fontFamily: "MontserratSemiBold" }}
+          className="text-6xl md:text-8xl lg:text-9xl"
+        >
+          symbio AI
         </h1>
 
         {/* Subtitle */}
-        <h2 style={{ fontFamily: "MontserratSemiBold" }}>
-  STAY CONNECTED
-  className="text-xl md:text-2xl lg:text-3xl mt-8 max-w-4xl leading-relaxed"
+        <h2
+          style={{ fontFamily: "MontserratSemiBold" }}
+          className="text-3xl md:text-4xl lg:text-5xl mt-6 tracking-wide"
+        >
+          STAY CONNECTED
         </h2>
 
         {/* Paragraph */}
-        <p style={{ fontFamily: "NotoSansBold" }}>
-  Living Mind — a hybrid intelligence system<br />
-  where you can speaks, responds, supports, and guides
+        <p
+          style={{ fontFamily: "NotoSansBold" }}
+          className="text-xl md:text-2xl lg:text-3xl mt-8 max-w-4xl leading-relaxed"
+        >
+          Living Mind — a hybrid intelligence system<br />
+          where you can speaks, responds, supports, and guides
         </p>
+
       </div>
     </section>
   );
 }
+
+
 
 
 
