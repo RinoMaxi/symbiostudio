@@ -26,7 +26,7 @@ export default function HomePage() {
         {/* Subtitle */}
         <h2 style={{ fontFamily: "MontserratSemiBold" }}>
   STAY CONNECTED
-  className="text-3xl md:text-4xl lg:text-5xl mt-6 tracking-wide"
+  className="text-xl md:text-2xl lg:text-3xl mt-8 max-w-4xl leading-relaxed"
         </h2>
 
         {/* Paragraph */}
