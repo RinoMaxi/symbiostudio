@@ -21,7 +21,7 @@ export default function HomePage() {
     <div className="flex flex-col items-end">
       <h1
         style={{ fontFamily: "MontserratSemiBold" }}
-        className="text-8xl md:text-9xl lg:text-[12rem] leading-none"
+        className="text-8xl md:text-9xl lg:text-[10rem] leading-none"
       >
         symbio AI
       </h1>
@@ -37,12 +37,14 @@ export default function HomePage() {
 
   {/* PARAGRAPH */}
   <p
-    style={{ fontFamily: "NotoSansBold" }}
-    className="text-2xl md:text-3xl lg:text-4xl mt-24 max-w-4xl leading-relaxed"
-  >
-    Living Mind — a hybrid intelligence system<br />
-    where you can speaks, responds, supports, and guides
-  </p>
+
+  style={{ fontFamily: "NotoSansBold" }}
+  className="text-3xl md:text-5xl lg:text-4xl mt-32 max-w-6xl leading-relaxed"
+>
+  Living Mind — a hybrid intelligence system<br />
+  where you can speaks, responds, supports, and guides
+</p>
+
 
 </div>
 
