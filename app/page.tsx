@@ -8,41 +8,44 @@ export default function HomePage() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4">
+       <div className="relative z-10 flex flex-col items-center text-center text-white px-4 pt-65">
 
-        {/* LOGO + TITLE IN ONE LINE */}
-        <div className="flex items-center gap-6 mb-4">
-  <img
-    src="/symbio_logo.png"
-    alt="Symbio Logo"
-    className="w-36 h-auto relative top-1"
-  />
-  <h1
-    style={{ fontFamily: "MontserratSemiBold" }}
-    className="text-7xl md:text-8xl lg:text-9xl leading-none"
+  {/* LOGO + TITLE */}
+  <div className="flex items-center gap-6 mb-4">
+    <img
+  src="/symbio_logo.png"
+  alt="Symbio Logo"
+  className="w-52 h-auto relative top-0"
+/>
+
+    <div className="flex flex-col items-end">
+      <h1
+        style={{ fontFamily: "MontserratSemiBold" }}
+        className="text-8xl md:text-9xl lg:text-[12rem] leading-none"
+      >
+        symbio AI
+      </h1>
+
+      <h2
+        style={{ fontFamily: "NotoSans-Bold.ttf" }}
+        className="text-4xl md:text-5xl lg:text-5xl tracking-wide mt-2"
+      >
+        STAY CONNECTED
+      </h2>
+    </div>
+  </div>
+
+  {/* PARAGRAPH */}
+  <p
+    style={{ fontFamily: "NotoSansBold" }}
+    className="text-2xl md:text-3xl lg:text-4xl mt-24 max-w-4xl leading-relaxed"
   >
-    symbio AI
-  </h1>
+    Living Mind — a hybrid intelligence system<br />
+    where you can speaks, responds, supports, and guides
+  </p>
+
 </div>
 
-        {/* SUBTITLE */}
-        <h2
-          style={{ fontFamily: "MontserratSemiBold" }}
-          className="text-3xl md:text-4xl lg:text-5xl tracking-wide"
-        >
-          STAY CONNECTED
-        </h2>
-
-        {/* PARAGRAPH — TWO LINES */}
-        <p
-          style={{ fontFamily: "NotoSansBold" }}
-          className="text-xl md:text-2xl lg:text-3xl mt-8 max-w-4xl leading-relaxed"
-        >
-          Living Mind — a hybrid intelligence system<br />
-          where you can speaks, responds, supports, and guides
-        </p>
-
-      </div>
     </section>
   );
 }
