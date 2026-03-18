@@ -18,19 +18,19 @@ export default function HomePage() {
         />
 
         {/* Main Title */}
-        <h1 className="font-symbio text-5xl md:text-7xl lg:text-8xl">
-          symbio AI
+       <h1 style={{ fontFamily: "MontserratSemiBold" }}>
+  symbio AI
         </h1>
 
         {/* Subtitle */}
-        <h2 className="font-connected text-2xl md:text-3xl lg:text-4xl mt-4">
-          STAY CONNECTED
+        <h2 style={{ fontFamily: "MontserratSemiBold" }}>
+  STAY CONNECTED
         </h2>
 
         {/* Paragraph */}
-        <p className="font-livingmind text-lg md:text-xl lg:text-2xl mt-6 max-w-3xl leading-relaxed">
-          Living Mind — a hybrid intelligence system<br />
-          where you can speaks, responds, supports, and guides
+        <p style={{ fontFamily: "NotoSansBold" }}>
+  Living Mind — a hybrid intelligence system<br />
+  where you can speaks, responds, supports, and guides
         </p>
       </div>
     </section>
