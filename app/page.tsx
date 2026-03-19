@@ -11,7 +11,7 @@ export default function HomePage() {
        <div className="relative z-10 flex flex-col items-center text-center text-white px-4 pt-65">
 
   {/* LOGO + TITLE */}
-  <div className="flex items-center gap-6 mb-4">
+  <div className="flex items-center gap-8 mb-4">
     <img
   src="/symbio_logo.png"
   alt="Symbio Logo"
@@ -20,11 +20,12 @@ export default function HomePage() {
 
     <div className="flex flex-col items-end">
       <h1
-        style={{ fontFamily: "MontserratSemiBold" }}
-        className="text-8xl md:text-9xl lg:text-[10rem] leading-none"
-      >
-        symbio AI
-      </h1>
+  style={{ fontFamily: "MontserratSemiBold" }}
+  className="text-9xl md:text-9xl lg:text-[10rem] leading-none"
+>
+  symbio<span className="ml-[0.3em]">AI</span>
+</h1>
+
 
       <h2
         style={{ fontFamily: "NotoSans-Bold.ttf" }}
