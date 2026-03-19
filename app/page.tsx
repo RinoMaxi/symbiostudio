@@ -11,7 +11,7 @@ export default function HomePage() {
        <div className="relative z-10 flex flex-col items-center text-center text-white px-4 pt-65">
 
   {/* LOGO + TITLE */}
-  <div className="flex items-center gap-7 mb-4">
+  <div className="flex items-center gap-10 mb-4">
     <img
   src="/symbio_logo.png"
   alt="Symbio Logo"
