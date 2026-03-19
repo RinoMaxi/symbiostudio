@@ -8,7 +8,7 @@ export default function HomePage() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center pt-[29vh]">
+      <div className="relative z-10 flex flex-col items-center text-center pt-[24vh]">
 
         {/* LOGO + TITLE IN ONE ROW */}
         <div className="flex items-center justify-center w-full mb-4">
@@ -17,13 +17,13 @@ export default function HomePage() {
           <img
             src="/symbio_logo.png"
             alt="Symbio Logo"
-            className="w-40 h-auto relative left-[-3rem]"
+            className="w-40 h-auto relative left-[-3rem] top-[1.0rem]"
           />
 
           {/* symbio AI */}
           <h1
             style={{ fontFamily: "MontserratSemiBold" }}
-            className="text-9xl md:text-[10rem] lg:text-[10rem] leading-none ml-[-1rem]"
+            className="text-9xl md:text-[10rem] lg:text-[10rem] leading-none ml-[-1.0rem]"
           >
             symbio<span className="ml-[0.3em]">AI</span>
           </h1>
@@ -31,11 +31,11 @@ export default function HomePage() {
 
         {/* STAY CONNECTED */}
         <h2
-          style={{ fontFamily: "NotoSansBold" }}
-          className="text-4xl md:text-5xl lg:text-5xl tracking-wide mt-2"
-        >
-          STAY CONNECTED
-        </h2>
+  style={{ fontFamily: "NotoSansBold" }}
+  className="text-4xl md:text-5xl lg:text-5xl tracking-wide mt-[-1.5rem] ml-[32.0rem]"
+>
+  STAY CONNECTED
+</h2>
 
         {/* PARAGRAPH */}
         <p
