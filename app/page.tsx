@@ -8,7 +8,7 @@ export default function HomePage() {
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center pt-[50vh]">
+      <div className="relative z-10 flex flex-col items-center text-center pt-[29vh]">
 
         {/* LOGO + TITLE IN ONE ROW */}
         <div className="flex items-center justify-center w-full mb-4">
@@ -17,7 +17,7 @@ export default function HomePage() {
           <img
             src="/symbio_logo.png"
             alt="Symbio Logo"
-            className="w-40 h-auto relative left-[-3rem]"
+            className="w-44 h-auto relative left-[-5rem]"
           />
 
           {/* symbio AI */}
