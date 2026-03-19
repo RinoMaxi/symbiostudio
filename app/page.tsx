@@ -40,7 +40,7 @@ export default function HomePage() {
         {/* PARAGRAPH */}
         <p
           style={{ fontFamily: "NotoSansBold" }}
-          className="text-3xl md:text-5xl lg:text-4xl mt-20 max-w-6xl leading-snug"
+          className="text-3xl md:text-5xl lg:text-4xl mt-48 max-w-6xl leading-snug"
         >
           Living Mind – a hybrid intelligence system<br />
           where you can speaks, responds, supports, and guides
@@ -49,7 +49,6 @@ export default function HomePage() {
     </section>
   );
 }
-
 
 
 
