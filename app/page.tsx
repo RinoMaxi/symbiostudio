@@ -17,7 +17,7 @@ export default function HomePage() {
           <img
             src="/symbio_logo.png"
             alt="Symbio Logo"
-            className="w-44 h-auto relative left-[-5rem]"
+            className="w-40 h-auto relative left-[-3rem]"
           />
 
           {/* symbio AI */}
