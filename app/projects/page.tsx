@@ -14,36 +14,43 @@ export default function ProjectsPage() {
       </p>
 
       <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-6xl">
-        {/* PROJECT CARD 1 */}
+
+        {/* PROJECT 1 */}
         <div className="border border-neutral-300/40 rounded-xl p-6 hover:shadow-md transition-shadow">
           <h2 className="text-xl font-semibold" style={{ fontFamily: "MontserratSemiBold" }}>
-            Project Title
+            SymbioStudio — Human–AI Collaboration
           </h2>
           <p className="mt-2 text-sm opacity-70">
-            A short description of the project. This is where you introduce the
-            idea in a calm, clear way.
+            A platform exploring how humans and AI can co‑create clarity,
+            structure, and emotional grounding through digital interfaces.
           </p>
+          <p className="mt-4 text-xs opacity-50">Status: In Development</p>
         </div>
 
-        {/* PROJECT CARD 2 */}
+        {/* PROJECT 2 */}
         <div className="border border-neutral-300/40 rounded-xl p-6 hover:shadow-md transition-shadow">
           <h2 className="text-xl font-semibold" style={{ fontFamily: "MontserratSemiBold" }}>
-            Another Project
+            Mind for Life — Mental Clarity Framework
           </h2>
           <p className="mt-2 text-sm opacity-70">
-            Another description. You can add as many cards as you want.
+            A philosophical and practical system for emotional grounding,
+            structured thinking, and AI‑supported reflection.
           </p>
+          <p className="mt-4 text-xs opacity-50">Status: Conceptual</p>
         </div>
 
-        {/* PROJECT CARD 3 */}
+        {/* PROJECT 3 */}
         <div className="border border-neutral-300/40 rounded-xl p-6 hover:shadow-md transition-shadow">
           <h2 className="text-xl font-semibold" style={{ fontFamily: "MontserratSemiBold" }}>
-            Future Work
+            Symbio Identity System
           </h2>
           <p className="mt-2 text-sm opacity-70">
-            Placeholder for future ideas, experiments, or prototypes.
+            A visual identity built around calmness, precision, and cinematic
+            minimalism — including hero imagery, gradients, and typography.
           </p>
+          <p className="mt-4 text-xs opacity-50">Status: Ongoing</p>
         </div>
+
       </div>
     </main>
   );
