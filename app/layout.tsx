@@ -19,13 +19,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={montserrat.className}>
 
         {/* NAVIGATION BAR */}
-        <nav className="flex gap-8 p-6 text-lg">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/studio">Studio</a>
-          <a href="/agents">Agents</a>
-          <a href="/spaces">Spaces</a>
-        </nav>
+        <nav className="w-full flex justify-center gap-12 py-6 text-2xl tracking-wide"
+     style={{ fontFamily: "MontserratSemiBold" }}>
+  <a href="/" className="hover:opacity-70 transition-opacity">Home</a>
+  <a href="/about" className="hover:opacity-70 transition-opacity">About</a>
+  <a href="/studio" className="hover:opacity-70 transition-opacity">Studio</a>
+  <a href="/agents" className="hover:opacity-70 transition-opacity">Agents</a>
+  <a href="/spaces" className="hover:opacity-70 transition-opacity">Spaces</a>
+</nav>
 
         {children}
       </body>
