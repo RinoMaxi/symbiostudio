@@ -13,19 +13,23 @@ export default function ProjectsPage() {
         SymbioStudio.
       </p>
 
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full max-w-6xl">
+      <div className="border border-neutral-300/40 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+  <img
+    src="/projects/project-1.png"
+    alt="SymbioStudio project visual"
+    className="w-full h-48 object-cover"
+  />
 
-        {/* PROJECT 1 */}
-        <div className="border border-neutral-300/40 rounded-xl p-6 hover:shadow-md transition-shadow">
-          <h2 className="text-xl font-semibold" style={{ fontFamily: "MontserratSemiBold" }}>
-            SymbioStudio — Human–AI Collaboration
-          </h2>
-          <p className="mt-2 text-sm opacity-70">
-            A platform exploring how humans and AI can co‑create clarity,
-            structure, and emotional grounding through digital interfaces.
-          </p>
-          <p className="mt-4 text-xs opacity-50">Status: In Development</p>
-        </div>
+  <div className="p-6">
+    <h2 className="text-xl font-semibold" style={{ fontFamily: "MontserratSemiBold" }}>
+      SymbioStudio — Human–AI Collaboration
+    </h2>
+    <p className="mt-2 text-sm opacity-70">
+      A platform exploring how humans and AI can co‑create clarity,
+      structure, and emotional grounding through digital interfaces.
+    </p>
+    <p className="mt-4 text-xs opacity-50">Status: In Development</p>
+  </div>
 
         {/* PROJECT 2 */}
         <div className="border border-neutral-300/40 rounded-xl p-6 hover:shadow-md transition-shadow">
