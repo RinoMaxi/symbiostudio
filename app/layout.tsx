@@ -29,8 +29,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 </nav>
 
         {children}
-      <footer className="w-full mt-24 py-12 flex flex-col items-center text-neutral-500 text-lg tracking-wide"
-        style={{ fontFamily: "MontserratSemiBold" }}>
+      <footer
+  className="w-full mt-32 pt-12 pb-16 flex flex-col items-center text-center text-xs border-t border-neutral-300/40"
+  style={{ fontFamily: "MontserratSemiBold" }}
+>
   <p>© {new Date().getFullYear()} SymbioStudio</p>
   <p className="mt-2 text-sm opacity-70">A calm space for human–AI collaboration</p>
 </footer>
