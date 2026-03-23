@@ -1,6 +1,6 @@
 export default function AboutSymbio() {
   return (
-    <main className="w-full min-h-screen px-6 py-16 md:px-12 lg:px-24 bg-neutral-50">
+    <main className="w-full min-h-screen px-6 py-16 md:px-12 lg:px-24 bg-[linear-gradient(to_bottom,rgba(125,123,108,0.06),rgba(98,89,74,0.10))]">
 
       {/* Page Header */}
       <section className="max-w-4xl mx-auto mb-20">
