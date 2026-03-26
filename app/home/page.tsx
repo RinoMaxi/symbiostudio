@@ -1,19 +1,19 @@
-import PageContainer from "@/components/layout/PageContainer";
-import SectionContainer from "@/components/layout/SectionContainer";
+import PageContainer from "@/components/common/layout/PageContainer";
+import SectionContainer from "@/components/common/layout/SectionContainer";
 
-import SearchBar from "@/components/search/SearchBar";
-import SuggestionsPanel from "@/components/search/SuggestionsPanel";
+import SearchBar from "@/components/common/search/SearchBar";
+import SuggestionsPanel from "@/components/common/search/SuggestionsPanel";
 
-import TopicGrid from "@/components/topics/TopicGrid";
-import MapPreview from "@/components/map/MapPreview";
+import TopicGrid from "@/components/common/topics/TopicGrid";
+import MapPreview from "@/components/common/map/MapPreview";
 
-import GlobalTrendsSection from "@/components/intelligence/GlobalTrendsSection";
-import PersonalPathSection from "@/components/intelligence/PersonalPathSection";
-import CrossIntelligenceSection from "@/components/intelligence/CrossIntelligenceSection";
+import GlobalTrendsSection from "@/components/common/intelligence/GlobalTrendsSection";
+import PersonalPathSection from "@/components/common/intelligence/PersonalPathSection";
+import CrossIntelligenceSection from "@/components/common/intelligence/CrossIntelligenceSection";
 
-import ExternalReferencesSection from "@/components/references/ExternalReferencesSection";
+import ExternalReferencesSection from "@/components/common/references/ExternalReferencesSection";
 
-import Footer from "@/components/layout/Footer";
+import Footer from "@/components/common/layout/Footer";
 
 export default function HomePage() {
   return (
