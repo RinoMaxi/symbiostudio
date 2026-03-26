@@ -1,6 +1,6 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.disableAutomaticTypeAcquisition": true,
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.tssserver.automaticTypeAcquisition.enabled": false,
   "files.watcherExclude": {
     "**/.next/**": true
   },
@@ -8,3 +8,4 @@
     "**/.next/**": true
   }
 }
+
