@@ -12,8 +12,9 @@ const nextConfig: NextConfig = {
 };
 
 export default {
-  webpack: true
+  turbopack: {}
 };
+
 
 
 
