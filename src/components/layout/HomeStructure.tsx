@@ -7,7 +7,7 @@ import SearchBar from "@/components/search/SearchBar";
 import SuggestionsPanel from "@/components/search/SuggestionsPanel";
 
 import TopicGrid from "@/components/topics/TopicGrid";
-import MapPreview from "@/components/map/MapPreview";
+
 
 import GlobalTrendsSection from "@/components/intelligence/GlobalTrendsSection";
 import PersonalPathSection from "@/components/intelligence/PersonalPathSection";
