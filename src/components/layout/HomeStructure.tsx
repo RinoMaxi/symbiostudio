@@ -19,6 +19,7 @@ import ExternalReferencesSection from "@/components/references/ExternalReference
 import Footer from "@/components/layout/Footer";
 
 export default function HomeStructure() {
+
   return (
     <PageContainer>
 
