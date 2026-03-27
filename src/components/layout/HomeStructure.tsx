@@ -1,4 +1,4 @@
-import HomeStructure from "@/components/home/HomeStructure";
+import HomeStructure from "@/components/layout/HomeStructure";
 import SectionContainer from "@/components/layout/SectionContainer";
 
 import SearchBar from "@/components/search/SearchBar";
