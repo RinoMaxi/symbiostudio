@@ -1,4 +1,4 @@
-import PageContainer from "@/components/layout/PageContainer";
+import HomeStructure from "@/components/home/HomeStructure";
 import SectionContainer from "@/components/layout/SectionContainer";
 
 import SearchBar from "@/components/search/SearchBar";
