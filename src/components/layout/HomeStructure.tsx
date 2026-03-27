@@ -1,7 +1,8 @@
 "use client";
-import HomeStructure from "@/components/layout/HomeStructure";
+
 import SectionContainer from "@/components/layout/SectionContainer";
 import PageContainer from "@/components/layout/PageContainer";
+
 
 import SearchBar from "@/components/search/SearchBar";
 import SuggestionsPanel from "@/components/search/SuggestionsPanel";
@@ -34,10 +35,7 @@ export default function HomeStructure() {
         <TopicGrid />
       </SectionContainer>
 
-      <SectionContainer>
-        <MapPreview />
-      </SectionContainer>
-
+      
       <SectionContainer>
         <GlobalTrendsSection />
         <PersonalPathSection />
