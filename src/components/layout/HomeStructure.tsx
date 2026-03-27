@@ -1,3 +1,4 @@
+"use client";
 import HomeStructure from "@/components/layout/HomeStructure";
 import SectionContainer from "@/components/layout/SectionContainer";
 import PageContainer from "@/components/layout/PageContainer";
