@@ -20,7 +20,7 @@ export default function AIToday() {
   }, []);
 
   return (
-    <section className="w-full max-w-4xl mx-auto mt-10 px-4">
+    <section className="w-full max-w-4xl mx-auto mt-32">
       <h2 className="text-3xl font-bold mb-6">AI Today</h2>
 
       {news.length === 0 && (
