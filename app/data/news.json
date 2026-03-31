@@ -1,9 +1,37 @@
 [
   {
-    "title": "",
-    "summary": "",
-    "source": "",
-    "url": "",
-    "image": ""
+    "title": "Global markets steady as investors weigh rate outlook",
+    "summary": "Stocks were broadly flat today as traders assessed fresh central bank comments on inflation and interest rates.",
+    "source": "BBC News",
+    "url": "https://www.bbc.com/news/business-markets-test-1",
+    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/market-chart-test-1.jpg"
+  },
+  {
+    "title": "AI tools reshape how small studios work",
+    "summary": "Independent creators and micro-studios are using AI copilots to prototype, write, and ship faster without large teams.",
+    "source": "BBC Technology",
+    "url": "https://www.bbc.com/news/technology-ai-studios-test-2",
+    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/ai-studio-test-2.jpg"
+  },
+  {
+    "title": "Remote work 2.0: from anywhere to intentional",
+    "summary": "Companies are shifting from improvised remote setups to deliberate, system-driven workflows focused on autonomy and outcomes.",
+    "source": "BBC Worklife",
+    "url": "https://www.bbc.com/worklife/remote-work-systems-test-3",
+    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/remote-work-test-3.jpg"
+  },
+  {
+    "title": "Cyber resilience becomes a core business metric",
+    "summary": "Boards are now treating system hardening, backups, and incident response as central to long-term value preservation.",
+    "source": "BBC Business",
+    "url": "https://www.bbc.com/news/business-cyber-resilience-test-4",
+    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/cyber-security-test-4.jpg"
+  },
+  {
+    "title": "Retail investors embrace disciplined, long-term strategies",
+    "summary": "A growing group of individual traders are rejecting hype cycles in favour of structured, Buffett-style approaches.",
+    "source": "BBC Business",
+    "url": "https://www.bbc.com/news/business-investing-discipline-test-5",
+    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/investing-discipline-test-5.jpg"
   }
 ]
