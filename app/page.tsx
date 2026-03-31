@@ -3,7 +3,7 @@ export default function HomePage() {
     <section
       className="relative w-full min-h-screen bg-[9a9a8c] bg-contain bg-no-repeat bg-top"
       style={{ backgroundImage: "url('/hero-main.png')" }}
-    >
+    >AIToday /
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/40" />
 
