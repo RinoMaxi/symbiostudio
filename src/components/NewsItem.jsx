@@ -1,1 +1,0 @@
-{ title, summary, source, url, image }
