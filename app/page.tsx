@@ -20,11 +20,24 @@ export default function AIToday() {
   }, []);
 
   return (
+  <>
+    {/* HERO SECTION */}
+    <section className="w-full text-center mt-20 mb-20">
+      <h1 className="text-6xl font-extrabold tracking-tight">
+        SymbioStudio
+      </h1>
+
+      <p className="text-gray-300 mt-6 text-xl max-w-2xl mx-auto leading-relaxed">
+        Step into the future. Grow with AI. Shape your mind.
+      </p>
+    </section>
+
+    {/* NEWS SECTION */}
     <section className="w-full max-w-4xl mx-auto mt-32">
       <h2 className="text-3xl font-bold mb-6">AI Today</h2>
 
       {news.length === 0 && (
-        <p className="text-gray-400">News will appear here soon…</p>
+        <p className="text-gray-400">News will appear here soon.</p>
       )}
 
       {news.map((item: any, index: number) => (
@@ -38,19 +51,23 @@ export default function AIToday() {
           )}
 
           <div>
-            <a href={item.url} target="_blank" className="text-xl font-semibold hover:underline">
+            <a
+              href={item.url}
+              target="_blank"
+              className="text-xl font-semibold text-blue-400 hover:underline"
+            >
               {item.title}
             </a>
-
             <p className="text-gray-300 mt-2">{item.summary}</p>
-
             <p className="text-gray-500 text-sm mt-1">{item.source}</p>
           </div>
         </div>
-      ))}
+            ))}
     </section>
-  );
+  </>
+);
 }
+
 
 
 
