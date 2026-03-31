@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import NewsItem from "./NewsItem";
 
 export default function AIToday() {
   const [news, setNews] = useState([]);
@@ -8,7 +9,7 @@ export default function AIToday() {
   useEffect(() => {
     async function loadNews() {
       try {
-        const res = await fetch("/api/news");
+        const res = await fetch("/api/news", { cache: "no-store" });
         const data = await res.json();
         setNews(data);
       } catch (err) {
@@ -28,34 +29,17 @@ export default function AIToday() {
       )}
 
       {news.map((item: any, index: number) => (
-        <div
+        <NewsItem
           key={index}
-          className="flex gap-4 mb-6 border-b border-gray-700 pb-6"
-        >
-          {item.image && (
-            <img
-              src={item.image}
-              alt=""
-              className="w-24 h-24 object-cover rounded"
-            />
-          )}
-
-          <div>
-            <a
-              href={item.url}
-              target="_blank"
-              className="text-xl font-semibold hover:underline"
-            >
-              {item.title}
-            </a>
-
-            <p className="text-gray-300 mt-2">{item.summary}</p>
-
-            <p className="text-gray-500 text-sm mt-1">{item.source}</p>
-          </div>
-        </div>
+          title={item.title}
+          summary={item.summary}
+          source={item.source}
+          url={item.url}
+          image={item.image}
+        />
       ))}
     </section>
   );
 }
+
 
