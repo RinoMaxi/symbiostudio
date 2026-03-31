@@ -1,54 +1,57 @@
-export default function HomePage() {
+"use client";
+
+import { useEffect, useState } from "react";
+
+export default function AIToday() {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    async function loadNews() {
+      try {
+        const res = await fetch("/api/news");
+        const data = await res.json();
+        setNews(data);
+      } catch (err) {
+        console.error("Failed to load news:", err);
+      }
+    }
+
+    loadNews();
+  }, []);
+
   return (
-    <section
-      className="relative w-full min-h-screen bg-[9a9a8c] bg-contain bg-no-repeat bg-top"
-      style={{ backgroundImage: "url('/hero-main.png')" }}
-    >AIToday /
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+    <section className="w-full max-w-4xl mx-auto mt-10 px-4">
+      <h2 className="text-3xl font-bold mb-6">AI Today</h2>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center pt-[24vh]">
+      {news.length === 0 && (
+        <p className="text-gray-400">News will appear here soon…</p>
+      )}
 
-        {/* LOGO + TITLE IN ONE ROW */}
-        <div className="flex items-center justify-center w-full mb-4">
-          
-          {/* Logo shifted slightly left */}
-          <img
-            src="/symbio_logo.png"
-            alt="Symbio Logo"
-            className="w-40 h-auto relative left-[-3rem] top-[1.0rem]"
-          />
+      {news.map((item: any, index: number) => (
+        <div key={index} className="flex gap-4 mb-6 border-b border-gray-700 pb-6">
+          {item.image && (
+            <img
+              src={item.image}
+              alt=""
+              className="w-24 h-24 object-cover rounded"
+            />
+          )}
 
-          {/* symbio AI */}
-          <h1
-            style={{ fontFamily: "MontserratSemiBold" }}
-            className="text-9xl md:text-[10rem] lg:text-[10rem] leading-none ml-[-1.0rem]"
-          >
-            symbio<span className="ml-[0.3em]">AI</span>
-          </h1>
+          <div>
+            <a href={item.url} target="_blank" className="text-xl font-semibold hover:underline">
+              {item.title}
+            </a>
+
+            <p className="text-gray-300 mt-2">{item.summary}</p>
+
+            <p className="text-gray-500 text-sm mt-1">{item.source}</p>
+          </div>
         </div>
-
-        {/* STAY CONNECTED */}
-        <h2
-  style={{ fontFamily: "NotoSansBold" }}
-  className="text-4xl md:text-5xl lg:text-5xl tracking-wide mt-[-1.5rem] ml-[32.0rem]"
->
-  STAY CONNECTED
-</h2>
-
-        {/* PARAGRAPH */}
-        <p
-          style={{ fontFamily: "NotoSansBold" }}
-          className="text-3xl md:text-5xl lg:text-4xl mt-48 max-w-6xl leading-snug"
-        >
-          Living Mind – a hybrid intelligence system<br />
-          where you can speaks, responds, supports, and guides
-        </p>
-      </div>
+      ))}
     </section>
   );
 }
+
 
 
 
