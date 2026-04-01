@@ -39,16 +39,35 @@ export default function CommonsPage() {
       )}
 
       {!loading && items.length > 0 && (
-        <ul className="space-y-4">
+        <div className="
+          grid 
+          grid-cols-1 
+          sm:grid-cols-2 
+          md:grid-cols-3 
+          lg:grid-cols-4 
+          gap-8
+        ">
           {items.map((item) => (
-            <li key={item.id} className="p-4 rounded-lg bg-neutral-100">
-              <strong>{item.title}</strong>
+            <div
+              key={item.id}
+              className="
+                p-6 
+                rounded-xl 
+                bg-neutral-100 
+                shadow-sm 
+                hover:shadow-md 
+                transition-shadow 
+                cursor-pointer
+              "
+            >
+              <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
               <p className="text-sm text-neutral-600">{item.summary}</p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </main>
   );
 }
+
 
