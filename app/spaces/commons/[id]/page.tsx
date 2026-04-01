@@ -115,7 +115,24 @@ async function handleShare() {
     alert("Could not share");
   }
 }
+async function handleReport() {
+  try {
+    const reason = prompt("Why are you reporting this item?");
+    if (!reason) return;
 
+    const res = await fetch(`/commons/${params.id}/report`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reason }),
+    });
+
+    if (!res.ok) throw new Error("Failed to report item");
+    alert("Thank you. Your report has been submitted.");
+  } catch (err) {
+    console.error("Report failed:", err);
+    alert("Could not submit report");
+  }
+}
   // ------------------------------------------------------------
   // UI
   // ------------------------------------------------------------
