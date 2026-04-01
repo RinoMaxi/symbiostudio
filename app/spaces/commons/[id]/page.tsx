@@ -280,13 +280,6 @@ function handleOpenInStudio() {
 
 </div>
 
-            {/* Title */}
-            <h1 className="text-3xl mb-2">{item.title}</h1>
-
-            {/* Type Label */}
-            <p className="text-sm text-neutral-500 mb-4">
-              {item.type === "project" ? "Project" : "Card"}
-            </p>
 
             {/* Summary */}
             <p className="text-neutral-700 mb-6">{item.summary}</p>
