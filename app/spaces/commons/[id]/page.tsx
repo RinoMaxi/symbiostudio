@@ -98,6 +98,23 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
       alert("Could not copy link");
     }
   }
+async function handleShare() {
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: item.title,
+        text: item.summary,
+        url: window.location.href,
+      });
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copied");
+    }
+  } catch (err) {
+    console.error("Share failed:", err);
+    alert("Could not share");
+  }
+}
 
   // ------------------------------------------------------------
   // UI
@@ -141,7 +158,7 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
         </button>
 
         <button
-          onClick={handleCopyLink}
+          onClick={handleCopyLink} 
           className="
             ml-4
             px-4 py-2
