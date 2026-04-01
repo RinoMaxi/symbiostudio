@@ -199,6 +199,7 @@ async function handleReport() {
       </p>
 
       {/* Action Bar */}
+      </div>
 <div className="flex gap-4 mb-10">
   <button
     onClick={handleSave}
