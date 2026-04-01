@@ -5,7 +5,15 @@ import { useEffect, useState } from "react";
 export default function CommonsItemPage({ params }: { params: { id: string } }) {
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+// Fade-in state
+const [isVisible, setIsVisible] = useState(false);
 
+useEffect(() => {
+  const timeout = setTimeout(() => {
+    setIsVisible(true);
+  }, 30);
+  return () => clearTimeout(timeout);
+}, []);
   // ------------------------------------------------------------
   // LOAD ITEM
   // ------------------------------------------------------------
