@@ -313,7 +313,7 @@ async function handleShare() {
             </div>
 
             {/* Snapshot */}
-            <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
+            <section className="p-6 rounded-xl bg-white shadow-md border border-neutral-200">
               <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
 
               {item.type === "card" && (
