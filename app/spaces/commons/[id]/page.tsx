@@ -77,9 +77,15 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
     }
   }
 
-  // ------------------------------------------------------------
-  // UI
-  // ------------------------------------------------------------
+  async function handleCopyLink() {
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    alert("Link copied");
+  } catch (err) {
+    console.error("Failed to copy link:", err);
+    alert("Could not copy link");
+  }
+}
   return (
     <main className="w-full min-h-screen px-6 py-16">
       {loading && <p>Loading item details...</p>}
