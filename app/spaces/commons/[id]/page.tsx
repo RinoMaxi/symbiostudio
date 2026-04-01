@@ -5,15 +5,19 @@ import { useEffect, useState } from "react";
 export default function CommonsItemPage({ params }: { params: { id: string } }) {
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-// Fade-in state
-const [isVisible, setIsVisible] = useState(false);
 
-useEffect(() => {
-  const timeout = setTimeout(() => {
-    setIsVisible(true);
-  }, 30);
-  return () => clearTimeout(timeout);
-}, []);
+  // ------------------------------------------------------------
+  // FADE‑IN STATE
+  // ------------------------------------------------------------
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 30);
+    return () => clearTimeout(timeout);
+  }, []);
+
   // ------------------------------------------------------------
   // LOAD ITEM
   // ------------------------------------------------------------
@@ -99,106 +103,29 @@ useEffect(() => {
   // UI
   // ------------------------------------------------------------
   return (
-    <main className="w-full min-h-screen px-6 py-16">
-      {loading && <p>Loading item details...</p>}
-      {!loading && !item && <p>Item not found.</p>}
+    <div className={`commons-fade-in ${isVisible ? "visible" : ""}`}>
+      <main className="w-full min-h-screen px-6 py-16">
+        {loading && <p>Loading item details...</p>}
+        {!loading && !item && <p>Item not found.</p>}
 
-      {!loading && item && (
-        <>
-          {/* Breadcrumbs */}
-          <nav className="mb-4 text-sm text-neutral-500">
-            <span
-              className="cursor-pointer hover:underline"
-              onClick={() => (window.location.href = "/spaces/commons")}
-            >
-              Commons
-            </span>
-            <span className="mx-2">/</span>
-            <span className="text-neutral-700">{item.title}</span>
-          </nav>
+        {!loading && item && (
+          <>
+            {/* Breadcrumbs */}
+            <nav className="mb-4 text-sm text-neutral-500">
+              <span
+                className="cursor-pointer hover:underline"
+                onClick={() => (window.location.href = "/spaces/commons")}
+              >
+                Commons
+              </span>
+              <span className="mx-2">/</span>
+              <span className="text-neutral-700">{item.title}</span>
+            </nav>
 
-          {/* Back + Copy Link */}
-          <div className="flex items-center mb-8">
-            <button
-              onClick={() => window.history.back()}
-              className="
-                px-4 py-2
-                rounded-lg
-                bg-neutral-200
-                text-neutral-800
-                hover:bg-neutral-300
-                transition
-              "
-            >
-              ← Back
-            </button>
-
-            <button
-              onClick={handleCopyLink}
-              className="
-                ml-4
-                px-4 py-2
-                rounded-lg
-                bg-neutral-200
-                text-neutral-800
-                hover:bg-neutral-300
-                transition
-              "
-            >
-              Copy Link
-            </button>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-3xl mb-2">{item.title}</h1>
-
-          {/* Type Label */}
-          <p className="text-sm text-neutral-500 mb-4">
-            {item.type === "project" ? "Project" : "Card"}
-          </p>
-
-          {/* Summary */}
-          <p className="text-neutral-700 mb-6">{item.summary}</p>
-
-          {/* Themes */}
-          {item.themes && item.themes.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-10">
-              {item.themes.map((theme: string) => (
-                <span
-                  key={theme}
-                  className="
-                    px-3 py-1
-                    text-sm
-                    rounded-full
-                    bg-neutral-200
-                    text-neutral-700
-                  "
-                >
-                  {theme}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Action Bar */}
-          <div className="flex gap-4 mb-10">
-            <button
-              onClick={handleSave}
-              className="
-                px-4 py-2
-                rounded-lg
-                bg-neutral-800
-                text-white
-                hover:bg-neutral-700
-                transition
-              "
-            >
-              Save to Studio
-            </button>
-
-            {item.type === "project" && (
+            {/* Back + Copy Link */}
+            <div className="flex items-center mb-8">
               <button
-                onClick={handleFork}
+                onClick={() => window.history.back()}
                 className="
                   px-4 py-2
                   rounded-lg
@@ -208,106 +135,188 @@ useEffect(() => {
                   transition
                 "
               >
-                Fork Project
+                ← Back
               </button>
-            )}
 
-            {item.is_owner && (
               <button
-                onClick={handleWithdraw}
+                onClick={handleCopyLink}
                 className="
+                  ml-4
                   px-4 py-2
                   rounded-lg
-                  bg-red-200
-                  text-red-800
-                  hover:bg-red-300
+                  bg-neutral-200
+                  text-neutral-800
+                  hover:bg-neutral-300
                   transition
                 "
               >
-                Withdraw
+                Copy Link
               </button>
-            )}
-          </div>
+            </div>
 
-          {/* Snapshot */}
-          <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
+            {/* Title */}
+            <h1 className="text-3xl mb-2">{item.title}</h1>
 
-            {item.type === "card" && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  {item.snapshot_data.title}
-                </h3>
-                <p className="text-neutral-700 whitespace-pre-wrap">
-                  {item.snapshot_data.body}
-                </p>
-              </div>
-            )}
+            {/* Type Label */}
+            <p className="text-sm text-neutral-500 mb-4">
+              {item.type === "project" ? "Project" : "Card"}
+            </p>
 
-            {item.type === "project" && (
-              <div className="space-y-8">
-                {item.snapshot_data.sections.map((section: any) => (
-                  <div
-                    key={section.id}
-                    className="p-4 rounded-lg bg-white shadow-sm"
-                  >
-                    <h3 className="text-lg font-semibold mb-3">
-                      {section.title}
-                    </h3>
+            {/* Summary */}
+            <p className="text-neutral-700 mb-6">{item.summary}</p>
 
-                    <div className="space-y-4">
-                      {section.cards.map((card: any) => (
-                        <div
-                          key={card.id}
-                          className="p-3 rounded-md bg-neutral-50"
-                        >
-                          <h4 className="font-semibold mb-1">{card.title}</h4>
-                          <p className="text-neutral-700 whitespace-pre-wrap">
-                            {card.body}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* Related Items */}
-          {item.related_items && item.related_items.length > 0 && (
-            <section className="mt-16">
-              <h2 className="text-xl font-semibold mb-6">Related Items</h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {item.related_items.map((rel: any) => (
-                  <div
-                    key={rel.id}
-                    onClick={() =>
-                      (window.location.href = `/spaces/commons/${rel.id}`)
-                    }
+            {/* Themes */}
+            {item.themes && item.themes.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-10">
+                {item.themes.map((theme: string) => (
+                  <span
+                    key={theme}
                     className="
-                      p-4
-                      rounded-lg
-                      bg-neutral-100
-                      shadow-sm
-                      hover:shadow-md
-                      transition
-                      cursor-pointer
+                      px-3 py-1
+                      text-sm
+                      rounded-full
+                      bg-neutral-200
+                      text-neutral-700
                     "
                   >
-                    <h3 className="text-lg font-semibold mb-1">{rel.title}</h3>
-                    <p className="text-sm text-neutral-600">{rel.summary}</p>
-                  </div>
+                    {theme}
+                  </span>
                 ))}
               </div>
+            )}
+
+            {/* Action Bar */}
+            <div className="flex gap-4 mb-10">
+              <button
+                onClick={handleSave}
+                className="
+                  px-4 py-2
+                  rounded-lg
+                  bg-neutral-800
+                  text-white
+                  hover:bg-neutral-700
+                  transition
+                "
+              >
+                Save to Studio
+              </button>
+
+              {item.type === "project" && (
+                <button
+                  onClick={handleFork}
+                  className="
+                    px-4 py-2
+                    rounded-lg
+                    bg-neutral-200
+                    text-neutral-800
+                    hover:bg-neutral-300
+                    transition
+                  "
+                >
+                  Fork Project
+                </button>
+              )}
+
+              {item.is_owner && (
+                <button
+                  onClick={handleWithdraw}
+                  className="
+                    px-4 py-2
+                    rounded-lg
+                    bg-red-200
+                    text-red-800
+                    hover:bg-red-300
+                    transition
+                  "
+                >
+                  Withdraw
+                </button>
+              )}
+            </div>
+
+            {/* Snapshot */}
+            <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
+              <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
+
+              {item.type === "card" && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {item.snapshot_data.title}
+                  </h3>
+                  <p className="text-neutral-700 whitespace-pre-wrap">
+                    {item.snapshot_data.body}
+                  </p>
+                </div>
+              )}
+
+              {item.type === "project" && (
+                <div className="space-y-8">
+                  {item.snapshot_data.sections.map((section: any) => (
+                    <div
+                      key={section.id}
+                      className="p-4 rounded-lg bg-white shadow-sm"
+                    >
+                      <h3 className="text-lg font-semibold mb-3">
+                        {section.title}
+                      </h3>
+
+                      <div className="space-y-4">
+                        {section.cards.map((card: any) => (
+                          <div
+                            key={card.id}
+                            className="p-3 rounded-md bg-neutral-50"
+                          >
+                            <h4 className="font-semibold mb-1">{card.title}</h4>
+                            <p className="text-neutral-700 whitespace-pre-wrap">
+                              {card.body}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </section>
-          )}
-        </>
-      )}
-    </main>
+
+            {/* Related Items */}
+            {item.related_items && item.related_items.length > 0 && (
+              <section className="mt-16">
+                <h2 className="text-xl font-semibold mb-6">Related Items</h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {item.related_items.map((rel: any) => (
+                    <div
+                      key={rel.id}
+                      onClick={() =>
+                        (window.location.href = `/spaces/commons/${rel.id}`)
+                      }
+                      className="
+                        p-4
+                        rounded-lg
+                        bg-neutral-100
+                        shadow-sm
+                        hover:shadow-md
+                        transition
+                        cursor-pointer
+                      "
+                    >
+                      <h3 className="text-lg font-semibold mb-1">
+                        {rel.title}
+                      </h3>
+                      <p className="text-sm text-neutral-600">{rel.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </>
+        )}
+      </main>
+    </div>
   );
 }
+
 
 
 
