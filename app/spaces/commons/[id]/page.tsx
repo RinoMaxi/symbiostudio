@@ -7,7 +7,7 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
   const [loading, setLoading] = useState(true);
 
   // ------------------------------------------------------------
-  // LOAD ITEM ON PAGE OPEN
+  // LOAD ITEM
   // ------------------------------------------------------------
   useEffect(() => {
     async function loadItem() {
@@ -30,7 +30,7 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
   }, [params.id]);
 
   // ------------------------------------------------------------
-  // ACTION BAR FUNCTIONS
+  // ACTION FUNCTIONS
   // ------------------------------------------------------------
   async function handleSave() {
     try {
@@ -78,48 +78,68 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
   }
 
   async function handleCopyLink() {
-  try {
-    await navigator.clipboard.writeText(window.location.href);
-    alert("Link copied");
-  } catch (err) {
-    console.error("Failed to copy link:", err);
-    alert("Could not copy link");
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copied");
+    } catch (err) {
+      console.error("Failed to copy link:", err);
+      alert("Could not copy link");
+    }
   }
-}
+
+  // ------------------------------------------------------------
+  // UI
+  // ------------------------------------------------------------
   return (
     <main className="w-full min-h-screen px-6 py-16">
       {loading && <p>Loading item details...</p>}
       {!loading && !item && <p>Item not found.</p>}
 
       {!loading && item && (
-  <>
-    {/* Breadcrumb Navigation */}
-    <nav className="mb-4 text-sm text-neutral-500">
-      <span
-        className="cursor-pointer hover:underline"
-        onClick={() => (window.location.href = "/spaces/commons")}
-      >
-        Commons
-      </span>
-      <span className="mx-2">/</span>
-      <span className="text-neutral-700">{item.title}</span>
-    </nav>
+        <>
+          {/* Breadcrumbs */}
+          <nav className="mb-4 text-sm text-neutral-500">
+            <span
+              className="cursor-pointer hover:underline"
+              onClick={() => (window.location.href = "/spaces/commons")}
+            >
+              Commons
+            </span>
+            <span className="mx-2">/</span>
+            <span className="text-neutral-700">{item.title}</span>
+          </nav>
 
-    {/* Back Button */}
-    <button
-      onClick={() => window.history.back()}
-      className="
-        mb-8
-        px-4 py-2
-        rounded-lg
-        bg-neutral-200
-        text-neutral-800
-        hover:bg-neutral-300
-        transition
-      "
-    >
-      ← Back
-    </button>
+          {/* Back + Copy Link */}
+          <div className="flex items-center mb-8">
+            <button
+              onClick={() => window.history.back()}
+              className="
+                px-4 py-2
+                rounded-lg
+                bg-neutral-200
+                text-neutral-800
+                hover:bg-neutral-300
+                transition
+              "
+            >
+              ← Back
+            </button>
+
+            <button
+              onClick={handleCopyLink}
+              className="
+                ml-4
+                px-4 py-2
+                rounded-lg
+                bg-neutral-200
+                text-neutral-800
+                hover:bg-neutral-300
+                transition
+              "
+            >
+              Copy Link
+            </button>
+          </div>
 
           {/* Title */}
           <h1 className="text-3xl mb-2">{item.title}</h1>
@@ -139,10 +159,10 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
                 <span
                   key={theme}
                   className="
-                    px-3 py-1 
-                    text-sm 
-                    rounded-full 
-                    bg-neutral-200 
+                    px-3 py-1
+                    text-sm
+                    rounded-full
+                    bg-neutral-200
                     text-neutral-700
                   "
                 >
@@ -157,11 +177,11 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
             <button
               onClick={handleSave}
               className="
-                px-4 py-2 
-                rounded-lg 
-                bg-neutral-800 
-                text-white 
-                hover:bg-neutral-700 
+                px-4 py-2
+                rounded-lg
+                bg-neutral-800
+                text-white
+                hover:bg-neutral-700
                 transition
               "
             >
@@ -172,11 +192,11 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
               <button
                 onClick={handleFork}
                 className="
-                  px-4 py-2 
-                  rounded-lg 
-                  bg-neutral-200 
-                  text-neutral-800 
-                  hover:bg-neutral-300 
+                  px-4 py-2
+                  rounded-lg
+                  bg-neutral-200
+                  text-neutral-800
+                  hover:bg-neutral-300
                   transition
                 "
               >
@@ -188,11 +208,11 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
               <button
                 onClick={handleWithdraw}
                 className="
-                  px-4 py-2 
-                  rounded-lg 
-                  bg-red-200 
-                  text-red-800 
-                  hover:bg-red-300 
+                  px-4 py-2
+                  rounded-lg
+                  bg-red-200
+                  text-red-800
+                  hover:bg-red-300
                   transition
                 "
               >
@@ -201,11 +221,10 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
             )}
           </div>
 
-          {/* Snapshot Renderer */}
+          {/* Snapshot */}
           <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
             <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
 
-            {/* CARD TYPE */}
             {item.type === "card" && (
               <div>
                 <h3 className="text-lg font-semibold mb-2">
@@ -217,7 +236,6 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
               </div>
             )}
 
-            {/* PROJECT TYPE */}
             {item.type === "project" && (
               <div className="space-y-8">
                 {item.snapshot_data.sections.map((section: any) => (
@@ -261,12 +279,12 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
                       (window.location.href = `/spaces/commons/${rel.id}`)
                     }
                     className="
-                      p-4 
-                      rounded-lg 
-                      bg-neutral-100 
-                      shadow-sm 
-                      hover:shadow-md 
-                      transition 
+                      p-4
+                      rounded-lg
+                      bg-neutral-100
+                      shadow-sm
+                      hover:shadow-md
+                      transition
                       cursor-pointer
                     "
                   >
