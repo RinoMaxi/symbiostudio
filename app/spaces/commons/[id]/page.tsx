@@ -318,7 +318,7 @@ async function handleShare() {
 
               {item.type === "card" && (
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">
+                  <h3 className="text-xl font-semibold mb-4 text-neutral-800">
                     {item.snapshot_data.title}
                   </h3>
                   <p className="text-neutral-700 whitespace-pre-wrap">
