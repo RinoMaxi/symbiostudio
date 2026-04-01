@@ -334,7 +334,7 @@ async function handleShare() {
   key={section.id}
   className="p-5 rounded-lg bg-neutral-50 border border-neutral-200 shadow-sm"
 >
-                      <h3 className="text-lg font-semibold mb-3">
+                      <h3 className="text-xl font-semibold mb-4 text-neutral-800">
                         {section.title}
                       </h3>
 
@@ -344,8 +344,8 @@ async function handleShare() {
   key={card.id}
   className="p-4 rounded-md bg-white border border-neutral-200 shadow-sm"
 >
-                            <h4 className="font-semibold mb-1">{card.title}</h4>
-                            <p className="text-neutral-700 whitespace-pre-wrap">
+                            <h4 className="font-medium text-neutral-800 mb-2">{card.title}</h4>
+                            <p className="text-neutral-700 leading-relaxed whitespace-pre-wrap">
                               {card.body}
                             </p>
                           </div>
