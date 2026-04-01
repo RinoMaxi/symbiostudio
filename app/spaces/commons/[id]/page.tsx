@@ -202,7 +202,7 @@ function handleOpenInStudio() {
       </p>
 
       {/* Action Bar */}
-      </div>
+
 <div className="flex gap-4 mb-10">
   <button
     onClick={handleSave}
@@ -251,18 +251,33 @@ function handleOpenInStudio() {
   )}
 
   <button
-    onClick={handleReport}
-    className="
-      px-4 py-2
-      rounded-lg
-      bg-red-100
-      text-red-700
-      hover:bg-red-200
-      transition
-    "
-  >
-    Report
-  </button>
+  onClick={handleReport}
+  className="
+    px-4 py-2
+    rounded-lg
+    bg-red-100
+    text-red-700
+    hover:bg-red-200
+    transition
+  "
+>
+  Report
+</button>
+
+<button
+  onClick={handleOpenInStudio}
+  className="
+    px-4 py-2
+    rounded-lg
+    bg-blue-100
+    text-blue-700
+    hover:bg-blue-200
+    transition
+  "
+>
+  Open in Studio
+</button>
+
 </div>
 
             {/* Title */}
@@ -423,6 +438,7 @@ function handleOpenInStudio() {
             )}
           </>
         )}
+        </>
       </main>
     </div>
   );
