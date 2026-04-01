@@ -341,9 +341,9 @@ async function handleShare() {
                       <div className="space-y-4">
                         {section.cards.map((card: any) => (
                           <div
-                            key={card.id}
-                            className="p-3 rounded-md bg-neutral-50"
-                          >
+  key={card.id}
+  className="p-4 rounded-md bg-white border border-neutral-200 shadow-sm"
+>
                             <h4 className="font-semibold mb-1">{card.title}</h4>
                             <p className="text-neutral-700 whitespace-pre-wrap">
                               {card.body}
