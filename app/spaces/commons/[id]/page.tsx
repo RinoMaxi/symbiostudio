@@ -86,22 +86,34 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
       {!loading && !item && <p>Item not found.</p>}
 
       {!loading && item && (
-        <>
-          {/* Back Button */}
-          <button
-            onClick={() => window.history.back()}
-            className="
-              mb-8
-              px-4 py-2
-              rounded-lg
-              bg-neutral-200
-              text-neutral-800
-              hover:bg-neutral-300
-              transition
-            "
-          >
-            ← Back
-          </button>
+  <>
+    {/* Breadcrumb Navigation */}
+    <nav className="mb-4 text-sm text-neutral-500">
+      <span
+        className="cursor-pointer hover:underline"
+        onClick={() => (window.location.href = "/spaces/commons")}
+      >
+        Commons
+      </span>
+      <span className="mx-2">/</span>
+      <span className="text-neutral-700">{item.title}</span>
+    </nav>
+
+    {/* Back Button */}
+    <button
+      onClick={() => window.history.back()}
+      className="
+        mb-8
+        px-4 py-2
+        rounded-lg
+        bg-neutral-200
+        text-neutral-800
+        hover:bg-neutral-300
+        transition
+      "
+    >
+      ← Back
+    </button>
 
           {/* Title */}
           <h1 className="text-3xl mb-2">{item.title}</h1>
