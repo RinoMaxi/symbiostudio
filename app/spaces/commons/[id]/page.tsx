@@ -199,55 +199,67 @@ async function handleReport() {
       </p>
 
       {/* Action Bar */}
-      <div className="flex gap-4 mb-10">
-        <button
-          onClick={handleSave}
-          className="
-            px-4 py-2
-            rounded-lg
-            bg-neutral-800
-            text-white
-            hover:bg-neutral-700
-            transition
-          "
-        >
-          Save to Studio
-        </button>
+<div className="flex gap-4 mb-10">
+  <button
+    onClick={handleSave}
+    className="
+      px-4 py-2
+      rounded-lg
+      bg-neutral-800
+      text-white
+      hover:bg-neutral-700
+      transition
+    "
+  >
+    Save to Studio
+  </button>
 
-        {item.type === "project" && (
-          <button
-            onClick={handleFork}
-            className="
-              px-4 py-2
-              rounded-lg
-              bg-neutral-200
-              text-neutral-800
-              hover:bg-neutral-300
-              transition
-            "
-          >
-            Fork Project
-          </button>
-        )}
+  {item.type === "project" && (
+    <button
+      onClick={handleFork}
+      className="
+        px-4 py-2
+        rounded-lg
+        bg-neutral-200
+        text-neutral-800
+        hover:bg-neutral-300
+        transition
+      "
+    >
+      Fork Project
+    </button>
+  )}
 
-        {item.is_owner && (
-          <button
-            onClick={handleWithdraw}
-            className="
-              px-4 py-2
-              rounded-lg
-              bg-red-200
-              text-red-800
-              hover:bg-red-300
-              transition
-            "
-          >
-            Withdraw
-          </button>
-        )}
-      </div>
+  {item.is_owner && (
+    <button
+      onClick={handleWithdraw}
+      className="
+        px-4 py-2
+        rounded-lg
+        bg-red-200
+        text-red-800
+        hover:bg-red-300
+        transition
+      "
+    >
+      Withdraw
+    </button>
+  )}
 
-    </div>
+  <button
+    onClick={handleReport}
+    className="
+      px-4 py-2
+      rounded-lg
+      bg-red-100
+      text-red-700
+      hover:bg-red-200
+      transition
+    "
+  >
+    Report
+  </button>
+</div>
 
             {/* Title */}
             <h1 className="text-3xl mb-2">{item.title}</h1>
