@@ -63,6 +63,54 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
         "
       >
         {theme}
+         {/* Action Bar */}
+<div className="flex gap-4 mb-10">
+  <button
+    onClick={() => alert("Save to Studio")}
+    className="
+      px-4 py-2 
+      rounded-lg 
+      bg-neutral-800 
+      text-white 
+      hover:bg-neutral-700 
+      transition
+    "
+  >
+    Save to Studio
+  </button>
+
+  {item.type === "project" && (
+    <button
+      onClick={() => alert("Fork Project")}
+      className="
+        px-4 py-2 
+        rounded-lg 
+        bg-neutral-200 
+        text-neutral-800 
+        hover:bg-neutral-300 
+        transition
+      "
+    >
+      Fork Project
+    </button>
+  )}
+
+  {item.is_owner && (
+    <button
+      onClick={() => alert("Withdraw")}
+      className="
+        px-4 py-2 
+        rounded-lg 
+        bg-red-200 
+        text-red-800 
+        hover:bg-red-300 
+        transition
+      "
+    >
+      Withdraw
+    </button>
+  )}
+</div> 
       </span>
     ))}
   </div>
