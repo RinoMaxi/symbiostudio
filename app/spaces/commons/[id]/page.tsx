@@ -42,11 +42,38 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
           <p className="text-neutral-600 mb-8">{item.summary}</p>
 
           <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
-            <pre className="text-sm whitespace-pre-wrap">
-              {JSON.stringify(item.snapshot_data, null, 2)}
-            </pre>
-          </section>
+  <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
+
+  {item.type === "card" && (
+    <div>
+      <h3 className="text-lg font-semibold mb-2">{item.snapshot_data.title}</h3>
+      <p className="text-neutral-700 whitespace-pre-wrap">
+        {item.snapshot_data.body}
+      </p>
+    </div>
+  )}
+
+  {item.type === "project" && (
+    <div className="space-y-8">
+      {item.snapshot_data.sections.map((section: any) => (
+        <div key={section.id} className="p-4 rounded-lg bg-white shadow-sm">
+          <h3 className="text-lg font-semibold mb-3">{section.title}</h3>
+
+          <div className="space-y-4">
+            {section.cards.map((card: any) => (
+              <div key={card.id} className="p-3 rounded-md bg-neutral-50">
+                <h4 className="font-semibold mb-1">{card.title}</h4>
+                <p className="text-neutral-700 whitespace-pre-wrap">
+                  {card.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</section>
         </>
       )}
     </main>
