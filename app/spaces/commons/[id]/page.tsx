@@ -436,14 +436,7 @@ function handleOpenInStudio() {
                 </div>
               </section>
             )}
-          </>
-        )}
-        </>
-      </main>
+</main>
     </div>
   );
 }
-
-
-
-
