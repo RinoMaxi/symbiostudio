@@ -133,6 +133,9 @@ async function handleReport() {
     alert("Could not submit report");
   }
 }
+function handleOpenInStudio() {
+  window.location.href = `/studio/${params.id}`;
+}
   // ------------------------------------------------------------
   // UI
   // ------------------------------------------------------------
