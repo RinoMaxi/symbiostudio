@@ -6,14 +6,15 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  // ------------------------------------------------------------
+  // LOAD ITEM ON PAGE OPEN
+  // ------------------------------------------------------------
   useEffect(() => {
     async function loadItem() {
       try {
         const res = await fetch(`/commons/${params.id}`, {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         });
 
         const data = await res.json();
@@ -28,98 +29,150 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
     loadItem();
   }, [params.id]);
 
+  // ------------------------------------------------------------
+  // ACTION BAR FUNCTIONS (SAVE / FORK / WITHDRAW)
+  // ------------------------------------------------------------
+
+  async function handleSave() {
+    try {
+      const res = await fetch(`/commons/${params.id}/save-to-studio`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) throw new Error("Failed to save");
+      alert("Saved to your Studio");
+    } catch (err) {
+      console.error(err);
+      alert("Could not save");
+    }
+  }
+
+  async function handleFork() {
+    try {
+      const res = await fetch(`/commons/${params.id}/fork-project`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) throw new Error("Failed to fork");
+      alert("Project forked into your Studio");
+    } catch (err) {
+      console.error(err);
+      alert("Could not fork project");
+    }
+  }
+
+  async function handleWithdraw() {
+    try {
+      const res = await fetch(`/commons/${params.id}/withdraw`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) throw new Error("Failed to withdraw");
+      alert("Item withdrawn from the Commons");
+    } catch (err) {
+      console.error(err);
+      alert("Could not withdraw");
+    }
+  }
+
+  // ------------------------------------------------------------
+  // UI
+  // ------------------------------------------------------------
   return (
     <main className="w-full min-h-screen px-6 py-16">
       {loading && <p>Loading item details...</p>}
-
-      {!loading && !item && (
-        <p>Item not found.</p>
-      )}
+      {!loading && !item && <p>Item not found.</p>}
 
       {!loading && item && (
         <>
+          {/* Title */}
           <h1 className="text-3xl mb-2">{item.title}</h1>
 
-{/* Type Label */}
-<p className="text-sm text-neutral-500 mb-4">
-  {item.type === "project" ? "Project" : "Card"}
-</p>
+          {/* Type Label */}
+          <p className="text-sm text-neutral-500 mb-4">
+            {item.type === "project" ? "Project" : "Card"}
+          </p>
 
-{/* Summary */}
-<p className="text-neutral-700 mb-6">{item.summary}</p>
+          {/* Summary */}
+          <p className="text-neutral-700 mb-6">{item.summary}</p>
 
-{/* Themes */}
-{item.themes && item.themes.length > 0 && (
-  <div className="flex flex-wrap gap-2 mb-10">
-    {item.themes.map((theme: string) => (
-      <span
-        key={theme}
-        className="
-          px-3 py-1 
-          text-sm 
-          rounded-full 
-          bg-neutral-200 
-          text-neutral-700
-        "
-      >
-        {theme}
-         {/* Action Bar */}
-<div className="flex gap-4 mb-10">
-  <button
-    onClick={() => alert("Save to Studio")}
-    className="
-      px-4 py-2 
-      rounded-lg 
-      bg-neutral-800 
-      text-white 
-      hover:bg-neutral-700 
-      transition
-    "
-  >
-    Save to Studio
-  </button>
+          {/* Themes */}
+          {item.themes && item.themes.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-10">
+              {item.themes.map((theme: string) => (
+                <span
+                  key={theme}
+                  className="
+                    px-3 py-1 
+                    text-sm 
+                    rounded-full 
+                    bg-neutral-200 
+                    text-neutral-700
+                  "
+                >
+                  {theme}
+                </span>
+              ))}
+            </div>
+          )}
 
-  {item.type === "project" && (
-    <button
-      onClick={() => alert("Fork Project")}
-      className="
-        px-4 py-2 
-        rounded-lg 
-        bg-neutral-200 
-        text-neutral-800 
-        hover:bg-neutral-300 
-        transition
-      "
-    >
-      Fork Project
-    </button>
-  )}
+          {/* Action Bar */}
+          <div className="flex gap-4 mb-10">
+            <button
+              onClick={handleSave}
+              className="
+                px-4 py-2 
+                rounded-lg 
+                bg-neutral-800 
+                text-white 
+                hover:bg-neutral-700 
+                transition
+              "
+            >
+              Save to Studio
+            </button>
 
-  {item.is_owner && (
-    <button
-      onClick={() => alert("Withdraw")}
-      className="
-        px-4 py-2 
-        rounded-lg 
-        bg-red-200 
-        text-red-800 
-        hover:bg-red-300 
-        transition
-      "
-    >
-      Withdraw
-    </button>
-  )}
-</div> 
-      </span>
-    ))}
-  </div>
-)}
+            {item.type === "project" && (
+              <button
+                onClick={handleFork}
+                className="
+                  px-4 py-2 
+                  rounded-lg 
+                  bg-neutral-200 
+                  text-neutral-800 
+                  hover:bg-neutral-300 
+                  transition
+                "
+              >
+                Fork Project
+              </button>
+            )}
+
+            {item.is_owner && (
+              <button
+                onClick={handleWithdraw}
+                className="
+                  px-4 py-2 
+                  rounded-lg 
+                  bg-red-200 
+                  text-red-800 
+                  hover:bg-red-300 
+                  transition
+                "
+              >
+                Withdraw
+              </button>
+            )}
+          </div>
 
           {/* Snapshot Renderer */}
           <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
             <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
 
+            {/* CARD TYPE */}
             {item.type === "card" && (
               <div>
                 <h3 className="text-lg font-semibold mb-2">
@@ -131,6 +184,7 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
               </div>
             )}
 
+            {/* PROJECT TYPE */}
             {item.type === "project" && (
               <div className="space-y-8">
                 {item.snapshot_data.sections.map((section: any) => (
@@ -165,3 +219,4 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
     </main>
   );
 }
+
