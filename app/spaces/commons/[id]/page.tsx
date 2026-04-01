@@ -38,8 +38,35 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
 
       {!loading && item && (
         <>
-          <h1 className="text-3xl mb-4">{item.title}</h1>
-          <p className="text-neutral-600 mb-8">{item.summary}</p>
+          <h1 className="text-3xl mb-2">{item.title}</h1>
+
+{/* Type Label */}
+<p className="text-sm text-neutral-500 mb-4">
+  {item.type === "project" ? "Project" : "Card"}
+</p>
+
+{/* Summary */}
+<p className="text-neutral-700 mb-6">{item.summary}</p>
+
+{/* Themes */}
+{item.themes && item.themes.length > 0 && (
+  <div className="flex flex-wrap gap-2 mb-10">
+    {item.themes.map((theme: string) => (
+      <span
+        key={theme}
+        className="
+          px-3 py-1 
+          text-sm 
+          rounded-full 
+          bg-neutral-200 
+          text-neutral-700
+        "
+      >
+        {theme}
+      </span>
+    ))}
+  </div>
+)}
 
           <section className="p-6 rounded-xl bg-neutral-100 shadow-sm">
   <h2 className="text-xl font-semibold mb-4">Snapshot</h2>
