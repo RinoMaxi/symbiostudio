@@ -331,9 +331,9 @@ async function handleShare() {
                 <div className="space-y-8">
                   {item.snapshot_data.sections.map((section: any) => (
                     <div
-                      key={section.id}
-                      className="p-4 rounded-lg bg-white shadow-sm"
-                    >
+  key={section.id}
+  className="p-5 rounded-lg bg-neutral-50 border border-neutral-200 shadow-sm"
+>
                       <h3 className="text-lg font-semibold mb-3">
                         {section.title}
                       </h3>
