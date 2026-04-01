@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CommonsPage() {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadCommons() {
@@ -39,24 +41,27 @@ export default function CommonsPage() {
       )}
 
       {!loading && items.length > 0 && (
-        <div className="
-          grid 
-          grid-cols-1 
-          sm:grid-cols-2 
-          md:grid-cols-3 
-          lg:grid-cols-4 
-          gap-8
-        ">
+        <div
+          className="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-3
+            lg:grid-cols-4
+            gap-8
+          "
+        >
           {items.map((item) => (
             <div
               key={item.id}
+              onClick={() => router.push(`/spaces/commons/${item.id}`)}
               className="
-                p-6 
-                rounded-xl 
-                bg-neutral-100 
-                shadow-sm 
-                hover:shadow-md 
-                transition-shadow 
+                p-6
+                rounded-xl
+                bg-neutral-100
+                shadow-sm
+                hover:shadow-md
+                transition-shadow
                 cursor-pointer
               "
             >
@@ -69,5 +74,6 @@ export default function CommonsPage() {
     </main>
   );
 }
+
 
 
