@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import RelatedItems from "@/components/common/RelatedItems";
 
 export default function CommonsItemPage({ params }: { params: { id: string } }) {
   const [item, setItem] = useState<any>(null);
