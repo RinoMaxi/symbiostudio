@@ -89,15 +89,16 @@ export default function CommonsItemPage({ params }: { params: { id: string } }) 
     }
   }
 
-  async function handleCopyLink() {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      alert("Link copied");
-    } catch (err) {
-      console.error("Failed to copy link:", err);
-      alert("Could not copy link");
-    }
+async function handleCopyLink() {
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    alert("Link copied");
+  } catch (err) {
+    console.error("Failed to copy link:", err);
+    alert("Could not copy link");
   }
+}
+
 async function handleShare() {
   try {
     if (navigator.share) {
@@ -115,6 +116,7 @@ async function handleShare() {
     alert("Could not share");
   }
 }
+
 async function handleReport() {
   try {
     const reason = prompt("Why are you reporting this item?");
