@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { CommonsItem } from "@/types/CommonsItem";
 
-export default function RelatedItems({ currentItem, allItems }) {
-  const [related, setRelated] = useState([]);
+export default function RelatedItems({
+  currentItem,
+  allItems,
+}: {
+  currentItem: CommonsItem;
+  allItems: CommonsItem[];
+}) {
+
+ const [related, setRelated] = useState<CommonsItem[]>([]);
 
   useEffect(() => {
     if (!currentItem || !allItems) return;
