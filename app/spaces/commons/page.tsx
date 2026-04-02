@@ -36,7 +36,11 @@ const [isVisible, setIsVisible] = useState(false);
   }, []);
 
   return (
-    <main className="w-full min-h-screen px-6 py-16">
+    <main
+    className={`w-full min-h-screen px-6 py-16 commons-fade-in ${
+      isVisible ? "visible" : ""
+    }`}
+  >
       <h1 className="text-3xl mb-8">The Commons</h1>
 
       {loading && <p>Loading shared items...</p>}
