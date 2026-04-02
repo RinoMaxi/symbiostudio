@@ -5,7 +5,24 @@ import { useEffect, useState } from "react";
 export default function CommonsItemPage({ params }: { params: { id: string } }) {
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+const [allItems, setAllItems] = useState<any[]>([]);
+useEffect(() => {
+  async function loadAllItems() {
+    try {
+      const res = await fetch(`/commons`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
 
+      const data = await res.json();
+      setAllItems(data);
+    } catch (err) {
+      console.error("Failed to load all items:", err);
+    }
+  }
+
+  loadAllItems();
+}, []);
   // ------------------------------------------------------------
   // FADE‑IN STATE
   // ------------------------------------------------------------
@@ -352,37 +369,7 @@ function handleOpenInStudio() {
             )}
           </section>
 
-          {/* Related Items */}
-          {item.related_items && item.related_items.length > 0 && (
-            <section className="mt-16">
-              <h2 className="text-xl font-semibold mb-6">Related Items</h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {item.related_items.map((rel: any) => (
-                  <div
-                    key={rel.id}
-                    onClick={() =>
-                      (window.location.href = `/spaces/commons/${rel.id}`)
-                    }
-                    className="
-                      p-4
-                      rounded-lg
-                      bg-neutral-100
-                      shadow-sm
-                      hover:shadow-md
-                      transition
-                      cursor-pointer
-                    "
-                  >
-                    <h3 className="text-lg font-semibold mb-1">
-                      {rel.title}
-                    </h3>
-                    <p className="text-sm text-neutral-600">{rel.summary}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+          <RelatedItems currentItem={item} allItems={allItems} />
         </>
       )}
     </main>
