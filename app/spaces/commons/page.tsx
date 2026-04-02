@@ -60,24 +60,28 @@ const [isVisible, setIsVisible] = useState(false);
             gap-8
           "
         >
-          {items.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => router.push(`/spaces/commons/${item.id}`)}
-              className="
-                p-6
-                rounded-xl
-                bg-neutral-100
-                shadow-sm
-                hover:shadow-md
-                transition-shadow
-                cursor-pointer
-              "
-            >
-              <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
-              <p className="text-sm text-neutral-600">{item.summary}</p>
-            </div>
-          ))}
+          {items.map((item, index) => (
+  <div
+    key={item.id}
+    onClick={() => router.push(`/spaces/commons/${item.id}`)}
+    style={{ transitionDelay: `${index * 50}ms` }}
+    className={`
+      p-6
+      rounded-xl
+      bg-neutral-100
+      shadow-sm
+      hover:shadow-md
+      transition-shadow
+      cursor-pointer
+      card-fade
+      ${isVisible ? "visible" : ""}
+    `}
+  >
+    <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
+    <p className="text-sm text-neutral-600">{item.summary}</p>
+  </div>
+))}
+
         </div>
       )}
     </main>
