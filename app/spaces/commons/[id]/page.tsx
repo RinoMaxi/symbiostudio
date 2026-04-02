@@ -388,3 +388,4 @@ function handleOpenInStudio() {
     </main>
   </div>
 );
+}
