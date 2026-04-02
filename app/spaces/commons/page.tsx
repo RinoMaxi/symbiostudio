@@ -7,7 +7,12 @@ export default function CommonsPage() {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+const [isVisible, setIsVisible] = useState(false);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsVisible(true), 30);
+    return () => clearTimeout(timeout);
+  }, []);
   useEffect(() => {
     async function loadCommons() {
       try {
