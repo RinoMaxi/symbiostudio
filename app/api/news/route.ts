@@ -10,8 +10,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const apiKey = req.headers.get("x-api-key");
-  if (apiKey !== process.env.NEWS_API_KEY) {
+  const apikey = req.headers.get("x-api-key");
+  if (apikey !== process.env.NEWS_API_KEY) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
