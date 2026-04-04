@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ai-today-1",
+    "title": "Global markets steady as investors weigh rate outlook",
+    "summary": "Stocks were broadly flat today as traders assessed fresh central bank comments.",
+    "tags": ["markets", "finance", "economy"]
+  },
+  {
+    "id": "ai-today-2",
+    "title": "AI tools reshape how small studios work",
+    "summary": "Independent creators and micro-studios are using AI copilots to work faster.",
+    "tags": ["ai", "studio", "technology"]
+  },
+  {
+    "id": "ai-today-3",
+    "title": "Remote work 2.0: from anywhere to intentional",
+    "summary": "Companies are shifting from improvised remote setups to deliberate workflows.",
+    "tags": ["work", "remote", "future"]
+  }
+]
