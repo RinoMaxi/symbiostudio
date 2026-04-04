@@ -30,20 +30,24 @@ export default function SearchBar() {
         className="w-full border px-3 py-2 rounded"
         placeholder="Search..."
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
       />
 
-      {loading && <div className="absolute top-full mt-2">Loading...</div>}
+      {loading && (
+        <div className="absolute top-full mt-2 text-sm text-gray-500">
+          Loading...
+        </div>
+      )}
 
       {results.length > 0 && (
-        <div className="absolute top-full mt-2 bg-white shadow rounded w-full p-2">
-          {results.map(r => (
+        <div className="absolute top-full mt-2 bg-white shadow-lg rounded-lg w-full border border-gray-200 overflow-hidden">
+          {results.map((r) => (
             <a
               key={r.id}
               href={`/items/${r.id}`}
-              className="block p-2 hover:bg-gray-100 rounded"
+              className="block p-3 hover:bg-gray-100 transition"
             >
-              <div className="font-medium">{r.title}</div>
+              <div className="font-semibold">{r.title}</div>
               <div className="text-sm text-gray-500">{r.summary}</div>
             </a>
           ))}
@@ -52,4 +56,5 @@ export default function SearchBar() {
     </div>
   );
 }
+
 
