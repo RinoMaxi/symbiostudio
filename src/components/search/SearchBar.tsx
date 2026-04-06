@@ -27,6 +27,23 @@ const containerRef = useRef<HTMLDivElement>(null);
     setResults(data);
     setLoading(false);
   }, 200);
+useEffect(() => {
+  function handleClickOutside(event: MouseEvent) {
+    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      setQuery("");
+      setResults([]);
+      setActiveIndex(-1);
+      setClosing(true);
+
+      setTimeout(() => {
+        setClosing(false);
+      }, 180);
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
 
   return () => clearTimeout(delay);
 }, [query]);
