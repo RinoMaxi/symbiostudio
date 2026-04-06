@@ -7,6 +7,7 @@ export default function SearchBar() {
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 const [closing, setClosing] = useState(false);
+const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
   if (!query) {
@@ -37,6 +38,19 @@ const [closing, setClosing] = useState(false);
         placeholder="Search..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+      onKeyDown={(e) => {
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    setActiveIndex((prev) => Math.min(prev + 1, results.length - 1));
+  }
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    setActiveIndex((prev) => Math.max(prev - 1, 0));
+  }
+  if (e.key === "Enter" && activeIndex >= 0) {
+    window.location.href = `/items/${results[activeIndex].id}`;
+  }
+}}
       />
 
       {loading && (
