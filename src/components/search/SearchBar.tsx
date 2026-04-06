@@ -30,7 +30,11 @@ const [activeIndex, setActiveIndex] = useState(-1);
   return () => clearTimeout(delay);
 }, [query]);
 
-
+function highlight(text: string, query: string) {
+  if (!query) return text;
+  const regex = new RegExp(`(${query})`, "gi");
+  return text.replace(regex, "<strong>$1</strong>");
+}
   return (
     <div className="relative w-full max-w-md">
       <input
@@ -66,14 +70,23 @@ const [activeIndex, setActiveIndex] = useState(-1);
       ${closing ? "animate-dropdown-out" : "animate-dropdown"}
     `}
   >
-    {results.map((r) => (
+    {results.map((r, index) => (
       <a
         key={r.id}
-        href={`/items/${r.id}`}
-        className="block p-3 hover:bg-gray-100 transition"
+  href={`/items/${r.id}`}
+  className={`
+    block p-3 transition
+    ${activeIndex === index ? "bg-gray-200" : "hover:bg-gray-100"}
+  `}
       >
-        <div className="font-semibold">{r.title}</div>
-        <div className="text-sm text-gray-500">{r.summary}</div>
+        <div
+    className="font-semibold"
+    dangerouslySetInnerHTML={{ __html: highlight(r.title, query) }}
+  />
+  <div
+    className="text-sm text-gray-500"
+    dangerouslySetInnerHTML={{ __html: highlight(r.summary, query) }}
+  />
       </a>
     ))}
   </div>
