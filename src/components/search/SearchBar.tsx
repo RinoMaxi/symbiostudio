@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -8,6 +8,7 @@ export default function SearchBar() {
   const [loading, setLoading] = useState(false);
 const [closing, setClosing] = useState(false);
 const [activeIndex, setActiveIndex] = useState(-1);
+const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
   if (!query) {
@@ -36,7 +37,7 @@ function highlight(text: string, query: string) {
   return text.replace(regex, "<strong>$1</strong>");
 }
   return (
-    <div className="relative w-full max-w-md">
+  <div ref={containerRef} className="relative w-full max-w-md">
       <input
         className="w-full border px-3 py-2 rounded"
         placeholder="Search..."
