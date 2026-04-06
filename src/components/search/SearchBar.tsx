@@ -40,19 +40,25 @@ export default function SearchBar() {
       )}
 
       {results.length > 0 && (
-        <div className="absolute top-full mt-2 bg-white shadow-lg rounded-lg w-full border border-gray-200 overflow-hidden">
-          {results.map((r) => (
-            <a
-              key={r.id}
-              href={`/items/${r.id}`}
-              className="block p-3 hover:bg-gray-100 transition"
-            >
-              <div className="font-semibold">{r.title}</div>
-              <div className="text-sm text-gray-500">{r.summary}</div>
-            </a>
-          ))}
-        </div>
-      )}
+  <div
+    className="
+      absolute top-full mt-2 w-full bg-white shadow-lg rounded-lg border border-gray-200
+      origin-top
+      animate-dropdown
+    "
+  >
+    {results.map((r) => (
+      <a
+        key={r.id}
+        href={`/items/${r.id}`}
+        className="block p-3 hover:bg-gray-100 transition"
+      >
+        <div className="font-semibold">{r.title}</div>
+        <div className="text-sm text-gray-500">{r.summary}</div>
+      </a>
+    ))}
+  </div>
+)}
     </div>
   );
 }
