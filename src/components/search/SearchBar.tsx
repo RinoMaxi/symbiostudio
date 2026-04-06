@@ -6,6 +6,7 @@ export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+const [closing, setClosing] = useState(false);
 
   useEffect(() => {
     if (!query) {
@@ -39,13 +40,12 @@ export default function SearchBar() {
         </div>
       )}
 
-      {results.length > 0 && (
+      {(results.length > 0 || closing) && (
   <div
-    className="
-      absolute top-full mt-2 w-full bg-white shadow-lg rounded-lg border border-gray-200
-      origin-top
-      animate-dropdown
-    "
+    className={`
+      absolute top-full mt-2 w-full bg-white shadow-lg rounded-lg border border-gray-200 origin-top
+      ${closing ? "animate-dropdown-out" : "animate-dropdown"}
+    `}
   >
     {results.map((r) => (
       <a
@@ -59,6 +59,7 @@ export default function SearchBar() {
     ))}
   </div>
 )}
+
     </div>
   );
 }
