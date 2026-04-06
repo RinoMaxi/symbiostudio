@@ -9,21 +9,26 @@ export default function SearchBar() {
 const [closing, setClosing] = useState(false);
 
   useEffect(() => {
-    if (!query) {
+  if (!query) {
+    setClosing(true);
+    setTimeout(() => {
       setResults([]);
-      return;
-    }
+      setClosing(false);
+    }, 180);
+    return;
+  }
 
-    const delay = setTimeout(async () => {
-      setLoading(true);
-      const res = await fetch(`/api/search?q=${query}`);
-      const data = await res.json();
-      setResults(data);
-      setLoading(false);
-    }, 200);
+  const delay = setTimeout(async () => {
+    setLoading(true);
+    const res = await fetch(`/api/search?q=${query}`);
+    const data = await res.json();
+    setResults(data);
+    setLoading(false);
+  }, 200);
 
-    return () => clearTimeout(delay);
-  }, [query]);
+  return () => clearTimeout(delay);
+}, [query]);
+
 
   return (
     <div className="relative w-full max-w-md">
