@@ -68,6 +68,9 @@ const commands = [
   { id: "new-project", label: "New Project", action: () => alert("New Project action triggered") },
   { id: "search", label: "Open Search", action: () => document.querySelector("input")?.focus() },
 ];
+const filteredCommands = commands.filter((cmd) =>
+  cmd.label.toLowerCase().includes(query.toLowerCase())
+);
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-start justify-center pt-32 z-50">
@@ -97,6 +100,21 @@ const commands = [
         />
 
         <div className="max-h-80 overflow-y-auto">
+  {filteredCommands.map((cmd, index) => (
+    <div
+      key={cmd.id}
+      className={`
+        p-3 rounded cursor-pointer
+        ${activeIndex === index ? "bg-gray-200" : "hover:bg-gray-100"}
+      `}
+      onMouseEnter={() => setActiveIndex(index)}
+      onClick={() => cmd.action()}
+    >
+      {cmd.label}
+    </div>
+  ))}
+</div>
+<div className="max-h-80 overflow-y-auto">
           {results.map((r, index) => (
             <div
               key={r.id}
