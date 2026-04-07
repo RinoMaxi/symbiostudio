@@ -94,8 +94,9 @@ const filteredCommands = commands.filter((cmd) =>
               setActiveIndex((prev) => Math.max(prev - 1, 0));
             }
             if (e.key === "Enter" && activeIndex >= 0) {
-              window.location.href = `/items/${results[activeIndex].id}`;
-            }
+  filteredCommands[activeIndex].action();
+}
+
           }}
         />
 
