@@ -1,4 +1,5 @@
 "use client";
+
 import {
   HomeIcon,
   FolderIcon,
@@ -67,76 +68,81 @@ export default function CommandPalette() {
     return text.replace(regex, "<strong>$1</strong>");
   }
 
+  // COMMANDS WITH SECTIONS + ICONS + SHORTCUTS
+  const commands = [
+    {
+      section: "Navigation",
+      items: [
+        {
+          id: "home",
+          label: "Go to Home",
+          icon: HomeIcon,
+          shortcut: "G H",
+          action: () => (window.location.href = "/"),
+        },
+        {
+          id: "studio",
+          label: "Go to Studio",
+          icon: BoltIcon,
+          shortcut: "G S",
+          action: () => (window.location.href = "/studio"),
+        },
+        {
+          id: "agents",
+          label: "Open Agents",
+          icon: UserGroupIcon,
+          shortcut: "G A",
+          action: () => (window.location.href = "/agents"),
+        },
+        {
+          id: "projects",
+          label: "Open Projects",
+          icon: FolderIcon,
+          shortcut: "G P",
+          action: () => (window.location.href = "/projects"),
+        },
+      ],
+    },
+
+    {
+      section: "Actions",
+      items: [
+        {
+          id: "new-project",
+          label: "New Project",
+          icon: PlusIcon,
+          shortcut: "N P",
+          action: () => alert("New Project Created!"),
+        },
+        {
+          id: "search",
+          label: "Open Search",
+          icon: MagnifyingGlassIcon,
+          shortcut: "S",
+          action: () =>
+            (document.querySelector("#search") as HTMLElement)?.focus(),
+        },
+      ],
+    },
+
+    {
+      section: "AI Tools",
+      items: [
+        {
+          id: "ai-summary",
+          label: "Summarize Page",
+          icon: BoltIcon,
+          shortcut: "A S",
+          action: () => alert("AI Summary Placeholder"),
+        },
+      ],
+    },
+  ];
+
+  // FLATTENED LIST FOR KEYBOARD NAVIGATION
+  const flatCommands = commands.flatMap((group) => group.items);
+
   if (!open) return null;
-const commands = [
-  {
-    section: "Navigation",
-    items: [
-      {
-        id: "home",
-        label: "Go to Home",
-        icon: HomeIcon,
-        shortcut: "G H",
-        action: () => (window.location.href = "/"),
-      },
-      {
-        id: "studio",
-        label: "Go to Studio",
-        icon: BoltIcon,
-        shortcut: "G S",
-        action: () => (window.location.href = "/studio"),
-      },
-      {
-        id: "agents",
-        label: "Open Agents",
-        icon: UserGroupIcon,
-        shortcut: "G A",
-        action: () => (window.location.href = "/agents"),
-      },
-      {
-        id: "projects",
-        label: "Open Projects",
-        icon: FolderIcon,
-        shortcut: "G P",
-        action: () => (window.location.href = "/projects"),
-      },
-    ],
-  },
-
-  {
-    section: "Actions",
-    items: [
-      {
-        id: "new-project",
-        label: "New Project",
-        icon: PlusIcon,
-        shortcut: "N P",
-        action: () => alert("New Project Created!"),
-      },
-      {
-        id: "search",
-        label: "Open Search",
-        icon: MagnifyingGlassIcon,
-        shortcut: "S",
-        action: () => (document.querySelector("#search") as HTMLElement)?.focus()
-
-      },
-    ],
-  },
-
-  {
-    section: "AI Tools",
-    items: [
-      {
-        id: "ai-summary",
-        label: "Summarize Page",
-        icon: BoltIcon,
-        shortcut: "A S",
-        action: () => alert("AI Summary Placeholder"),
-      },
-    ],
-  },
-];
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-start justify-center pt-32 z-50">
@@ -149,39 +155,69 @@ const commands = [
           className="w-full border px-3 py-2 rounded mb-3"
           placeholder="Type a command or search..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActiveIndex(-1);
+          }}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {
               e.preventDefault();
-              setActiveIndex((prev) => Math.min(prev + 1, results.length - 1));
+              setActiveIndex((prev) =>
+                Math.min(prev + 1, flatCommands.length - 1)
+              );
             }
             if (e.key === "ArrowUp") {
               e.preventDefault();
               setActiveIndex((prev) => Math.max(prev - 1, 0));
             }
             if (e.key === "Enter" && activeIndex >= 0) {
-  filteredCommands[activeIndex].action();
-}
-
+              flatCommands[activeIndex]?.action();
+            }
           }}
         />
 
-        <div className="max-h-80 overflow-y-auto">
-  {filteredCommands.map((cmd, index) => (
-    <div
-      key={cmd.id}
-      className={`
-        p-3 rounded cursor-pointer
-        ${activeIndex === index ? "bg-gray-200" : "hover:bg-gray-100"}
-      `}
-      onMouseEnter={() => setActiveIndex(index)}
-      onClick={() => cmd.action()}
-    >
-      {cmd.label}
-    </div>
-  ))}
-</div>
-<div className="max-h-80 overflow-y-auto">
+        {/* COMMANDS LIST */}
+        <div className="max-h-80 overflow-y-auto space-y-4">
+          {commands.map((group) => (
+            <div key={group.section}>
+              <div className="text-xs uppercase text-gray-500 px-2 mb-2">
+                {group.section}
+              </div>
+
+              {group.items.map((item) => {
+                const index = flatCommands.indexOf(item);
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`
+                      flex items-center justify-between p-3 rounded cursor-pointer
+                      ${
+                        activeIndex === index
+                          ? "bg-gray-200"
+                          : "hover:bg-gray-100"
+                      }
+                    `}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onClick={() => item.action()}
+                  >
+                    <div className="flex items-center gap-3">
+                      <item.icon className="w-5 h-5 text-gray-600" />
+                      <span>{item.label}</span>
+                    </div>
+
+                    <div className="text-xs text-gray-400">
+                      {item.shortcut}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+
+        {/* SEARCH RESULTS */}
+        <div className="max-h-80 overflow-y-auto mt-4">
           {results.map((r, index) => (
             <div
               key={r.id}
@@ -207,3 +243,4 @@ const commands = [
     </div>
   );
 }
+
