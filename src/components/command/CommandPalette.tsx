@@ -60,6 +60,14 @@ export default function CommandPalette() {
   }
 
   if (!open) return null;
+const commands = [
+  { id: "home", label: "Go to Home", action: () => (window.location.href = "/home") },
+  { id: "studio", label: "Go to Studio", action: () => (window.location.href = "/studio") },
+  { id: "agents", label: "Open Agents", action: () => (window.location.href = "/agents") },
+  { id: "projects", label: "Open Projects", action: () => (window.location.href = "/projects") },
+  { id: "new-project", label: "New Project", action: () => alert("New Project action triggered") },
+  { id: "search", label: "Open Search", action: () => document.querySelector("input")?.focus() },
+];
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-start justify-center pt-32 z-50">
