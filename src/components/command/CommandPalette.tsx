@@ -118,8 +118,8 @@ const commands = [
         label: "Open Search",
         icon: MagnifyingGlassIcon,
         shortcut: "S",
-        action: () => (document.querySelector("#search") as HTMLElement)?.focus();
-        
+        action: () => (document.querySelector("#search") as HTMLElement)?.focus()
+
       },
     ],
   },
