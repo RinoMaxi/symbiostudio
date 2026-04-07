@@ -1,4 +1,12 @@
 "use client";
+import {
+  HomeIcon,
+  FolderIcon,
+  BoltIcon,
+  MagnifyingGlassIcon,
+  PlusIcon,
+  UserGroupIcon,
+} from "@heroicons/react/24/outline";
 
 import { useState, useEffect, useRef } from "react";
 
@@ -61,16 +69,73 @@ export default function CommandPalette() {
 
   if (!open) return null;
 const commands = [
-  { id: "home", label: "Go to Home", action: () => (window.location.href = "/home") },
-  { id: "studio", label: "Go to Studio", action: () => (window.location.href = "/studio") },
-  { id: "agents", label: "Open Agents", action: () => (window.location.href = "/agents") },
-  { id: "projects", label: "Open Projects", action: () => (window.location.href = "/projects") },
-  { id: "new-project", label: "New Project", action: () => alert("New Project action triggered") },
-  { id: "search", label: "Open Search", action: () => document.querySelector("input")?.focus() },
+  {
+    section: "Navigation",
+    items: [
+      {
+        id: "home",
+        label: "Go to Home",
+        icon: HomeIcon,
+        shortcut: "G H",
+        action: () => (window.location.href = "/"),
+      },
+      {
+        id: "studio",
+        label: "Go to Studio",
+        icon: BoltIcon,
+        shortcut: "G S",
+        action: () => (window.location.href = "/studio"),
+      },
+      {
+        id: "agents",
+        label: "Open Agents",
+        icon: UserGroupIcon,
+        shortcut: "G A",
+        action: () => (window.location.href = "/agents"),
+      },
+      {
+        id: "projects",
+        label: "Open Projects",
+        icon: FolderIcon,
+        shortcut: "G P",
+        action: () => (window.location.href = "/projects"),
+      },
+    ],
+  },
+
+  {
+    section: "Actions",
+    items: [
+      {
+        id: "new-project",
+        label: "New Project",
+        icon: PlusIcon,
+        shortcut: "N P",
+        action: () => alert("New Project Created!"),
+      },
+      {
+        id: "search",
+        label: "Open Search",
+        icon: MagnifyingGlassIcon,
+        shortcut: "S",
+        action: () => document.querySelector("#search")?.focus(),
+      },
+    ],
+  },
+
+  {
+    section: "AI Tools",
+    items: [
+      {
+        id: "ai-summary",
+        label: "Summarize Page",
+        icon: BoltIcon,
+        shortcut: "A S",
+        action: () => alert("AI Summary Placeholder"),
+      },
+    ],
+  },
 ];
-const filteredCommands = commands.filter((cmd) =>
-  cmd.label.toLowerCase().includes(query.toLowerCase())
-);
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-start justify-center pt-32 z-50">
