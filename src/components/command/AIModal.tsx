@@ -17,47 +17,44 @@ export default function AIModal({ open, onClose, content }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white w-full max-w-xl rounded-xl shadow-xl p-6">
+   <div className="flex justify-between items-center mb-4">
+  <h2 className="text-lg font-semibold">AI Result</h2>
 
-        {/* HEADER */}
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">AI Result</h2>
+  <div className="flex items-center gap-3">
+    <button
+      onClick={() => navigator.clipboard.writeText(content)}
+      className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
+    >
+      Copy
+    </button>
 
-          <div className="flex items-center gap-3">
-  <button
-    onClick={() => navigator.clipboard.writeText(content)}
-    className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
-  >
-    Copy
-  </button>
+    <button
+      onClick={() => {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return;
+        const range = sel.getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(document.createTextNode(content));
+        onClose();
+      }}
+      className="text-sm px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
+    >
+      Insert
+    </button>
 
-  <button
-    onClick={() => {
-      const sel = window.getSelection();
-      if (!sel || sel.rangeCount === 0) return;
-      const range = sel.getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(document.createTextNode(content));
-      onClose();
-    }}
-    className="text-sm px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
-  >
-    Insert
-  </button>
-
-  <button
-    onClick={onClose}
-    className="text-gray-500 hover:text-gray-700"
-  >
-    ✕
-  </button>
+    <button
+      onClick={onClose}
+      className="text-gray-500 hover:text-gray-700"
+    >
+      ✕
+    </button>
+  </div>
 </div>
-        </div>
+
 
         {/* CONTENT */}
         <div className="max-h-[60vh] overflow-y-auto prose prose-neutral">
-  {/* TONE SELECTOR */}
+{/* TONE SELECTOR */}
 <div className="flex gap-2 mb-4 flex-wrap">
   {["professional", "casual", "academic", "friendly", "simplified", "formal"].map((tone) => (
     <button
@@ -70,10 +67,10 @@ export default function AIModal({ open, onClose, content }) {
         });
 
         const data = await res.json();
-        // Replace modal content with improved version
-        onClose(); // close old modal
+
+        onClose();
+
         setTimeout(() => {
-          // reopen with new content
           window.dispatchEvent(
             new CustomEvent("open-ai-modal", { detail: data.improved })
           );
@@ -85,6 +82,7 @@ export default function AIModal({ open, onClose, content }) {
     </button>
   ))}
 </div>
+
  {/* LENGTH CONTROLS */}
 <div className="flex gap-2 mb-4 flex-wrap">
   {[
