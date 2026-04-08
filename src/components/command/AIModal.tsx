@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 export default function AIModal({ open, onClose, content }) {
-  // Close on Escape
+  if (!open) return null;
+
+// Close on Escape
   useEffect(() => {
     function handleKey(e) {
       if (e.key === "Escape") onClose();
@@ -119,33 +121,8 @@ export default function AIModal({ open, onClose, content }) {
 {/* EXPLAIN LIKE I'M 5 */}
 <div className="flex gap-2 mb-4 flex-wrap">
   <button
-    onClick={async () => {
-      const res = await fetch("/api/ai/explain5", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: content }),
-      });
-
-      const data = await res.json();
-
-      // Close old modal
-      onClose();
-
-      // Reopen with simplified content
-      setTimeout(() => {
-        window.dispatchEvent(
-          new CustomEvent("open-ai-modal", { detail: data.result })
-        );
-      }, 10);
-    }}
-    className="text-xs px-2 py-1 rounded bg-yellow-100 hover:bg-yellow-200 border"
-  >
-    Explain Like I'm 5
-  </button>
-</div>
-<button
   onClick={async () => {
-    const res = await fetch("/api/ai/explain-steps", {
+    const res = await fetch("/api/ai/explain5", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: content }),
@@ -161,9 +138,11 @@ export default function AIModal({ open, onClose, content }) {
       );
     }, 10);
   }}
-  className="text-xs px-2 py-1 rounded bg-green-100 hover:bg-green-200 border"
+  className="text-xs px-2 py-1 rounded bg-yellow-100 hover:bg-yellow-200 border"
 >
-  Explain Step‑by‑Step
+  Explain Like I'm 5
+</button>
+
 <button
   onClick={async () => {
     const res = await fetch("/api/ai/explain-steps", {
@@ -186,6 +165,30 @@ export default function AIModal({ open, onClose, content }) {
 >
   Explain Step‑by‑Step
 </button>
+
+<button
+  onClick={async () => {
+    const res = await fetch("/api/ai/explain-steps", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+
+    const data = await res.json();
+
+    onClose();
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-modal", { detail: data.result })
+      );
+    }, 10);
+  }}
+  className="text-xs px-2 py-1 rounded bg-green-100 hover:bg-green-200 border"
+>
+  Explain Step‑by‑Step
+</button>
+
 
   <ReactMarkdown
   components={{
