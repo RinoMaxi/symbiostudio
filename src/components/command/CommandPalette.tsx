@@ -33,6 +33,17 @@ export default function CommandPalette() {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
+useEffect(() => {
+  function handleSelection() {
+    const selected = window.getSelection()?.toString().trim();
+    if (selected) {
+      console.log("Selected text:", selected);
+    }
+  }
+
+  document.addEventListener("mouseup", handleSelection);
+  return () => document.removeEventListener("mouseup", handleSelection);
+}, []);
 
   // Click outside to close
   useEffect(() => {
