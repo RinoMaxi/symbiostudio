@@ -16,8 +16,14 @@ export default function CommandPalette() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
+const [aiModalOpen, setAIModalOpen] = useState(false);
+const [aiModalContent, setAIModalContent] = useState("");
 
   const paletteRef = useRef<HTMLDivElement>(null);
+function openAIModal(text: string) {
+  setAIModalContent(text);
+  setAIModalOpen(true);
+}
 
   // Open with Cmd+K / Ctrl+K
   useEffect(() => {
