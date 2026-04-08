@@ -308,7 +308,13 @@ useEffect(() => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: selection }),
     });
-
+useEffect(() => {
+  function handleOpen(e) {
+    openAIModal(e.detail);
+  }
+  window.addEventListener("open-ai-modal", handleOpen);
+  return () => window.removeEventListener("open-ai-modal", handleOpen);
+}, []);
     const data = await res.json();
     openAIModal(data.rewritten);
   },
