@@ -130,10 +130,21 @@ export default function CommandPalette() {
       items: [
         {
           id: "ai-summary",
-          label: "Summarize Page",
+          label: "Summarize This Page",
           icon: BoltIcon,
           shortcut: "A S",
-          action: () => alert("AI Summary Placeholder"),
+          action: async () => {
+            const text = document.body.innerText.slice(0, 5000);
+
+            const res = await fetch("/api/ai/summarize", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+
+            const data = await res.json();
+            alert(data.summary);
+          },
         },
       ],
     },
@@ -243,4 +254,5 @@ export default function CommandPalette() {
     </div>
   );
 }
+
 
