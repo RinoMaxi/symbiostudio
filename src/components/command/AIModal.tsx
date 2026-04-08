@@ -1,5 +1,6 @@
 "use client";
-import ReactMarkdown from "react-markdown";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown.js";
+
 import { useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -56,7 +57,30 @@ export default function AIModal({ open, onClose, content }) {
 
         {/* CONTENT */}
         <div className="max-h-[60vh] overflow-y-auto prose prose-neutral">
-  <ReactMarkdown>{content}</ReactMarkdown>
+  <ReactMarkdown
+  components={{
+    code({ inline, className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || "");
+      return !inline && match ? (
+        <SyntaxHighlighter
+          style={oneDark}
+          language={match[1]}
+          PreTag="div"
+          className="rounded-md my-4"
+          {...props}
+        >
+          {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+      ) : (
+        <code className="bg-gray-200 px-1 py-0.5 rounded" {...props}>
+          {children}
+        </code>
+      );
+    },
+  }}
+>
+  {content}
+</ReactMarkdown>
 </div>
 
       </div>
