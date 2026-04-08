@@ -1,4 +1,5 @@
 "use client";
+import AIModal from "./AIModal";
 
 import {
   HomeIcon,
@@ -24,6 +25,11 @@ function openAIModal(text: string) {
   setAIModalContent(text);
   setAIModalOpen(true);
 }
+<AIModal
+  open={aiModalOpen}
+  onClose={() => setAIModalOpen(false)}
+  content={aiModalContent}
+/>
 
   // Open with Cmd+K / Ctrl+K
   useEffect(() => {
