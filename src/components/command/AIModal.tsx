@@ -206,6 +206,7 @@ export default function AIModal({ open, onClose, content }) {
   className="text-xs px-2 py-1 rounded bg-red-100 hover:bg-red-200 border mb-4 ml-2"
 >
   Refactor Code
+</button>   {/*
 {/* SUMMARIZE CODE */}
 <button
   onClick={async () => {
