@@ -184,6 +184,28 @@ export default function AIModal({ open, onClose, content }) {
 >
   Explain Code Logic
 </button>
+<button
+  onClick={async () => {
+    const res = await fetch("/api/ai/refactor-code", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+
+    const data = await res.json();
+
+    onClose();
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-modal", { detail: data.result })
+      );
+    }, 10);
+  }}
+  className="text-xs px-2 py-1 rounded bg-red-100 hover:bg-red-200 border mb-4 ml-2"
+>
+  Refactor Code
+</button>
 
           {/* MARKDOWN RENDERING */}
           <ReactMarkdown
