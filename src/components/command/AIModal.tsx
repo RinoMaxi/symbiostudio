@@ -119,6 +119,33 @@ export default function AIModal({ open, onClose, content }) {
     </button>
   ))}
 </div>
+{/* EXPLAIN LIKE I'M 5 */}
+<div className="flex gap-2 mb-4 flex-wrap">
+  <button
+    onClick={async () => {
+      const res = await fetch("/api/ai/explain5", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: content }),
+      });
+
+      const data = await res.json();
+
+      // Close old modal
+      onClose();
+
+      // Reopen with simplified content
+      setTimeout(() => {
+        window.dispatchEvent(
+          new CustomEvent("open-ai-modal", { detail: data.result })
+        );
+      }, 10);
+    }}
+    className="text-xs px-2 py-1 rounded bg-yellow-100 hover:bg-yellow-200 border"
+  >
+    Explain Like I'm 5
+  </button>
+</div>
  
   <ReactMarkdown
   components={{
