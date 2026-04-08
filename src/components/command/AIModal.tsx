@@ -1,5 +1,5 @@
 "use client";
-
+import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 
 export default function AIModal({ open, onClose, content }) {
