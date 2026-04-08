@@ -57,6 +57,34 @@ export default function AIModal({ open, onClose, content }) {
 
         {/* CONTENT */}
         <div className="max-h-[60vh] overflow-y-auto prose prose-neutral">
+  {/* TONE SELECTOR */}
+<div className="flex gap-2 mb-4 flex-wrap">
+  {["professional", "casual", "academic", "friendly", "simplified", "formal"].map((tone) => (
+    <button
+      key={tone}
+      onClick={async () => {
+        const res = await fetch("/api/ai/improve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: content, tone }),
+        });
+
+        const data = await res.json();
+        // Replace modal content with improved version
+        onClose(); // close old modal
+        setTimeout(() => {
+          // reopen with new content
+          window.dispatchEvent(
+            new CustomEvent("open-ai-modal", { detail: data.improved })
+          );
+        }, 10);
+      }}
+      className="text-xs px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 border"
+    >
+      {tone.charAt(0).toUpperCase() + tone.slice(1)}
+    </button>
+  ))}
+</div>
   <ReactMarkdown
   components={{
     code({ inline, className, children, ...props }) {
