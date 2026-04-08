@@ -152,6 +152,34 @@ useEffect(() => {
       section: "AI Tools",
       items: [
       {
+  id: "ai-improve",
+  label: "Improve Writing",
+  icon: BoltIcon,
+  shortcut: "A I",
+  action: async () => {
+    const selection = window.getSelection()?.toString().trim();
+    if (!selection) {
+      alert("No text selected.");
+      return;
+    }
+
+    const tone = prompt(
+      "Choose tone: professional, casual, academic, simplified, friendly, formal"
+    )?.trim().toLowerCase();
+
+    if (!tone) return;
+
+    const res = await fetch("/api/ai/improve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: selection, tone }),
+    });
+
+    const data = await res.json();
+    openAIModal(data.improved);
+  },
+},
+        {
   id: "ai-explain",
   label: "Explain This",
   icon: BoltIcon,
