@@ -184,6 +184,7 @@ export default function AIModal({ open, onClose, content }) {
 >
   Explain Code Logic
 </button>
+{/* REFACTOR CODE */}
 <button
   onClick={async () => {
     const res = await fetch("/api/ai/refactor-code", {
