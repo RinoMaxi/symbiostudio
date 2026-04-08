@@ -146,6 +146,29 @@ export default function CommandPalette() {
             alert(data.summary);
           },
         },
+{
+  id: "ai-rewrite",
+  label: "Rewrite Selected Text",
+  icon: BoltIcon,
+  shortcut: "A R",
+  action: async () => {
+    const selection = window.getSelection()?.toString().trim();
+
+    if (!selection) {
+      alert("No text selected.");
+      return;
+    }
+
+    const res = await fetch("/api/ai/rewrite", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: selection }),
+    });
+
+    const data = await res.json();
+    alert(data.rewritten);
+  },
+},
       ],
     },
   ];
