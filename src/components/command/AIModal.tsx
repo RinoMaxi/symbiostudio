@@ -23,20 +23,34 @@ export default function AIModal({ open, onClose, content }) {
           <h2 className="text-lg font-semibold">AI Result</h2>
 
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigator.clipboard.writeText(content)}
-              className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
-            >
-              Copy
-            </button>
+  <button
+    onClick={() => navigator.clipboard.writeText(content)}
+    className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
+  >
+    Copy
+  </button>
 
-            <button
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              ✕
-            </button>
-          </div>
+  <button
+    onClick={() => {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(document.createTextNode(content));
+      onClose();
+    }}
+    className="text-sm px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600"
+  >
+    Insert
+  </button>
+
+  <button
+    onClick={onClose}
+    className="text-gray-500 hover:text-gray-700"
+  >
+    ✕
+  </button>
+</div>
         </div>
 
         {/* CONTENT */}
