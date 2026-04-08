@@ -217,7 +217,7 @@ useEffect(() => {
     });
 
     const data = await res.json();
-    alert(data.translated);
+    openAIModal(data.translated);
   },
 },
  
@@ -236,7 +236,7 @@ useEffect(() => {
             });
 
             const data = await res.json();
-            alert(data.summary);
+            openAIModal(data.summary);
           },
         },
 {  
@@ -259,7 +259,7 @@ useEffect(() => {
     });
 
     const data = await res.json();
-    alert(data.rewritten);
+    openAIModal(data.rewritten);
   },
 },
       ],
