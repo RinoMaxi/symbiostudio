@@ -52,7 +52,7 @@ export default function AIModal({ open, onClose, content }) {
 </div>
 
 
-        {/* CONTENT */}
+{/* CONTENT */}
         <div className="max-h-[60vh] overflow-y-auto prose prose-neutral">
 {/* TONE SELECTOR */}
 <div className="flex gap-2 mb-4 flex-wrap">
@@ -83,7 +83,7 @@ export default function AIModal({ open, onClose, content }) {
   ))}
 </div>
 
- {/* LENGTH CONTROLS */}
+{/* LENGTH CONTROLS */}
 <div className="flex gap-2 mb-4 flex-wrap">
   {[
     { label: "Shorter", mode: "shorter and more concise" },
@@ -101,10 +101,8 @@ export default function AIModal({ open, onClose, content }) {
 
         const data = await res.json();
 
-        // Close old modal
         onClose();
 
-        // Reopen with updated content
         setTimeout(() => {
           window.dispatchEvent(
             new CustomEvent("open-ai-modal", { detail: data.result })
@@ -117,6 +115,7 @@ export default function AIModal({ open, onClose, content }) {
     </button>
   ))}
 </div>
+
 {/* EXPLAIN LIKE I'M 5 */}
 <div className="flex gap-2 mb-4 flex-wrap">
   <button
