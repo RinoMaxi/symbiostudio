@@ -167,8 +167,29 @@ export default function AIModal({ open, onClose, content }) {
   className="text-xs px-2 py-1 rounded bg-green-100 hover:bg-green-200 border"
 >
   Explain Step‑by‑Step
+<button
+  onClick={async () => {
+    const res = await fetch("/api/ai/explain-steps", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+
+    const data = await res.json();
+
+    onClose();
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-modal", { detail: data.result })
+      );
+    }, 10);
+  }}
+  className="text-xs px-2 py-1 rounded bg-green-100 hover:bg-green-200 border"
+>
+  Explain Step‑by‑Step
 </button>
- 
+
   <ReactMarkdown
   components={{
     code({ inline, className, children, ...props }) {
