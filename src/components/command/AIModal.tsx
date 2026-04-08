@@ -54,9 +54,9 @@ export default function AIModal({ open, onClose, content }) {
         </div>
 
         {/* CONTENT */}
-        <div className="max-h-[60vh] overflow-y-auto whitespace-pre-wrap">
-          {content}
-        </div>
+        <div className="max-h-[60vh] overflow-y-auto prose prose-neutral">
+  <ReactMarkdown>{content}</ReactMarkdown>
+</div>
 
       </div>
     </div>
