@@ -151,7 +151,30 @@ useEffect(() => {
     {
       section: "AI Tools",
       items: [
-       {
+      {
+  id: "ai-explain",
+  label: "Explain This",
+  icon: BoltIcon,
+  shortcut: "A X",
+  action: async () => {
+    const selection = window.getSelection()?.toString().trim();
+
+    if (!selection) {
+      alert("No text selected.");
+      return;
+    }
+
+    const res = await fetch("/api/ai/explain", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: selection }),
+    });
+
+    const data = await res.json();
+    openAIModal(data.explanation);
+  },
+},
+        {
   id: "ai-translate-en",
   label: "Translate to English",
   icon: BoltIcon,
