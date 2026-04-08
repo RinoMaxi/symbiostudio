@@ -85,6 +85,41 @@ export default function AIModal({ open, onClose, content }) {
     </button>
   ))}
 </div>
+ {/* LENGTH CONTROLS */}
+<div className="flex gap-2 mb-4 flex-wrap">
+  {[
+    { label: "Shorter", mode: "shorter and more concise" },
+    { label: "Longer", mode: "longer and more detailed" },
+    { label: "Punchier", mode: "more punchy and impactful" },
+  ].map(({ label, mode }) => (
+    <button
+      key={label}
+      onClick={async () => {
+        const res = await fetch("/api/ai/length", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: content, mode }),
+        });
+
+        const data = await res.json();
+
+        // Close old modal
+        onClose();
+
+        // Reopen with updated content
+        setTimeout(() => {
+          window.dispatchEvent(
+            new CustomEvent("open-ai-modal", { detail: data.result })
+          );
+        }, 10);
+      }}
+      className="text-xs px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 border"
+    >
+      {label}
+    </button>
+  ))}
+</div>
+ 
   <ReactMarkdown
   components={{
     code({ inline, className, children, ...props }) {
