@@ -206,7 +206,30 @@ export default function AIModal({ open, onClose, content }) {
   className="text-xs px-2 py-1 rounded bg-red-100 hover:bg-red-200 border mb-4 ml-2"
 >
   Refactor Code
+{/* SUMMARIZE CODE */}
+<button
+  onClick={async () => {
+    const res = await fetch("/api/ai/summarize-code", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+
+    const data = await res.json();
+
+    onClose();
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-modal", { detail: data.result })
+      );
+    }, 10);
+  }}
+  className="text-xs px-2 py-1 rounded bg-orange-100 hover:bg-orange-200 border mb-4 ml-2"
+>
+  Summarize Code
 </button>
+
 
           {/* MARKDOWN RENDERING */}
           <ReactMarkdown
