@@ -139,6 +139,76 @@ useEffect(() => {
     {
       section: "AI Tools",
       items: [
+       {
+  id: "ai-translate-en",
+  label: "Translate to English",
+  icon: BoltIcon,
+  shortcut: "A T E",
+  action: async () => {
+    const selection = window.getSelection()?.toString().trim();
+
+    if (!selection) {
+      alert("No text selected.");
+      return;
+    }
+
+    const res = await fetch("/api/ai/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: selection, target: "English" }),
+    });
+
+    const data = await res.json();
+    alert(data.translated);
+  },
+},
+{
+  id: "ai-translate-it",
+  label: "Translate to Italian",
+  icon: BoltIcon,
+  shortcut: "A T I",
+  action: async () => {
+    const selection = window.getSelection()?.toString().trim();
+
+    if (!selection) {
+      alert("No text selected.");
+      return;
+    }
+
+    const res = await fetch("/api/ai/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: selection, target: "Italian" }),
+    });
+
+    const data = await res.json();
+    alert(data.translated);
+  },
+},
+{
+  id: "ai-translate-bg",
+  label: "Translate to Bulgarian",
+  icon: BoltIcon,
+  shortcut: "A T B",
+  action: async () => {
+    const selection = window.getSelection()?.toString().trim();
+
+    if (!selection) {
+      alert("No text selected.");
+      return;
+    }
+
+    const res = await fetch("/api/ai/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: selection, target: "Bulgarian" }),
+    });
+
+    const data = await res.json();
+    alert(data.translated);
+  },
+},
+ 
         {
           id: "ai-summary",
           label: "Summarize This Page",
@@ -157,7 +227,7 @@ useEffect(() => {
             alert(data.summary);
           },
         },
-{
+{  
   id: "ai-rewrite",
   label: "Rewrite Selected Text",
   icon: BoltIcon,
