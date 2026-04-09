@@ -230,6 +230,28 @@ export default function AIModal({ open, onClose, content }) {
 >
   Summarize Code
 </button>
+{/* FIX GRAMMAR */}
+<button
+  onClick={async () => {
+    const res = await fetch("/api/ai/fix-grammar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+
+    const data = await res.json();
+    onClose();
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent("open-ai-modal", { detail: data.result })
+      );
+    }, 10);
+  }}
+  className="text-xs px-2 py-1 rounded bg-blue-100 hover:bg-blue-200 border mb-4 ml-2"
+>
+  Fix Grammar
+</button>
 
 
           {/* MARKDOWN RENDERING */}
