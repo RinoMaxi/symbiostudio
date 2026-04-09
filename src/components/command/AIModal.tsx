@@ -5,18 +5,43 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 
 export default function AIModal({ open, onClose, content }) {
-const [activeTab, setActiveTab] = useState("rewrite");
+  const [activeTab, setActiveTab] = useState("rewrite");
+  const [typedContent, setTypedContent] = useState("");
 
   // Close on Escape
   useEffect(() => {
     function handleKey(e) {
       if (e.key === "Escape") onClose();
     }
+
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
-  if (!open) return null;
+  // ⭐ NEW useEffect — Typing Animation Trigger
+  useEffect(() => {
+    if (open && content) {
+      typeText(content);
+    }
+  }, [open, content]);
+
+  function typeText(fullText) {
+  setTypedContent(""); // reset
+
+  let index = 0;
+  const speed = 15;
+
+  function typeNext() {
+    if (index < fullText.length) {
+      setTypedContent((prev) => prev + fullText[index]);
+      index++;
+      setTimeout(typeNext, speed);
+    }
+  }
+
+  typeNext();
+}
+
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
