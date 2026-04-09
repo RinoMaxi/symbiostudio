@@ -81,34 +81,45 @@ const [activeTab, setActiveTab] = useState("rewrite");
     </button>
   ))}
 </div>
+{activeTab === "rewrite" && (
+  <div>
 
-          {/* TONE SELECTOR */}
-          <div className="flex gap-2 mb-4 flex-wrap">
-            {["professional", "casual", "academic", "friendly", "simplified", "formal"].map((tone) => (
-              <button
-                key={tone}
-                onClick={async () => {
-                  const res = await fetch("/api/ai/improve", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ text: content, tone }),
-                  });
+    {/* TONE SELECTOR */}
+    <div className="flex gap-2 mb-4 flex-wrap">
+      {["professional", "casual", "academic", "friendly", "simplified", "formal"].map((tone) => (
+        <button
+          key={tone}
+          onClick={async () => {
+            const res = await fetch("/api/ai/improve", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text: content, tone }),
+            });
+            const data = await res.json();
+            onClose();
+            setTimeout(() => {
+              window.dispatchEvent(
+                new CustomEvent("open-ai-modal", { detail: data.result })
+              );
+            }, 10);
+          }}
+          className="text-xs px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 border"
+        >
+          {tone}
+        </button>
+      ))}
+    </div>
 
-                  const data = await res.json();
-                  onClose();
+    {/* LENGTH CONTROLS */}
+    {/* paste your length buttons here */}
 
-                  setTimeout(() => {
-                    window.dispatchEvent(
-                      new CustomEvent("open-ai-modal", { detail: data.improved })
-                    );
-                  }, 10);
-                }}
-                className="text-xs px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 border"
-              >
-                {tone.charAt(0).toUpperCase() + tone.slice(1)}
-              </button>
-            ))}
-          </div>
+    {/* FIX GRAMMAR */}
+    {/* paste your Fix Grammar button here */}
+
+    {/* READABLE REWRITE (coming soon) */}
+
+  </div>
+)}
 
           {/* LENGTH CONTROLS */}
           <div className="flex gap-2 mb-4 flex-wrap">
