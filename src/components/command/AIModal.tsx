@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+
 export default function AIModal({ open, onClose, content }) {
+const [activeTab, setActiveTab] = useState("rewrite");
+
   // Close on Escape
   useEffect(() => {
     function handleKey(e) {
@@ -56,6 +59,28 @@ export default function AIModal({ open, onClose, content }) {
 
         {/* CONTENT */}
         <div className="max-h-[60vh] overflow-y-auto prose prose-neutral">
+{/* TAB BAR */}
+<div className="flex gap-2 mb-4 border-b pb-2">
+  {[
+    { id: "rewrite", label: "Rewrite" },
+    { id: "explain", label: "Explain" },
+    { id: "code", label: "Code Tools" },
+    { id: "translate", label: "Translate" },
+    { id: "summary", label: "Summary" },
+  ].map((tab) => (
+    <button
+      key={tab.id}
+      onClick={() => setActiveTab(tab.id)}
+      className={`text-sm px-3 py-1 rounded ${
+        activeTab === tab.id
+          ? "bg-blue-500 text-white"
+          : "bg-gray-100 hover:bg-gray-200"
+      }`}
+    >
+      {tab.label}
+    </button>
+  ))}
+</div>
 
           {/* TONE SELECTOR */}
           <div className="flex gap-2 mb-4 flex-wrap">
