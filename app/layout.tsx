@@ -1,7 +1,11 @@
+"use client";
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import CommandPalette from "@/components/command/CommandPalette";
+import { useEffect, useState } from "react";
+import AIModal from "@/components/ai/AIModal"; // adjust path if needed
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,15 +17,31 @@ export const metadata: Metadata = {
   description: "Creative Intelligence Platform",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
+  const [open, setOpen] = useState(false);
+  const [content, setContent] = useState("");
+
+  // Listen for global modal open event
+  useEffect(() => {
+    function handler(e) {
+      setContent(e.detail);
+      setOpen(true);
+    }
+    window.addEventListener("open-ai-modal", handler);
+    return () => window.removeEventListener("open-ai-modal", handler);
+  }, []);
+
   return (
     <html lang="en">
       <body className={montserrat.className}>
         <CommandPalette />
+
+        {/* GLOBAL AI MODAL */}
+        <AIModal
+          open={open}
+          onClose={() => setOpen(false)}
+          content={content}
+        />
 
         <nav
           className="w-full flex justify-center gap-6 py-6"
@@ -38,6 +58,7 @@ export default function RootLayout({
     </html>
   );
 }
+
 
 
 
