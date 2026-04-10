@@ -5,7 +5,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import CommandPalette from "@/components/command/CommandPalette";
 import { useEffect, useState } from "react";
-import AIModal from "@/components/ai/AIModal"; // adjust path if needed
+import AIModal from "@/components/command/AIModal";
+
 
 const montserrat = Montserrat({
   subsets: ["latin"],
