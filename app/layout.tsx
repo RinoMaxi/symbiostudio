@@ -13,10 +13,7 @@ const montserrat = Montserrat({
   weight: ["400", "600", "700", "800"],
 });
 
-export const metadata: Metadata = {
-  title: "SymbioStudio",
-  description: "Creative Intelligence Platform",
-};
+
 
 export default function RootLayout({ children }) {
   const [open, setOpen] = useState(false);
