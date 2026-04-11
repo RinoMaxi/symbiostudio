@@ -50,8 +50,10 @@ export default function RootLayout({ children }) {
           <a href="/studio" className="hover:opacity-70 transition">studio</a>
           <a href="/agents" className="hover:opacity-70 transition">agents</a>
         </nav>
+<main className="min-h-screen pt-10">
+  {children}
+</main>
 
-        {children}
       </body>
     </html>
   );
