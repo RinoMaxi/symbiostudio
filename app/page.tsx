@@ -8,7 +8,7 @@ export default function AIToday() {
   useEffect(() => {
     async function loadNews() {
       try {
-        const res = await fetch("/api/news");
+        const res = await fetch("/api/improve/news");
         const data = await res.json();
         setNews(data);
       } catch (err) {
