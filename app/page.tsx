@@ -23,15 +23,16 @@ export default function AIToday() {
   <main className="relative z-0 min-h-screen bg-black text-white">
 
     {/* HERO SECTION */}
-    <section className="w-full text-center mt-20 mb-20">
-      <h1 className="text-6xl font-extrabold tracking-tight">
-        SymbioStudio
-      </h1>
+<section className="relative z-10 w-full text-center mt-20 mb-20">
+  <h1 className="text-6xl font-extrabold tracking-tight">
+    SymbioStudio
+  </h1>
 
-      <p className="text-gray-300 mt-6 text-xl max-w-2xl mx-auto leading-relaxed">
-        Step into the future. Grow with AI. Shape your mind.
-      </p>
-    </section>
+  <p className="text-gray-300 mt-6 text-xl max-w-2xl mx-auto leading-relaxed">
+    Step into the future. Grow with AI. Shape your mind.
+  </p>
+</section>
+
 
     {/* NEWS SECTION */}
     <section className="w-full max-w-4xl mx-auto mt-32">
