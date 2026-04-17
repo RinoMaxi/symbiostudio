@@ -20,7 +20,8 @@ export default function AIToday() {
   }, []);
 
   return (
-  <>
+  <main className="relative z-0 min-h-screen bg-black text-white">
+
     {/* HERO SECTION */}
     <section className="w-full text-center mt-20 mb-20">
       <h1 className="text-6xl font-extrabold tracking-tight">
@@ -64,7 +65,7 @@ export default function AIToday() {
         </div>
             ))}
     </section>
-  </>
+   </main>
 );
 }
 
