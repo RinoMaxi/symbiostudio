@@ -352,9 +352,9 @@ export default function AIModal({ open, onClose, content }) {
           {/* MARKDOWN RENDERING */}
           <ReactMarkdown
             components={{
-              code({ inline, className, children, ...props }) {
+              code({ className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
-                return !inline && match ? (
+                return match ? (
                   <SyntaxHighlighter
                     style={oneDark}
                     language={match[1]}

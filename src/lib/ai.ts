@@ -1,17 +1,11 @@
 import OpenAI from "openai";
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY!,
-});
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
-
 export async function runAI(prompt: string) {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+
   try {
-    // Try Groq first (fast)
     const groqRes = await groq.chat.completions.create({
       model: "mixtral-8x7b-32768",
       messages: [{ role: "user", content: prompt }],
