@@ -45,10 +45,10 @@ export default function RootLayout({ children }) {
           className="w-full flex justify-center gap-6 py-6"
           style={{ fontFamily: "MontserratSemiBold" }}
         >
-          <a href="/" className="hover:opacity-70 transition">home</a>
-          <a href="/about" className="hover:opacity-70 transition">about</a>
-          <a href="/studio" className="hover:opacity-70 transition">studio</a>
+          <a href="/" className="hover:opacity-70 transition">feed</a>
+          <a href="/spaces" className="hover:opacity-70 transition">spaces</a>
           <a href="/agents" className="hover:opacity-70 transition">agents</a>
+          <a href="/profile" className="hover:opacity-70 transition">profile</a>
         </nav>
 <main className="min-h-screen pt-10">
   {children}
