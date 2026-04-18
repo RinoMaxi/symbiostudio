@@ -81,7 +81,7 @@ export default function HomePage() {
 
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <a
-              href="/profile"
+              href="/sign-up"
               className="px-7 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition"
             >
               Join the community
