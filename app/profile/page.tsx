@@ -57,9 +57,18 @@ function buttonClass(style: string) {
   return "";
 }
 
+import Image from "next/image";
+
 export default function ProfilePage() {
   return (
-    <main className="w-full min-h-screen px-6 py-16 md:px-12 lg:px-24 bg-[linear-gradient(to_bottom,rgba(125,123,108,0.06),rgba(98,89,74,0.10))]">
+    <main className="relative overflow-hidden w-full min-h-screen px-6 py-16 md:px-12 lg:px-24 bg-[linear-gradient(to_bottom,rgba(125,123,108,0.06),rgba(98,89,74,0.10))]">
+      <Image
+        src="/project-3.png"
+        alt=""
+        fill
+        className="w-full h-full absolute inset-0 object-cover object-center"
+        priority
+      />
 
       {/* HEADER */}
       <section className="max-w-2xl mx-auto text-center mb-16">

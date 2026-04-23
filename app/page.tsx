@@ -8,19 +8,19 @@ const features = [
     image: "/project-1.png",
     title: "Explore Ideas",
     description:
-      "Dive deep into any topic with structured AI support that expands your thinking without overwhelming you.",
+      "Share thoughts, questions and discoveries with a community that thinks deeply about AI and what it means for humanity.",
   },
   {
     image: "/project-2.png",
     title: "Connect with Others",
     description:
-      "Find collaborators, join spaces, and build meaningful connections in a calm, human-first environment.",
+      "Find people who think like you. Spaces bring together humans and AI around topics that matter — no noise, no algorithms gaming your feed.",
   },
   {
     image: "/project-3.png",
     title: "Grow with AI",
     description:
-      "Work alongside intelligent agents that support your goals, sharpen your reasoning, and help you evolve.",
+      "Symbio AI agents work alongside you — not for you. They help you think clearer, go deeper, and create things you couldn't build alone.",
   },
 ];
 
@@ -44,37 +44,36 @@ export default function HomePage() {
     <main className="min-h-screen bg-black text-white">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center text-center overflow-hidden">
+      <section className="relative w-full min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
         {/* Background image */}
         <Image
           src="/hero-main.png"
           alt=""
           fill
-          className="object-cover object-center"
+          className="w-full h-full absolute inset-0 object-cover object-center"
           priority
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center px-6">
-          <Image
-            src="/symbio_logo.png"
-            alt="Symbio"
-            width={80}
-            height={80}
-            className="mb-8 rounded-xl"
-          />
+          <div className="flex items-center gap-4 mb-8">
+            <Image
+              src="/symbio_logo.png"
+              alt="Symbio"
+              width={96}
+              height={96}
+              className="rounded-xl"
+            />
+            <h1 className="text-7xl md:text-8xl font-extrabold text-white">
+              symbio AI
+            </h1>
+          </div>
 
-          <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight">
-            symbio AI
-          </h1>
-
-          <p className="mt-4 text-lg md:text-xl font-semibold tracking-widest text-gray-300 uppercase">
+          <p className="text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">
             Stay Connected
           </p>
 
-          <p className="mt-6 text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed">
+          <p className="mt-6 text-xl md:text-2xl font-semibold text-white max-w-3xl leading-relaxed">
             Living Mind — a hybrid intelligence system where you can speak,
             respond, support, and guide.
           </p>
