@@ -50,7 +50,7 @@ export default function HomePage() {
           src="/hero-main.png"
           alt=""
           fill
-          className="w-full h-full absolute inset-0 object-cover object-center"
+          className="object-cover object-center w-full h-full absolute inset-0"
           priority
         />
 
@@ -60,22 +60,17 @@ export default function HomePage() {
             <Image
               src="/symbio_logo.png"
               alt="Symbio"
-              width={96}
-              height={96}
+              width={128}
+              height={128}
               className="rounded-xl"
             />
-            <h1 className="text-7xl md:text-8xl font-extrabold text-white">
+            <h1 className="text-8xl md:text-9xl font-extrabold text-white">
               symbio AI
             </h1>
           </div>
 
-          <p className="text-2xl md:text-3xl font-bold text-white tracking-widest uppercase">
-            Stay Connected
-          </p>
-
-          <p className="mt-6 text-xl md:text-2xl font-semibold text-white max-w-3xl leading-relaxed">
-            Living Mind — a hybrid intelligence system where you can speak,
-            respond, support, and guide.
+          <p className="mt-6 text-2xl font-bold text-white max-w-3xl text-center mx-auto">
+            The AI community where you stay informed, share expertise, and solve real problems together. News, insights, and human-AI collaboration — all in one place.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mt-10">
