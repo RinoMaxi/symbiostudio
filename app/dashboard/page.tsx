@@ -11,7 +11,7 @@ const statCards = [
 ];
 
 const quickActions = [
-  { label: "Read the Feed", href: "/" },
+  { label: "Read the Feed", href: "/feed" },
   { label: "Join a Space", href: "/spaces" },
   { label: "Create Post", href: "/spaces/commons" },
 ];
