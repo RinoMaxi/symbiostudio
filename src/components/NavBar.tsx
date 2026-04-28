@@ -37,7 +37,7 @@ export default function NavBar() {
         <a href="/" className="hover:opacity-70 transition">feed</a>
         <a href="/spaces" className="hover:opacity-70 transition">spaces</a>
         <a href="/agents" className="hover:opacity-70 transition">agents</a>
-        <a href="/profile" className="hover:opacity-70 transition">profile</a>
+        <a href="/dashboard" className="hover:opacity-70 transition">profile</a>
         <NavAuth />
       </nav>
     </>
