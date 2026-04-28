@@ -6,7 +6,13 @@ import AIModal from "@/components/command/AIModal";
 
 function NavAuth() {
   const { isSignedIn } = useAuth();
-  if (isSignedIn) return <UserButton />;
+  if (isSignedIn) return (
+    <UserButton
+      afterSignOutUrl="/"
+      userProfileMode="navigation"
+      userProfileUrl="/dashboard"
+    />
+  );
   return (
     <SignInButton mode="modal">
       <button className="hover:opacity-70 transition">sign in</button>
