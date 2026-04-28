@@ -16,7 +16,7 @@ const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
     async function loadCommons() {
       try {
-        const res = await fetch("/commons", {
+        const res = await fetch("/api/improve/news", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
