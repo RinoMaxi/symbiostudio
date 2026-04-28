@@ -8,7 +8,6 @@ function NavAuth() {
   const { isSignedIn } = useAuth();
   if (isSignedIn) return (
     <UserButton
-      afterSignOutUrl="/"
       userProfileMode="navigation"
       userProfileUrl="/dashboard"
     />
