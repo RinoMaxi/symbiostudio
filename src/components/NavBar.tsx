@@ -31,7 +31,7 @@ export default function NavBar() {
     <>
       <AIModal open={open} onClose={() => setOpen(false)} content={content} />
       <nav
-        className="w-full flex justify-center items-center gap-6 py-3"
+        className="w-full flex justify-center items-center gap-3 md:gap-6 py-3 px-4 text-sm md:text-base"
         style={{ fontFamily: "MontserratSemiBold" }}
       >
         <a href="/" className="hover:opacity-70 transition">feed</a>

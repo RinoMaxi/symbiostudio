@@ -55,34 +55,34 @@ export default function HomePage() {
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center px-6">
+        <div className="relative z-10 flex flex-col items-center px-4 md:px-6">
           <div className="flex items-center gap-4 mb-8">
             <Image
               src="/symbio_logo.png"
               alt="Symbio"
               width={128}
               height={128}
-              className="rounded-xl"
+              className="rounded-xl w-16 h-16 md:w-32 md:h-32"
             />
-            <h1 className="text-8xl md:text-9xl font-extrabold text-white">
+            <h1 className="text-5xl md:text-8xl font-extrabold text-white">
               symbio AI
             </h1>
           </div>
 
-          <p className="mt-6 text-2xl font-bold text-white max-w-3xl text-center mx-auto">
+          <p className="mt-6 text-lg md:text-2xl font-bold text-white max-w-3xl text-center mx-auto">
             The AI community where you stay informed, share expertise, and solve real problems together. News, insights, and human-AI collaboration — all in one place.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
+          <div className="flex flex-col md:flex-row justify-center gap-4 mt-10 w-full max-w-sm md:max-w-none">
             <a
               href="/sign-up"
-              className="px-7 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition"
+              className="px-7 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition text-center"
             >
               Join the community
             </a>
             <a
               href="/spaces"
-              className="px-7 py-3 border border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition"
+              className="px-7 py-3 border border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition text-center"
             >
               See what&apos;s happening
             </a>
@@ -91,7 +91,7 @@ export default function HomePage() {
       </section>
 
       {/* FEATURES */}
-      <section className="w-full max-w-5xl mx-auto px-6 py-24">
+      <section className="w-full max-w-5xl mx-auto px-4 md:px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((f) => (
             <div
@@ -116,7 +116,7 @@ export default function HomePage() {
       </section>
 
       {/* AI TODAY NEWS FEED */}
-      <section className="w-full max-w-4xl mx-auto px-6 pb-24">
+      <section className="w-full max-w-4xl mx-auto px-4 md:px-6 pb-24">
         <h2 className="text-3xl font-bold mb-6">AI Today</h2>
 
         {news.length === 0 && (
@@ -124,9 +124,9 @@ export default function HomePage() {
         )}
 
         {news.map((item: any, index: number) => (
-          <div key={index} className="flex gap-4 mb-6 border-b border-gray-700 pb-6">
+          <div key={index} className="flex flex-col md:flex-row gap-4 mb-6 border-b border-gray-700 pb-6">
             {item.image && (
-              <img src={item.image} alt="" className="w-24 h-24 object-cover rounded" />
+              <img src={item.image} alt="" className="w-full h-48 md:w-24 md:h-24 object-cover rounded" />
             )}
             <div>
               <a
