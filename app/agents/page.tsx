@@ -30,9 +30,10 @@ export default function AgentsPage() {
         src="/project-2.png"
         alt=""
         fill
-        className="w-full h-full absolute inset-0 object-cover object-center"
+        className="absolute inset-0 object-cover object-top"
         priority
       />
+      <div className="absolute inset-0 bg-black/40" />
 
       <section className="max-w-4xl mx-auto mb-16">
         <h1 className="text-4xl tracking-wide mb-4" style={{ fontFamily: "MontserratSemiBold" }}>

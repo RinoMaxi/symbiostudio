@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const statCards = [
   { label: "Membership Tier", value: "Free" },
@@ -51,7 +52,10 @@ export default function DashboardPage() {
   const firstName = user.firstName || user.username || user.emailAddresses?.[0]?.emailAddress?.split("@")[0] || "there";
 
   return (
-    <main className="min-h-screen bg-black text-white px-4 md:px-6 py-12 max-w-5xl mx-auto">
+    <main className="relative min-h-screen bg-black text-white">
+      <Image src="/project-2.png" alt="" fill className="absolute inset-0 object-cover object-center" priority />
+      <div className="absolute inset-0 bg-black/70" />
+      <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 py-12">
 
       {/* Header */}
       <h1 className="text-4xl md:text-5xl font-extrabold mb-10">
@@ -123,6 +127,7 @@ export default function DashboardPage() {
         ))}
       </section>
 
+      </div>
     </main>
   );
 }

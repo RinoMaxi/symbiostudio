@@ -34,10 +34,10 @@ export default function SpacesPage() {
         src="/project-1.png"
         alt=""
         fill
-        className="absolute inset-0 object-cover object-center"
+        className="absolute inset-0 object-cover object-top"
         priority
       />
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 max-w-5xl mx-auto">
         <h1
