@@ -48,7 +48,11 @@ export default function DashboardPage() {
     );
   }
 
-  const firstName = user.firstName || user.username || "there";
+  const firstName =
+    user.firstName ||
+    user.username ||
+    user.emailAddresses[0]?.emailAddress?.split("@")[0] ||
+    "there";
 
   return (
     <main className="min-h-screen bg-black text-white px-4 md:px-6 py-12 max-w-5xl mx-auto">
