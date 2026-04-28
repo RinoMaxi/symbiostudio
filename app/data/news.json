@@ -1,37 +1,44 @@
 [
   {
-    "title": "Global markets steady as investors weigh rate outlook",
-    "summary": "Stocks were broadly flat today as traders assessed fresh central bank comments on inflation and interest rates.",
-    "source": "BBC News",
-    "url": "https://www.bbc.com/news/business-markets-test-1",
-    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/market-chart-test-1.jpg"
+    "title": "OpenAI Releases GPT-5 with Breakthrough Reasoning and Multimodal Capabilities",
+    "summary": "OpenAI has launched GPT-5, its most capable model to date, featuring significantly improved reasoning, longer context windows, and native support for image, audio, and video inputs. The model demonstrates near-human performance on a range of professional benchmarks including the bar exam and medical licensing tests. Developers can access GPT-5 via API with updated pricing tiers.",
+    "source": "The Verge",
+    "url": "https://www.theverge.com",
+    "image": ""
   },
   {
-    "title": "AI tools reshape how small studios work",
-    "summary": "Independent creators and micro-studios are using AI copilots to prototype, write, and ship faster without large teams.",
-    "source": "BBC Technology",
-    "url": "https://www.bbc.com/news/technology-ai-studios-test-2",
-    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/ai-studio-test-2.jpg"
+    "title": "AI Agents Are Beginning to Replace Junior Software Developers at Tech Firms",
+    "summary": "A growing number of startups and mid-size tech companies are deploying autonomous coding agents to handle tasks previously assigned to junior engineers, including bug fixes, code reviews, and feature implementation. Studies suggest agent-assisted teams ship up to 40% faster while reducing headcount for entry-level roles. The trend is raising serious questions about career pipelines in software engineering.",
+    "source": "MIT Technology Review",
+    "url": "https://www.technologyreview.com",
+    "image": ""
   },
   {
-    "title": "Remote work 2.0: from anywhere to intentional",
-    "summary": "Companies are shifting from improvised remote setups to deliberate, system-driven workflows focused on autonomy and outcomes.",
-    "source": "BBC Worklife",
-    "url": "https://www.bbc.com/worklife/remote-work-systems-test-3",
-    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/remote-work-test-3.jpg"
+    "title": "European AI Act Enforcement Begins: What Businesses Need to Know",
+    "summary": "The EU's landmark AI Act has entered its enforcement phase, requiring companies operating in Europe to classify their AI systems by risk level and comply with strict transparency and safety obligations. High-risk applications in hiring, credit scoring, and critical infrastructure face the most stringent requirements. Non-compliance penalties can reach up to 30 million euros or 6% of global annual turnover.",
+    "source": "Reuters",
+    "url": "https://www.reuters.com",
+    "image": ""
   },
   {
-    "title": "Cyber resilience becomes a core business metric",
-    "summary": "Boards are now treating system hardening, backups, and incident response as central to long-term value preservation.",
-    "source": "BBC Business",
-    "url": "https://www.bbc.com/news/business-cyber-resilience-test-4",
-    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/cyber-security-test-4.jpg"
+    "title": "Open Source AI Models Close the Gap on GPT-4 and Claude",
+    "summary": "Meta's latest Llama release and Mistral's new flagship model are now competitive with top proprietary systems on standard benchmarks, according to independent evaluations. Researchers note that fine-tuned open models are outperforming closed models on several domain-specific tasks including legal reasoning and code generation. The shift is accelerating enterprise adoption of self-hosted AI infrastructure.",
+    "source": "Ars Technica",
+    "url": "https://arstechnica.com",
+    "image": ""
   },
   {
-    "title": "Retail investors embrace disciplined, long-term strategies",
-    "summary": "A growing group of individual traders are rejecting hype cycles in favour of structured, Buffett-style approaches.",
-    "source": "BBC Business",
-    "url": "https://www.bbc.com/news/business-investing-discipline-test-5",
-    "image": "https://ichef.bbci.co.uk/news/1024/branded_news/investing-discipline-test-5.jpg"
+    "title": "AI Diagnostic Tools Detect Early-Stage Cancer with 94% Accuracy in New Trial",
+    "summary": "A large-scale clinical trial across 12 hospitals found that AI-assisted imaging analysis detected early-stage lung and breast cancer at rates significantly higher than radiologists working alone. The system, developed in partnership with Google DeepMind and NHS England, flagged cases an average of 18 months earlier than traditional screening timelines. Regulators are fast-tracking approval for clinical deployment.",
+    "source": "Nature Medicine",
+    "url": "https://www.nature.com/nm",
+    "image": ""
+  },
+  {
+    "title": "Anthropic Publishes Major Safety Research on Claude's Internal Reasoning",
+    "summary": "Anthropic has released new interpretability research showing how Claude represents and processes concepts internally, offering one of the most detailed public windows into a large language model's reasoning to date. The work identifies 'features' corresponding to emotions, ethical principles, and factual knowledge encoded in the model's activations. The findings are intended to advance the field's ability to audit and steer AI behavior before deployment.",
+    "source": "Anthropic",
+    "url": "https://www.anthropic.com/research",
+    "image": ""
   }
 ]

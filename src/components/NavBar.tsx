@@ -20,6 +20,7 @@ function NavAuth() {
 }
 
 export default function NavBar() {
+  const { isSignedIn } = useAuth();
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
 
@@ -42,7 +43,9 @@ export default function NavBar() {
         <a href="/" className="hover:opacity-70 transition">feed</a>
         <a href="/spaces" className="hover:opacity-70 transition">spaces</a>
         <a href="/agents" className="hover:opacity-70 transition">agents</a>
-        <a href="/dashboard" className="hover:opacity-70 transition">profile</a>
+        {isSignedIn && (
+          <a href="/dashboard" className="hover:opacity-70 transition">dashboard</a>
+        )}
         <NavAuth />
       </nav>
     </>
