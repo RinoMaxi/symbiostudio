@@ -62,7 +62,7 @@ export default function HomePage() {
               alt="Symbio"
               width={128}
               height={128}
-              className="rounded-xl w-16 h-16 md:w-32 md:h-32"
+              className="rounded-xl w-16 h-16 md:w-32 md:h-32" style={{objectFit: "contain"}}
             />
             <h1 className="text-5xl md:text-8xl font-extrabold text-white">
               symbio AI
