@@ -42,7 +42,8 @@ export default function NavBar() {
       >
         <a href="/" className="hover:opacity-70 transition">feed</a>
         <a href="/spaces" className="hover:opacity-70 transition">spaces</a>
-        <a href="/agents" className="hover:opacity-70 transition">agents</a>
+        <a href="/marketplace" className="hover:opacity-70 transition">marketplace</a>
+        <a href="/store" className="hover:opacity-70 transition">store</a>
         {isSignedIn && (
           <a href="/dashboard" className="hover:opacity-70 transition">dashboard</a>
         )}
