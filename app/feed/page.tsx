@@ -1,69 +1,92 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
 
-const mockPosts = [
-  {
-    id: 1,
-    author: "rinomax",
-    avatar: "/symbio_logo.png",
-    time: "2 hours ago",
-    content: "Just tested GPT-5 on complex reasoning tasks — the improvement in multi-step logic is real. Anyone else noticing it handles contradictions much better now?",
-    likes: 12,
-    comments: 4,
-    space: "AI Tools & Productivity",
-    points: 15,
-  },
-  {
-    id: 2,
-    author: "alex_builds",
-    avatar: "/symbio_logo.png",
-    time: "5 hours ago",
-    content: "Built a prompt chain that automates my entire client onboarding process. Saved 3 hours this week alone. Happy to share the template — drop a comment if you want it.",
-    likes: 28,
-    comments: 11,
-    space: "Prompt Engineering",
-    points: 40,
-  },
-  {
-    id: 3,
-    author: "maria_ai",
-    avatar: "/symbio_logo.png",
-    time: "yesterday",
-    content: "Question for the community: what's your go-to AI tool for summarising long research papers? I've tried 4 different ones this month and none feel right yet.",
-    likes: 7,
-    comments: 9,
-    space: "Learning & Resources",
-    points: 10,
-  },
-];
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
+import { supabase } from "@/lib/supabase";
+
+type Post = {
+  id: string;
+  author: string;
+  content: string;
+  space: string;
+  likes: number;
+  comments: number;
+  points: number;
+  created_at: string;
+};
+
+function relativeTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days === 1) return "yesterday";
+  return `${days}d ago`;
+}
 
 export default function FeedPage() {
-  const [posts, setPosts] = useState(mockPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [newPost, setNewPost] = useState("");
-  const [liked, setLiked] = useState<number[]>([]);
+  const [liked, setLiked] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [posting, setPosting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handlePost = () => {
-    if (!newPost.trim()) return;
-    const post = {
-      id: Date.now(),
-      author: "rinomax",
-      avatar: "/symbio_logo.png",
-      time: "just now",
-      content: newPost,
-      likes: 0,
-      comments: 0,
-      space: "General",
-      points: 5,
-    };
-    setPosts([post, ...posts]);
-    setNewPost("");
+  const fetchPosts = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("posts")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      setError("Could not load posts.");
+    } else {
+      setPosts(data ?? []);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  const handlePost = async () => {
+    if (!newPost.trim() || posting) return;
+    setPosting(true);
+
+    const { data, error } = await supabase
+      .from("posts")
+      .insert({
+        author: "rinomax",
+        content: newPost.trim(),
+        space: "General",
+        likes: 0,
+        comments: 0,
+        points: 5,
+      })
+      .select()
+      .single();
+
+    if (!error && data) {
+      setPosts((prev) => [data, ...prev]);
+      setNewPost("");
+    }
+    setPosting(false);
   };
 
-  const handleLike = (id: number) => {
+  const handleLike = async (id: string) => {
     if (liked.includes(id)) return;
-    setLiked([...liked, id]);
-    setPosts(posts.map(p => p.id === id ? { ...p, likes: p.likes + 1 } : p));
+    setLiked((prev) => [...prev, id]);
+    setPosts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, likes: p.likes + 1 } : p))
+    );
+    await supabase
+      .from("posts")
+      .update({ likes: (posts.find((p) => p.id === id)?.likes ?? 0) + 1 })
+      .eq("id", id);
   };
 
   return (
@@ -88,45 +111,69 @@ export default function FeedPage() {
             <span className="text-neutral-500 text-xs">+5 points for posting</span>
             <button
               onClick={handlePost}
-              className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-neutral-200 transition"
+              disabled={!newPost.trim() || posting}
+              className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-neutral-200 transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Post
+              {posting ? "Posting…" : "Post"}
             </button>
           </div>
         </div>
 
         {/* Posts */}
-        <div className="flex flex-col gap-6">
-          {posts.map((post) => (
-            <div key={post.id} className="bg-black/60 border border-neutral-700 rounded-2xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-full bg-neutral-700 overflow-hidden">
-                  <Image src={post.avatar} alt={post.author} width={32} height={32} className="object-contain" />
+        {loading ? (
+          <div className="flex flex-col gap-4">
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="bg-black/60 border border-neutral-800 rounded-2xl p-5 animate-pulse">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-full bg-neutral-800" />
+                  <div className="h-3 w-24 bg-neutral-800 rounded" />
                 </div>
-                <div>
-                  <span className="text-white text-sm font-semibold">{post.author}</span>
-                  <span className="text-neutral-500 text-xs ml-2">{post.time}</span>
+                <div className="space-y-2">
+                  <div className="h-3 bg-neutral-800 rounded w-full" />
+                  <div className="h-3 bg-neutral-800 rounded w-4/5" />
                 </div>
-                <span className="ml-auto text-xs text-neutral-500 border border-neutral-700 rounded-full px-3 py-1">{post.space}</span>
               </div>
+            ))}
+          </div>
+        ) : error ? (
+          <p className="text-neutral-500 text-sm text-center py-10">{error}</p>
+        ) : posts.length === 0 ? (
+          <p className="text-neutral-500 text-sm text-center py-10">No posts yet. Be the first to share something.</p>
+        ) : (
+          <div className="flex flex-col gap-6">
+            {posts.map((post) => (
+              <div key={post.id} className="bg-black/60 border border-neutral-700 rounded-2xl p-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-full bg-neutral-700 overflow-hidden">
+                    <Image src="/symbio_logo.png" alt={post.author} width={32} height={32} className="object-contain" />
+                  </div>
+                  <div>
+                    <span className="text-white text-sm font-semibold">{post.author}</span>
+                    <span className="text-neutral-500 text-xs ml-2">{relativeTime(post.created_at)}</span>
+                  </div>
+                  <span className="ml-auto text-xs text-neutral-500 border border-neutral-700 rounded-full px-3 py-1">
+                    {post.space}
+                  </span>
+                </div>
 
-              <p className="text-neutral-200 text-sm leading-relaxed mb-4">{post.content}</p>
+                <p className="text-neutral-200 text-sm leading-relaxed mb-4">{post.content}</p>
 
-              <div className="flex items-center gap-5 text-neutral-500 text-xs">
-                <button
-                  onClick={() => handleLike(post.id)}
-                  className={`flex items-center gap-1 hover:text-white transition ${liked.includes(post.id) ? "text-white" : ""}`}
-                >
-                  ▲ {post.likes}
-                </button>
-                <button className="flex items-center gap-1 hover:text-white transition">
-                  💬 {post.comments}
-                </button>
-                <span className="ml-auto text-emerald-500">+{post.points} pts</span>
+                <div className="flex items-center gap-5 text-neutral-500 text-xs">
+                  <button
+                    onClick={() => handleLike(post.id)}
+                    className={`flex items-center gap-1 hover:text-white transition ${liked.includes(post.id) ? "text-white" : ""}`}
+                  >
+                    ▲ {post.likes}
+                  </button>
+                  <button className="flex items-center gap-1 hover:text-white transition">
+                    💬 {post.comments}
+                  </button>
+                  <span className="ml-auto text-emerald-500">+{post.points} pts</span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
