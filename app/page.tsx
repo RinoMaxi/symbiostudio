@@ -70,7 +70,7 @@ export default function HomePage() {
           </div>
 
           <p className="mt-6 text-lg md:text-2xl font-bold text-white max-w-3xl text-center mx-auto">
-            The AI community where you stay informed, share expertise, and solve real problems together. News, insights, and human-AI collaboration — all in one place.
+            The first AI-native platform where professionals, creators and curious minds meet. Find solutions, publish expertise, access certifications and regulations, trade AI products and services — all in one place. Whatever your field, AI belongs here.
           </p>
 
           <div className="flex flex-col md:flex-row justify-center gap-4 mt-10 w-full max-w-sm md:max-w-none">
