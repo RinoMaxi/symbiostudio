@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
 
 type Post = {
   id: string;
@@ -35,60 +34,40 @@ export default function FeedPage() {
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPosts = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("posts")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      setError("Could not load posts.");
-    } else {
-      setPosts(data ?? []);
-    }
-    setLoading(false);
-  }, []);
-
   useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    fetch("/api/posts")
+      .then((r) => r.json())
+      .then((data) => setPosts(data))
+      .catch(() => setError("Could not load posts."))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handlePost = async () => {
     if (!newPost.trim() || posting) return;
     setPosting(true);
 
-    const { data, error } = await supabase
-      .from("posts")
-      .insert({
-        author: "rinomax",
-        content: newPost.trim(),
-        space: "General",
-        likes: 0,
-        comments: 0,
-        points: 5,
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.log("Supabase insert error:", error);
-    } else if (data) {
-      setPosts((prev) => [data, ...prev]);
-      setNewPost("");
+    try {
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ author: "rinomax", content: newPost, space: "General" }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setPosts((prev) => [data, ...prev]);
+        setNewPost("");
+      }
+    } finally {
+      setPosting(false);
     }
-    setPosting(false);
   };
 
-  const handleLike = async (id: string) => {
+  const handleLike = (id: string) => {
     if (liked.includes(id)) return;
     setLiked((prev) => [...prev, id]);
     setPosts((prev) =>
       prev.map((p) => (p.id === id ? { ...p, likes: p.likes + 1 } : p))
     );
-    await supabase
-      .from("posts")
-      .update({ likes: (posts.find((p) => p.id === id)?.likes ?? 0) + 1 })
-      .eq("id", id);
   };
 
   return (
