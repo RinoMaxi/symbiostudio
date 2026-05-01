@@ -70,7 +70,9 @@ export default function FeedPage() {
       .select()
       .single();
 
-    if (!error && data) {
+    if (error) {
+      console.log("Supabase insert error:", error);
+    } else if (data) {
       setPosts((prev) => [data, ...prev]);
       setNewPost("");
     }
