@@ -84,7 +84,7 @@ export default function HomePage() {
               href="/spaces"
               className="px-7 py-3 border border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition text-center"
             >
-              See what&apos;s happening
+              Explore the Platform
             </a>
           </div>
         </div>
