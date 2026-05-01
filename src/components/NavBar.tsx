@@ -40,7 +40,7 @@ export default function NavBar() {
         className="w-full flex justify-center items-center gap-3 md:gap-6 py-3 px-4 text-sm md:text-base"
         style={{ fontFamily: "MontserratSemiBold" }}
       >
-        <a href="/" className="hover:opacity-70 transition">feed</a>
+        <a href="/feed" className="hover:opacity-70 transition">feed</a>
         <a href="/spaces" className="hover:opacity-70 transition">spaces</a>
         <a href="/marketplace" className="hover:opacity-70 transition">marketplace</a>
         <a href="/store" className="hover:opacity-70 transition">store</a>
