@@ -52,7 +52,7 @@ export default function Footer() {
         {/* Social icons */}
         <div className="flex items-center gap-4 text-neutral-500">
           <a
-            href="https://linkedin.com/company/symbio-ai"
+            href="https://www.linkedin.com/company/symbio-ai"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-neutral-200 transition"
