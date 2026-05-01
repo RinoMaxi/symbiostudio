@@ -86,6 +86,12 @@ export default function HomePage() {
             >
               Explore the Platform
             </a>
+            <a
+              href="/pricing"
+              className="px-7 py-3 border border-white/40 text-white/70 font-semibold rounded-full hover:border-white hover:text-white transition text-center"
+            >
+              See Plans
+            </a>
           </div>
         </div>
       </section>
