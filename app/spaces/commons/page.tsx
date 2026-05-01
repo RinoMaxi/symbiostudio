@@ -61,8 +61,7 @@ const [isVisible, setIsVisible] = useState(false);
           "
         >
           {items.map((item, index) => (
-  <div
-    key={item.id}
+  <div key={item.id}
     onClick={() => router.push(`/spaces/commons/${item.id}`)}
     style={{ transitionDelay: `${index * 50}ms` }}
     className={`
