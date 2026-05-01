@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import CommandPalette from "@/components/command/CommandPalette";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/layout/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-screen pt-10">
             {children}
           </main>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

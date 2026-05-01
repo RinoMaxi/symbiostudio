@@ -1,44 +1,28 @@
-import Image from "next/image";
+import Link from "next/link";
 
-const sections = [
-  "Who We Are",
-  "Data We Collect",
-  "Why We Collect It",
-  "How We Store & Protect It",
-  "How We Share It",
-  "Your Rights",
-  "Cookies",
-  "Age Restrictions",
-  "Changes to This Policy",
-  "Contact Us",
-];
-
-function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+function Section({ id, num, title, children }: {
+  id: string;
+  num: string;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <section id={id} className="scroll-mt-8">
-      <h2 className="text-white text-xl font-semibold mb-4 pt-10 border-t border-neutral-800" style={{ fontFamily: "MontserratSemiBold" }}>
-        {title}
-      </h2>
-      <div className="text-neutral-400 text-sm leading-7 space-y-4">{children}</div>
+    <section id={id} className="scroll-mt-6 pt-10 border-t border-neutral-800 first:border-0 first:pt-0">
+      <div className="flex items-baseline gap-3 mb-5">
+        <span className="text-neutral-700 text-sm font-mono">{num}</span>
+        <h2 className="text-white text-lg font-semibold" style={{ fontFamily: "MontserratSemiBold" }}>{title}</h2>
+      </div>
+      <div className="text-neutral-400 text-sm leading-7 space-y-3 pl-7">{children}</div>
     </section>
-  );
-}
-
-function Sub({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <p className="text-neutral-300 font-semibold mb-1">{title}</p>
-      <div className="text-neutral-400 text-sm leading-7">{children}</div>
-    </div>
   );
 }
 
 function Ul({ items }: { items: string[] }) {
   return (
-    <ul className="list-none space-y-1.5 pl-0">
+    <ul className="space-y-2">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2.5">
-          <span className="text-neutral-600 mt-1.5 shrink-0">—</span>
+          <span className="text-neutral-700 shrink-0 mt-1.5 text-xs">—</span>
           <span>{item}</span>
         </li>
       ))}
@@ -46,312 +30,292 @@ function Ul({ items }: { items: string[] }) {
   );
 }
 
+function Highlight({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="text-neutral-200">{children}</span>
+  );
+}
+
 export default function PrivacyPage() {
   return (
-    <main className="relative overflow-hidden w-full min-h-screen px-6 py-16 md:px-12 lg:px-24">
-      <Image src="/project-1.png" alt="" fill className="absolute inset-0 object-cover object-top" priority />
-      <div className="absolute inset-0 bg-black/80" />
-
-      <div className="relative z-10 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
 
         {/* Header */}
-        <div className="mb-12">
-          <p className="text-neutral-500 text-xs uppercase tracking-widest mb-3">Legal</p>
-          <h1 className="text-4xl text-white tracking-wide mb-4" style={{ fontFamily: "MontserratSemiBold" }}>
+        <div className="mb-14">
+          <p className="text-neutral-600 text-xs uppercase tracking-widest mb-4">Legal</p>
+          <h1 className="text-3xl text-white mb-4 tracking-wide" style={{ fontFamily: "MontserratSemiBold" }}>
             Privacy Policy
           </h1>
-          <p className="text-neutral-500 text-sm">
-            Last updated: 1 May 2026 &nbsp;·&nbsp; Effective: 1 May 2026
+          <div className="flex flex-wrap gap-4 text-xs text-neutral-600">
+            <span>Last updated: May 2025</span>
+            <span>·</span>
+            <span>Applies to: symbiostudio.ai and all associated services</span>
+          </div>
+          <p className="mt-5 text-neutral-400 text-sm leading-7">
+            SymbioStudio Ltd is committed to protecting your privacy. This policy explains what personal data we collect, why we collect it, and how we handle it — in plain English. We operate under the <Highlight>UK General Data Protection Regulation (UK GDPR)</Highlight> and the <Highlight>Data Protection Act 2018</Highlight>.
           </p>
-          <p className="text-neutral-400 text-sm mt-3 max-w-2xl leading-relaxed">
-            This Privacy Policy explains how SymbioStudio Ltd collects, uses, stores and shares your personal data when you use the SymbioStudio platform. We are committed to protecting your privacy and complying with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
+          <p className="mt-3 text-neutral-400 text-sm leading-7">
+            Please read this policy carefully. By using SymbioStudio you confirm that you have read and understood it.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-12">
+        {/* Table of contents */}
+        <nav className="mb-14 bg-neutral-900/60 border border-neutral-800 rounded-2xl px-6 py-5">
+          <p className="text-neutral-500 text-xs uppercase tracking-widest mb-4">Contents</p>
+          <ol className="space-y-2">
+            {[
+              ["#s1", "Who We Are"],
+              ["#s2", "What Data We Collect"],
+              ["#s3", "Why We Collect It"],
+              ["#s4", "How Data Is Stored"],
+              ["#s5", "How Data Is Shared"],
+              ["#s6", "Your Rights Under UK GDPR"],
+              ["#s7", "Cookies"],
+              ["#s8", "Age Restrictions"],
+              ["#s9", "Contact Us"],
+            ].map(([href, label], i) => (
+              <li key={href}>
+                <a href={href} className="flex items-baseline gap-3 text-neutral-500 hover:text-neutral-200 transition text-sm">
+                  <span className="text-neutral-700 font-mono text-xs">{String(i + 1).padStart(2, "0")}</span>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
 
-          {/* Sticky TOC */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-8 bg-black/50 border border-neutral-800 rounded-2xl p-5">
-              <p className="text-neutral-500 text-xs uppercase tracking-widest mb-4">Contents</p>
-              <nav className="flex flex-col gap-2">
-                {sections.map((s, i) => (
-                  <a
-                    key={s}
-                    href={`#section-${i + 1}`}
-                    className="text-neutral-500 text-xs hover:text-neutral-200 transition leading-snug"
-                  >
-                    {i + 1}. {s}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </aside>
+        {/* Sections */}
+        <div className="flex flex-col gap-0">
 
-          {/* Content */}
-          <div className="flex flex-col gap-0">
+          <Section id="s1" num="01" title="Who We Are">
+            <p>
+              <Highlight>SymbioStudio Ltd</Highlight> is the data controller for all personal data collected through this platform. We are a UK-based company operating an AI-native professional community platform at symbiostudio.ai.
+            </p>
+            <p>
+              SymbioStudio is a platform where professionals, creators and curious minds connect around artificial intelligence — sharing knowledge, accessing certifications and regulatory resources, trading AI tools and services, and collaborating through expert-led communities.
+            </p>
+            <p>
+              For all privacy-related enquiries, contact us at <Highlight>privacy@symbiostudio.org</Highlight>.
+            </p>
+          </Section>
 
-            <Section id="section-1" title="1. Who We Are">
-              <p>
-                SymbioStudio Ltd is the data controller responsible for your personal data. We are a company registered in England and Wales.
-              </p>
-              <div className="bg-black/40 border border-neutral-800 rounded-xl px-5 py-4 text-sm">
-                <p><span className="text-neutral-300">Company name:</span> SymbioStudio Ltd</p>
-                <p className="mt-1"><span className="text-neutral-300">Registered in:</span> England and Wales</p>
-                <p className="mt-1"><span className="text-neutral-300">ICO Registration:</span> Pending registration</p>
-                <p className="mt-1"><span className="text-neutral-300">Data protection enquiries:</span> privacy@symbiostudio.ai</p>
-              </div>
-              <p>
-                We operate the SymbioStudio platform (the "Platform"), including the website at symbiostudio.ai, the Spaces community, the Store, the Marketplace, and all associated products and features.
-              </p>
-            </Section>
+          <Section id="s2" num="02" title="What Data We Collect">
+            <p>We collect only what is necessary to provide and improve the platform. This includes:</p>
 
-            <Section id="section-2" title="2. Data We Collect">
-              <p>We collect the following categories of personal data:</p>
-
-              <Sub title="Account & Identity Data">
-                <p>When you register, we collect your name, email address, and username. Account creation and authentication is handled by Clerk, our third-party identity provider. We do not store your password directly.</p>
-              </Sub>
-
-              <Sub title="Profile Data">
-                <p>Information you choose to add to your profile, including professional role, industry, bio, profile photograph and any links you provide.</p>
-              </Sub>
-
-              <Sub title="Content & Activity Data">
-                <p>Posts, comments, questions, replies and other content you publish on the Feed, in Spaces or elsewhere on the Platform. This includes content you submit in discussions, AI interactions you initiate, and points activity on your account.</p>
-              </Sub>
-
-              <Sub title="Payment & Billing Data">
-                <p>If you subscribe to a paid membership tier, payment is processed securely by Stripe. We receive confirmation of your subscription status and billing cycle but do not store your card number, expiry date or CVV. Stripe acts as a separate data controller for payment data.</p>
-              </Sub>
-
-              <Sub title="Usage & Technical Data">
+            <div className="space-y-5 mt-1">
+              <div>
+                <p className="text-neutral-300 font-semibold mb-2">Account & Profile Information</p>
                 <Ul items={[
+                  "Email address — required to create and secure your account",
+                  "Display name and username",
+                  "Professional role, industry and bio (optional, set by you)",
+                  "Profile photograph (optional, uploaded by you)",
+                ]} />
+              </div>
+
+              <div>
+                <p className="text-neutral-300 font-semibold mb-2">Usage Data</p>
+                <Ul items={[
+                  "Pages and features you access, and how often",
+                  "Session duration and navigation patterns",
+                  "Device type, browser and operating system",
                   "IP address and approximate location derived from it",
-                  "Browser type and version, operating system and device type",
-                  "Pages visited, features used and time spent on the Platform",
-                  "Referring URLs and search terms used to find the Platform",
-                  "Session identifiers and authentication tokens",
                 ]} />
-              </Sub>
-
-              <Sub title="Communications Data">
-                <p>If you contact us by email, via support or through any contact form, we retain a record of that correspondence including your name, email address and the content of your message.</p>
-              </Sub>
-
-              <Sub title="Data You Do Not Need to Provide">
-                <p>Certain data fields — such as professional role, profile photograph and bio — are optional. You can use core Platform features without providing them. Where data is required (e.g. an email address to create an account), we will make this clear at the point of collection.</p>
-              </Sub>
-            </Section>
-
-            <Section id="section-3" title="3. Why We Collect It">
-              <p>Under UK GDPR, we must have a lawful basis for processing personal data. The table below explains our purposes and the legal basis for each:</p>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm border-collapse">
-                  <thead>
-                    <tr className="border-b border-neutral-800">
-                      <th className="text-left text-neutral-300 font-semibold py-3 pr-6 w-1/2">Purpose</th>
-                      <th className="text-left text-neutral-300 font-semibold py-3">Legal Basis</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-neutral-400">
-                    {[
-                      ["Creating and managing your account", "Performance of a contract"],
-                      ["Processing membership subscription payments", "Performance of a contract"],
-                      ["Displaying your profile and content to other members", "Performance of a contract"],
-                      ["Sending transactional emails (account, billing, security)", "Performance of a contract"],
-                      ["Improving Platform features and user experience", "Legitimate interests"],
-                      ["Detecting and preventing fraud, abuse and security threats", "Legitimate interests / Legal obligation"],
-                      ["Analysing how the Platform is used via aggregated analytics", "Legitimate interests"],
-                      ["Responding to your support requests and enquiries", "Legitimate interests"],
-                      ["Sending optional marketing or product update emails", "Consent (you may opt out at any time)"],
-                      ["Complying with UK tax, financial and legal obligations", "Legal obligation"],
-                    ].map(([purpose, basis]) => (
-                      <tr key={purpose} className="border-b border-neutral-900">
-                        <td className="py-3 pr-6 align-top">{purpose}</td>
-                        <td className="py-3 align-top text-neutral-500">{basis}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
 
-              <p>
-                Where we rely on <span className="text-neutral-300">legitimate interests</span>, we have assessed that our interests do not override your rights and freedoms, and we have implemented appropriate safeguards. You have the right to object to processing based on legitimate interests — see Section 6.
-              </p>
-            </Section>
-
-            <Section id="section-4" title="4. How We Store & Protect It">
-              <Sub title="Storage Location">
-                <p>The Platform is hosted on Vercel infrastructure. Your data may be stored and processed in the United Kingdom, the European Economic Area, or the United States. Where data is transferred outside the UK, we rely on appropriate transfer mechanisms (including Standard Contractual Clauses) to ensure equivalent protection.</p>
-              </Sub>
-
-              <Sub title="Security Measures">
+              <div>
+                <p className="text-neutral-300 font-semibold mb-2">Points & Community Activity</p>
                 <Ul items={[
-                  "Encryption in transit (TLS/HTTPS) for all data sent between your browser and our servers",
-                  "Encryption at rest for databases holding personal data",
-                  "Access controls restricting internal access to personal data on a need-to-know basis",
-                  "Authentication and session management via Clerk, including support for multi-factor authentication",
-                  "Regular security reviews of third-party services we use",
+                  "Points earned and spent, including transaction history",
+                  "Posts, comments, questions and replies you publish",
+                  "Spaces you join and your level of participation",
+                  "Courses, certifications and Store purchases you complete",
                 ]} />
-              </Sub>
-
-              <Sub title="Retention Periods">
-                <p>We retain your data for as long as your account is active. If you delete your account:</p>
-                <Ul items={[
-                  "Account and profile data is deleted within 30 days of your request",
-                  "Publicly posted content (Feed posts, Space discussions) may remain visible in anonymised or attributed form unless you separately request removal",
-                  "Billing records are retained for 7 years as required by UK tax law",
-                  "Support correspondence is retained for 3 years",
-                  "Anonymised analytics data (not linked to you) may be retained indefinitely",
-                ]} />
-              </Sub>
-            </Section>
-
-            <Section id="section-5" title="5. How We Share It">
-              <p>We do not sell your personal data. We share it only in the following circumstances:</p>
-
-              <Sub title="Service Providers (Data Processors)">
-                <p>We use a limited number of trusted third-party providers who process data on our behalf and under our instructions:</p>
-                <Ul items={[
-                  "Clerk — authentication and identity management",
-                  "Stripe — subscription billing and payment processing",
-                  "Vercel — Platform hosting and infrastructure",
-                  "Analytics providers — aggregated usage analytics (where applicable, data is anonymised or pseudonymised)",
-                ]} />
-                <p className="mt-2">All processors are bound by data processing agreements and are required to process data only as instructed by us.</p>
-              </Sub>
-
-              <Sub title="Other Members">
-                <p>Content you publish on the Platform (posts, profile information, contributions to Spaces) is visible to other members as intended by the Platform's community features. Do not post content you do not wish others to see.</p>
-              </Sub>
-
-              <Sub title="Legal & Regulatory Disclosure">
-                <p>We may disclose personal data if required to do so by law, court order, or a legitimate request from a UK regulatory or law enforcement authority. We will notify you where legally permitted to do so before complying.</p>
-              </Sub>
-
-              <Sub title="Business Transfers">
-                <p>In the event of a merger, acquisition or sale of all or substantially all of our assets, your data may be transferred to the acquiring entity. We will notify you in advance and provide options where possible.</p>
-              </Sub>
-            </Section>
-
-            <Section id="section-6" title="6. Your Rights">
-              <p>Under UK GDPR, you have the following rights regarding your personal data. To exercise any of these rights, contact us at <span className="text-neutral-300">privacy@symbiostudio.ai</span>. We will respond within one calendar month.</p>
-
-              <div className="space-y-4">
-                {[
-                  {
-                    right: "Right of Access",
-                    detail: "You may request a copy of the personal data we hold about you (a Subject Access Request). We will provide this free of charge in a commonly used electronic format.",
-                  },
-                  {
-                    right: "Right to Rectification",
-                    detail: "If any personal data we hold is inaccurate or incomplete, you have the right to have it corrected. You can update most profile information directly in your account settings.",
-                  },
-                  {
-                    right: "Right to Erasure",
-                    detail: "You may request that we delete your personal data. We will comply unless we are required to retain it for legal reasons (e.g. tax records). Deleting your account initiates the erasure process.",
-                  },
-                  {
-                    right: "Right to Restriction of Processing",
-                    detail: "You may request that we limit how we process your data in certain circumstances — for example, while a dispute about its accuracy is resolved.",
-                  },
-                  {
-                    right: "Right to Data Portability",
-                    detail: "Where processing is based on consent or contract, you may request your data in a structured, machine-readable format so you can transfer it to another service.",
-                  },
-                  {
-                    right: "Right to Object",
-                    detail: "You may object to processing based on legitimate interests or direct marketing. We will stop processing unless we can demonstrate compelling legitimate grounds that override your interests.",
-                  },
-                  {
-                    right: "Right to Withdraw Consent",
-                    detail: "Where processing is based on consent (e.g. marketing emails), you may withdraw consent at any time. This does not affect the lawfulness of processing before withdrawal.",
-                  },
-                  {
-                    right: "Right to Lodge a Complaint",
-                    detail: "If you believe we have not handled your data in accordance with UK GDPR, you have the right to lodge a complaint with the Information Commissioner's Office (ICO) at ico.org.uk or by calling 0303 123 1113.",
-                  },
-                ].map(({ right, detail }) => (
-                  <div key={right} className="bg-black/40 border border-neutral-800 rounded-xl px-5 py-4">
-                    <p className="text-neutral-200 font-semibold text-sm mb-1">{right}</p>
-                    <p className="text-neutral-500 text-sm leading-relaxed">{detail}</p>
-                  </div>
-                ))}
               </div>
-            </Section>
 
-            <Section id="section-7" title="7. Cookies">
-              <p>We use cookies and similar tracking technologies on the Platform. A cookie is a small text file stored on your device when you visit a website.</p>
-
-              <Sub title="Essential Cookies">
-                <p>These cookies are necessary for the Platform to function and cannot be disabled. They include session cookies used for authentication (set by Clerk) and security tokens. No consent is required for these cookies.</p>
-              </Sub>
-
-              <Sub title="Analytics Cookies">
-                <p>With your consent, we may use analytics cookies to understand how members use the Platform — which pages are visited most, how long sessions last, and where errors occur. This data is aggregated and used only to improve the Platform.</p>
-              </Sub>
-
-              <Sub title="Preference Cookies">
-                <p>These cookies remember settings you have chosen, such as display preferences or dismissed notifications. They are set only after you interact with those features.</p>
-              </Sub>
-
-              <Sub title="Managing Cookies">
-                <p>You can control cookies through your browser settings. Disabling essential cookies will prevent you from logging in or using authenticated features. You may also manage analytics consent through our cookie banner at any time.</p>
-              </Sub>
-            </Section>
-
-            <Section id="section-8" title="8. Age Restrictions">
-              <p>
-                SymbioStudio is intended for users aged <span className="text-neutral-300">16 and over</span>. We do not knowingly collect personal data from children under the age of 13. If you are between 13 and 15 years old, you may only use the Platform with verified parental or guardian consent.
-              </p>
-              <p>
-                If we become aware that we have collected personal data from a child under 13 without appropriate consent, we will delete that data promptly. If you believe a child has registered on the Platform, please contact us at <span className="text-neutral-300">privacy@symbiostudio.ai</span>.
-              </p>
-            </Section>
-
-            <Section id="section-9" title="9. Changes to This Policy">
-              <p>
-                We may update this Privacy Policy from time to time to reflect changes in our practices, technology or legal obligations. When we make material changes, we will notify you by email (if you have an account) and by displaying a notice on the Platform at least 14 days before the changes take effect.
-              </p>
-              <p>
-                The "Last updated" date at the top of this page indicates when the policy was most recently revised. Continued use of the Platform after the effective date constitutes acceptance of the updated policy.
-              </p>
-              <p>
-                We encourage you to review this policy periodically. Previous versions of this policy are available on request.
-              </p>
-            </Section>
-
-            <Section id="section-10" title="10. Contact Us">
-              <p>
-                If you have any questions, concerns or requests relating to this Privacy Policy or our handling of your personal data, please contact our data protection team:
-              </p>
-              <div className="bg-black/40 border border-neutral-800 rounded-xl px-5 py-5 text-sm space-y-2">
-                <p><span className="text-neutral-300">Email:</span> privacy@symbiostudio.ai</p>
-                <p><span className="text-neutral-300">Subject line:</span> Data Privacy Enquiry</p>
-                <p><span className="text-neutral-300">Response time:</span> Within 5 business days for general enquiries; within 30 days for formal Subject Access Requests or rights requests</p>
+              <div>
+                <p className="text-neutral-300 font-semibold mb-2">Payment Information</p>
+                <p className="text-neutral-400">
+                  Payments are processed by <Highlight>PayPal</Highlight> and <Highlight>Stripe</Highlight>. We do not store your card number, bank details or full payment credentials. We receive only a payment confirmation, your billing plan and a tokenised reference from the payment processor. PayPal and Stripe are independent data controllers for payment data they process.
+                </p>
               </div>
-              <p>
-                If you are not satisfied with our response, you have the right to escalate your complaint to the <span className="text-neutral-300">Information Commissioner's Office (ICO)</span>, the UK's independent data protection authority:
-              </p>
-              <div className="bg-black/40 border border-neutral-800 rounded-xl px-5 py-5 text-sm space-y-2">
-                <p><span className="text-neutral-300">Website:</span> ico.org.uk</p>
-                <p><span className="text-neutral-300">Helpline:</span> 0303 123 1113</p>
-                <p><span className="text-neutral-300">Address:</span> Information Commissioner's Office, Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</p>
-              </div>
-            </Section>
-
-            {/* Footer note */}
-            <div className="mt-12 pt-8 border-t border-neutral-800">
-              <p className="text-neutral-600 text-xs leading-relaxed">
-                This policy applies to all services operated by SymbioStudio Ltd. It should be read alongside our Terms of Service. Where there is any conflict between this policy and local data protection law, local law prevails.
-              </p>
             </div>
+          </Section>
 
+          <Section id="s3" num="03" title="Why We Collect It">
+            <p>We collect personal data for the following purposes, each with a lawful basis under UK GDPR:</p>
+            <div className="mt-2 space-y-3">
+              {[
+                {
+                  purpose: "To provide the platform and your account",
+                  basis: "Performance of a contract",
+                  detail: "Creating your account, displaying your profile, enabling you to post and participate in Spaces.",
+                },
+                {
+                  purpose: "To process payments and manage subscriptions",
+                  basis: "Performance of a contract",
+                  detail: "Handling Premium and Elite membership billing via PayPal and Stripe.",
+                },
+                {
+                  purpose: "To maintain security and prevent fraud",
+                  basis: "Legitimate interests / Legal obligation",
+                  detail: "Detecting abuse, protecting accounts, and complying with applicable laws.",
+                },
+                {
+                  purpose: "To improve the platform",
+                  basis: "Legitimate interests",
+                  detail: "Understanding how features are used so we can fix problems and build better ones.",
+                },
+                {
+                  purpose: "To personalise your experience",
+                  basis: "Legitimate interests",
+                  detail: "Surfacing relevant content, Spaces and recommendations based on your activity.",
+                },
+              ].map(({ purpose, basis, detail }) => (
+                <div key={purpose} className="bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+                    <p className="text-neutral-200 text-sm font-semibold">{purpose}</p>
+                    <span className="text-neutral-600 text-xs">{basis}</span>
+                  </div>
+                  <p className="text-neutral-500 text-xs leading-relaxed">{detail}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          <Section id="s4" num="04" title="How Data Is Stored">
+            <p>We take the security of your data seriously. Personal data is handled as follows:</p>
+            <Ul items={[
+              "All data is transmitted over encrypted connections (HTTPS/TLS)",
+              "Data is stored on secure, access-controlled servers",
+              "Access to personal data is restricted to authorised personnel only, on a need-to-know basis",
+              "We conduct regular reviews of our security practices and those of our service providers",
+              "Databases holding personal data are encrypted at rest",
+            ]} />
+            <p className="mt-4">
+              We retain your personal data for as long as your account is active. If you delete your account, your profile and personal data will be removed within <Highlight>30 days</Highlight>. Billing records may be retained for up to <Highlight>7 years</Highlight> as required by UK tax law.
+            </p>
+            <p>
+              Our hosting infrastructure is provided by Vercel. Data may be processed in the UK, the EEA or the United States. Where transfers outside the UK occur, appropriate safeguards — including Standard Contractual Clauses — are in place.
+            </p>
+          </Section>
+
+          <Section id="s5" num="05" title="How Data Is Shared">
+            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-4 mb-4">
+              <p className="text-neutral-200 font-semibold text-sm mb-1">We do not sell your data. Ever.</p>
+              <p className="text-neutral-500 text-xs leading-relaxed">Your personal data is never sold, rented or traded to third parties. It is never shared with advertisers or used for behavioural advertising.</p>
+            </div>
+            <p>We share data only in the following limited circumstances:</p>
+            <div className="mt-3 space-y-3">
+              {[
+                {
+                  who: "Payment processors (PayPal & Stripe)",
+                  why: "To process membership payments and subscription billing. They receive only what is necessary to complete the transaction.",
+                },
+                {
+                  who: "Hosting infrastructure (Vercel)",
+                  why: "To serve the platform. Vercel processes data as our data processor under a signed data processing agreement.",
+                },
+                {
+                  who: "Authentication provider (Clerk)",
+                  why: "To manage secure sign-in and account sessions.",
+                },
+                {
+                  who: "Legal or regulatory authorities",
+                  why: "Where required by law, court order, or a legitimate request from a UK regulatory or law enforcement authority. We will notify you where legally possible before complying.",
+                },
+              ].map(({ who, why }) => (
+                <div key={who} className="flex gap-4">
+                  <span className="text-neutral-700 shrink-0 mt-1 text-xs">—</span>
+                  <div>
+                    <p className="text-neutral-300 text-sm font-semibold">{who}</p>
+                    <p className="text-neutral-500 text-xs leading-relaxed mt-0.5">{why}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          <Section id="s6" num="06" title="Your Rights Under UK GDPR">
+            <p>You have the following rights over your personal data. To exercise any of them, email <Highlight>privacy@symbiostudio.org</Highlight>. We will respond within <Highlight>30 days</Highlight>.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              {[
+                { right: "Right of Access", detail: "Request a copy of all personal data we hold about you." },
+                { right: "Right to Rectification", detail: "Ask us to correct inaccurate or incomplete data." },
+                { right: "Right to Erasure", detail: "Request deletion of your personal data ('right to be forgotten')." },
+                { right: "Right to Export", detail: "Receive your data in a portable, machine-readable format." },
+                { right: "Right to Restrict Processing", detail: "Ask us to limit how we use your data in certain circumstances." },
+                { right: "Right to Object", detail: "Object to processing based on legitimate interests or direct marketing." },
+              ].map(({ right, detail }) => (
+                <div key={right} className="bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-4">
+                  <p className="text-neutral-200 text-sm font-semibold mb-1">{right}</p>
+                  <p className="text-neutral-500 text-xs leading-relaxed">{detail}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4">
+              If you are not satisfied with our response, you have the right to lodge a complaint with the <Highlight>Information Commissioner's Office (ICO)</Highlight> — the UK's independent data protection authority — at <Highlight>ico.org.uk</Highlight> or by calling 0303 123 1113.
+            </p>
+          </Section>
+
+          <Section id="s7" num="07" title="Cookies">
+            <p>
+              We use <Highlight>essential cookies only</Highlight>. These are the minimum required for the platform to function — they manage your login session and keep your account secure.
+            </p>
+            <Ul items={[
+              "Session cookies — keep you logged in during your visit",
+              "Authentication tokens — issued by our auth provider (Clerk) to verify your identity",
+              "Security cookies — protect against cross-site request forgery (CSRF)",
+            ]} />
+            <p className="mt-4">
+              We do not use <Highlight>third-party advertising cookies</Highlight>, tracking pixels, or any cookies that follow you across other websites. We do not use cookies for behavioural advertising or to build advertising profiles.
+            </p>
+            <p>
+              You can manage or delete cookies through your browser settings. Disabling essential cookies will prevent you from signing in to the platform.
+            </p>
+          </Section>
+
+          <Section id="s8" num="08" title="Age Restrictions">
+            <p>
+              SymbioStudio is intended for users aged <Highlight>16 and over</Highlight>. This is in line with the UK GDPR minimum age for digital consent.
+            </p>
+            <p>
+              Users under the age of 16 may only use SymbioStudio with the verifiable consent of a parent or legal guardian. If you are a parent or guardian and believe your child has registered without consent, please contact us at <Highlight>privacy@symbiostudio.org</Highlight> and we will delete the account promptly.
+            </p>
+            <p>
+              We do not knowingly collect personal data from children under 13. If we become aware that we have done so without appropriate consent, we will delete that data immediately.
+            </p>
+          </Section>
+
+          <Section id="s9" num="09" title="Contact Us">
+            <p>
+              For any questions, concerns or requests relating to your privacy or this policy, please contact our data protection team:
+            </p>
+            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl px-5 py-5 mt-3 space-y-2">
+              <p><Highlight>Email:</Highlight> <span className="text-neutral-400">privacy@symbiostudio.org</span></p>
+              <p><Highlight>Subject line:</Highlight> <span className="text-neutral-400">Privacy Enquiry</span></p>
+              <p><Highlight>Response time:</Highlight> <span className="text-neutral-400">Within 5 business days for general enquiries; within 30 days for formal rights requests</span></p>
+            </div>
+            <p className="mt-4">
+              We take all privacy communications seriously and will acknowledge your message promptly.
+            </p>
+          </Section>
+
+          {/* Footer note */}
+          <div className="mt-14 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <p className="text-neutral-700 text-xs">
+              © 2025 SymbioStudio Ltd. Registered in England and Wales.
+            </p>
+            <div className="flex gap-4 text-xs text-neutral-700">
+              <Link href="/" className="hover:text-neutral-400 transition">Home</Link>
+              <Link href="/pricing" className="hover:text-neutral-400 transition">Pricing</Link>
+              <Link href="/store" className="hover:text-neutral-400 transition">Store</Link>
+            </div>
           </div>
+
         </div>
       </div>
-    </main>
+    </div>
   );
 }
