@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 type Tier = {
   name: string;
@@ -82,6 +84,35 @@ function CheckIcon() {
 
 export default function PricingPage() {
   const [annual, setAnnual] = useState(false);
+  const [loading, setLoading] = useState<string | null>(null);
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
+
+  async function handleCheckout(tier: Tier) {
+    if (tier.monthlyPrice === 0) {
+      router.push(isSignedIn ? "/dashboard" : "/sign-up");
+      return;
+    }
+    if (!isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
+    const plan = tier.name.toLowerCase();
+    const billingPeriod = annual ? "yearly" : "monthly";
+    const key = `${plan}-${billingPeriod}`;
+    setLoading(key);
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan, billingPeriod }),
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } finally {
+      setLoading(null);
+    }
+  }
 
   return (
     <main className="relative overflow-hidden w-full min-h-screen px-6 py-16 md:px-12 lg:px-24">
@@ -191,17 +222,25 @@ export default function PricingPage() {
                 <p className="text-neutral-400 text-sm leading-relaxed mb-6">{tier.tagline}</p>
 
                 {/* CTA */}
-                <button
-                  className={`w-full py-2.5 rounded-full text-sm font-semibold mb-7 transition ${
-                    isElite
-                      ? "bg-white text-black hover:bg-neutral-200"
-                      : isFill
-                      ? "bg-white text-black hover:bg-neutral-200"
-                      : "border border-white text-white hover:bg-white hover:text-black"
-                  }`}
-                >
-                  {tier.cta}
-                </button>
+                {(() => {
+                  const key = `${tier.name.toLowerCase()}-${annual ? "yearly" : "monthly"}`;
+                  const isLoading = loading === key;
+                  return (
+                    <button
+                      onClick={() => handleCheckout(tier)}
+                      disabled={isLoading}
+                      className={`w-full py-2.5 rounded-full text-sm font-semibold mb-7 transition disabled:opacity-60 disabled:cursor-not-allowed ${
+                        isElite
+                          ? "bg-white text-black hover:bg-neutral-200"
+                          : isFill
+                          ? "bg-white text-black hover:bg-neutral-200"
+                          : "border border-white text-white hover:bg-white hover:text-black"
+                      }`}
+                    >
+                      {isLoading ? "Redirecting…" : tier.cta}
+                    </button>
+                  );
+                })()}
 
                 {/* Divider */}
                 <div className="h-px bg-neutral-800 mb-6" />
