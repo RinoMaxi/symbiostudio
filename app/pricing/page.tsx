@@ -85,10 +85,12 @@ function CheckIcon() {
 export default function PricingPage() {
   const [annual, setAnnual] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const { isSignedIn } = useAuth();
   const router = useRouter();
 
   async function handleCheckout(tier: Tier) {
+    setCheckoutError(null);
     if (tier.monthlyPrice === 0) {
       router.push(isSignedIn ? "/dashboard" : "/sign-up");
       return;
@@ -108,8 +110,14 @@ export default function PricingPage() {
         body: JSON.stringify({ plan, billingPeriod }),
       });
       const data = await res.json();
-      if (data.url) window.location.href = data.url;
-    } finally {
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setCheckoutError(data.error ?? "Something went wrong. Please try again.");
+        setLoading(null);
+      }
+    } catch {
+      setCheckoutError("Network error. Please check your connection and try again.");
       setLoading(null);
     }
   }
@@ -152,6 +160,13 @@ export default function PricingPage() {
             <span className="ml-2 text-[11px] text-emerald-400 font-semibold">Save 2 months</span>
           </span>
         </div>
+
+        {/* Checkout error */}
+        {checkoutError && (
+          <div className="mb-6 max-w-xl mx-auto px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm text-center">
+            {checkoutError}
+          </div>
+        )}
 
         {/* Tier cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
