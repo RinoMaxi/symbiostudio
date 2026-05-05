@@ -28,11 +28,20 @@ export async function POST(req: NextRequest) {
     if (!customerId) {
       const user = await currentUser();
       const email = user?.emailAddresses?.[0]?.emailAddress;
+
       const customer = await stripe.customers.create({
         email,
         metadata: { clerk_user_id: userId },
       });
       customerId = customer.id;
+
+      // ✅ Persist the new Stripe customer ID to Supabase
+      await supabase
+        .from("subscriptions")
+        .upsert(
+          { clerk_user_id: userId, stripe_customer_id: customerId },
+          { onConflict: "clerk_user_id" }
+        );
     }
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
