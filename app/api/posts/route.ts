@@ -9,6 +9,7 @@ export async function GET() {
     .order("created_at", { ascending: false });
 
   if (error) {
+    console.error("[posts GET] Supabase error:", error.code, error.message, error.details);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     .single();
 
   if (error) {
+    console.error("[posts POST] Supabase error:", error.code, error.message, error.details);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 

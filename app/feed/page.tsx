@@ -36,7 +36,10 @@ export default function FeedPage() {
 
   useEffect(() => {
     fetch("/api/posts")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`${r.status}`);
+        return r.json();
+      })
       .then((data) => setPosts(data))
       .catch(() => setError("Could not load posts."))
       .finally(() => setLoading(false));
