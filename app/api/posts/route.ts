@@ -3,7 +3,7 @@ import { createServerSupabase } from "@/lib/supabase-server";
 
 export async function GET() {
   console.log("[posts GET] handler called");
-  let supabase;
+  let supabase: ReturnType<typeof createServerSupabase>;
   try {
     supabase = createServerSupabase();
   } catch (e) {
