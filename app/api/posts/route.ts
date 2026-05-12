@@ -2,29 +2,47 @@ import { NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase-server";
 
 export async function GET() {
-  const supabase = createServerSupabase();
-  const { data, error } = await supabase
+  console.log("[posts GET] handler called");
+  let supabase;
+  try {
+    supabase = createServerSupabase();
+  } catch (e) {
+    console.error("[posts GET] createServerSupabase threw:", e);
+    return NextResponse.json({ error: "Supabase client init failed" }, { status: 500 });
+  }
+
+  const { data, error, status, statusText } = await supabase
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("[posts GET] Supabase error:", error.code, error.message, error.details);
+    console.error("[posts GET] Supabase error:", JSON.stringify({ code: error.code, message: error.message, details: error.details, hint: error.hint, status, statusText }));
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  console.log("[posts GET] success, row count:", data?.length ?? 0);
   return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
+  console.log("[posts POST] handler called");
   const body = await request.json();
+  console.log("[posts POST] body:", JSON.stringify({ author: body.author, space: body.space, contentLength: body.content?.length }));
 
   if (!body.content?.trim()) {
     return NextResponse.json({ error: "Content is required" }, { status: 400 });
   }
 
-  const supabase = createServerSupabase();
-  const { data, error } = await supabase
+  let supabase;
+  try {
+    supabase = createServerSupabase();
+  } catch (e) {
+    console.error("[posts POST] createServerSupabase threw:", e);
+    return NextResponse.json({ error: "Supabase client init failed" }, { status: 500 });
+  }
+
+  const { data, error, status, statusText } = await supabase
     .from("posts")
     .insert({
       author: body.author ?? "anonymous",
@@ -35,9 +53,10 @@ export async function POST(request: Request) {
     .single();
 
   if (error) {
-    console.error("[posts POST] Supabase error:", error.code, error.message, error.details);
+    console.error("[posts POST] Supabase error:", JSON.stringify({ code: error.code, message: error.message, details: error.details, hint: error.hint, status, statusText }));
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  console.log("[posts POST] success, inserted id:", data?.id);
   return NextResponse.json(data, { status: 201 });
 }
