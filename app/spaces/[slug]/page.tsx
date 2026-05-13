@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -77,54 +77,28 @@ const topContributors = [
   { name: "Luca Ferretti", initials: "LF", posts: 12, role: "Founder" },
 ];
 
-const seedPosts = [
-  {
-    id: "1",
-    author: "Mara Chen",
-    initials: "MC",
-    role: "ML Engineer",
-    time: "2h ago",
-    content: "Has anyone successfully integrated LLM-based anomaly detection into a real-time pipeline? We're hitting latency issues at ~50ms p99 and trying to decide whether to move inference to the edge or batch the alerts.",
-    likes: 14,
-    comments: 7,
-    liked: false,
-  },
-  {
-    id: "2",
-    author: "James Obi",
-    initials: "JO",
-    role: "Product Lead",
-    time: "5h ago",
-    content: "Just published a breakdown of our internal evaluation framework for AI vendor selection — covers accuracy benchmarks, data residency, audit trails and pricing models. Happy to share the template if anyone wants it.",
-    likes: 32,
-    comments: 11,
-    liked: false,
-  },
-  {
-    id: "3",
-    author: "Priya Shah",
-    initials: "PS",
-    role: "Researcher",
-    time: "1d ago",
-    content: "Paper recommendation: 'Constitutional AI in High-Stakes Domains' (NeurIPS 2025). The section on uncertainty quantification is directly applicable to anyone deploying models where wrong answers have real consequences. Link in comments.",
-    likes: 51,
-    comments: 18,
-    liked: false,
-  },
-  {
-    id: "4",
-    author: "Luca Ferretti",
-    initials: "LF",
-    role: "Founder",
-    time: "2d ago",
-    content: "Quick poll — what's your team's biggest blocker right now? (A) Evaluation / benchmarking, (B) Data quality & labelling, (C) Internal buy-in / procurement, (D) Regulatory compliance. We're planning our Q3 content around the most common answers.",
-    likes: 23,
-    comments: 34,
-    liked: false,
-  },
-];
+type Post = {
+  id: string;
+  author: string;
+  content: string;
+  space: string;
+  likes: number;
+  comments: number;
+  points: number;
+  created_at: string;
+};
 
-type Post = typeof seedPosts[number];
+function relativeTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days === 1) return "yesterday";
+  return `${days}d ago`;
+}
 
 function Avatar({ initials, size = "md" }: { initials: string; size?: "sm" | "md" }) {
   const dim = size === "sm" ? "w-7 h-7 text-xs" : "w-9 h-9 text-sm";
@@ -135,16 +109,16 @@ function Avatar({ initials, size = "md" }: { initials: string; size?: "sm" | "md
   );
 }
 
-function PostCard({ post, onLike }: { post: Post; onLike: (id: string) => void }) {
+function PostCard({ post, liked, onLike }: { post: Post; liked: boolean; onLike: (id: string) => void }) {
+  const initials = post.author.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
   return (
     <div className="bg-black/60 border border-neutral-700 rounded-2xl p-5 hover:border-neutral-500 transition">
       <div className="flex items-start gap-3 mb-3">
-        <Avatar initials={post.initials} />
+        <Avatar initials={initials} />
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-2 flex-wrap">
             <span className="text-white text-sm font-semibold">{post.author}</span>
-            <span className="text-neutral-500 text-xs">{post.role}</span>
-            <span className="text-neutral-600 text-xs ml-auto">{post.time}</span>
+            <span className="text-neutral-600 text-xs ml-auto">{relativeTime(post.created_at)}</span>
           </div>
         </div>
       </div>
@@ -152,12 +126,12 @@ function PostCard({ post, onLike }: { post: Post; onLike: (id: string) => void }
       <div className="flex items-center gap-5">
         <button
           onClick={() => onLike(post.id)}
-          className={`flex items-center gap-1.5 text-xs transition ${post.liked ? "text-white" : "text-neutral-500 hover:text-neutral-300"}`}
+          className={`flex items-center gap-1.5 text-xs transition ${liked ? "text-white" : "text-neutral-500 hover:text-neutral-300"}`}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill={post.liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
-          {post.likes + (post.liked ? 1 : 0)}
+          {post.likes + (liked ? 1 : 0)}
         </button>
         <button className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-300 transition">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -181,36 +155,47 @@ export default function SpaceInteriorPage() {
   const { slug } = useParams<{ slug: string }>();
   const space = spaceData[slug] ?? defaultSpace;
 
-  const [posts, setPosts] = useState<Post[]>(seedPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [posting, setPosting] = useState(false);
   const [joined, setJoined] = useState(false);
+  const [liked, setLiked] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch(`/api/posts?space=${slug}`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`${r.status}`);
+        return r.json();
+      })
+      .then((data) => setPosts(data))
+      .catch(() => setFetchError("Could not load posts."))
+      .finally(() => setLoading(false));
+  }, [slug]);
 
   const handleLike = (id: string) => {
-    setPosts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, liked: !p.liked } : p))
-    );
+    if (liked.includes(id)) return;
+    setLiked((prev) => [...prev, id]);
   };
 
-  const handlePost = () => {
-    if (!draft.trim()) return;
+  const handlePost = async () => {
+    if (!draft.trim() || posting) return;
     setPosting(true);
-    setTimeout(() => {
-      const newPost: Post = {
-        id: String(Date.now()),
-        author: "You",
-        initials: "YO",
-        role: "Member",
-        time: "Just now",
-        content: draft.trim(),
-        likes: 0,
-        comments: 0,
-        liked: false,
-      };
-      setPosts((prev) => [newPost, ...prev]);
-      setDraft("");
+    try {
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ author: "rinomax", content: draft.trim(), space: slug }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setPosts((prev) => [data, ...prev]);
+        setDraft("");
+      }
+    } finally {
       setPosting(false);
-    }, 600);
+    }
   };
 
   return (
@@ -285,9 +270,17 @@ export default function SpaceInteriorPage() {
             </div>
 
             {/* Posts */}
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} onLike={handleLike} />
-            ))}
+            {loading ? (
+              <p className="text-neutral-500 text-sm py-6 text-center">Loading posts…</p>
+            ) : fetchError ? (
+              <p className="text-neutral-500 text-sm py-6 text-center">{fetchError}</p>
+            ) : posts.length === 0 ? (
+              <p className="text-neutral-500 text-sm py-6 text-center">No posts yet. Be the first to share something.</p>
+            ) : (
+              posts.map((post) => (
+                <PostCard key={post.id} post={post} liked={liked.includes(post.id)} onLike={handleLike} />
+              ))
+            )}
           </div>
 
           {/* Sidebar */}

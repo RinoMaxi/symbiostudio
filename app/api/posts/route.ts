@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase-server";
 
-export async function GET() {
+export async function GET(request: Request) {
   console.log("[posts GET] handler called");
+  const { searchParams } = new URL(request.url);
+  const spaceFilter = searchParams.get("space");
+
   let supabase: ReturnType<typeof createServerSupabase>;
   try {
     supabase = createServerSupabase();
@@ -11,10 +14,10 @@ export async function GET() {
     return NextResponse.json({ error: "Supabase client init failed" }, { status: 500 });
   }
 
-  const { data, error, status, statusText } = await supabase
-    .from("posts")
-    .select("*")
-    .order("created_at", { ascending: false });
+  let query = supabase.from("posts").select("*").order("created_at", { ascending: false });
+  if (spaceFilter) query = query.eq("space", spaceFilter);
+
+  const { data, error, status, statusText } = await query;
 
   if (error) {
     console.error("[posts GET] Supabase error:", JSON.stringify({ code: error.code, message: error.message, details: error.details, hint: error.hint, status, statusText }));
