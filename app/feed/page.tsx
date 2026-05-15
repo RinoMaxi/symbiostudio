@@ -2,17 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
-type Post = {
-  id: string;
-  author: string;
-  content: string;
-  space: string;
-  likes: number;
-  comments: number;
-  points: number;
-  created_at: string;
-};
+import PostComposer, { type Post } from "@/components/posts/PostComposer";
 
 function relativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
@@ -28,10 +18,8 @@ function relativeTime(iso: string): string {
 
 export default function FeedPage() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [newPost, setNewPost] = useState("");
   const [liked, setLiked] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [posting, setPosting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -44,26 +32,6 @@ export default function FeedPage() {
       .catch(() => setError("Could not load posts."))
       .finally(() => setLoading(false));
   }, []);
-
-  const handlePost = async () => {
-    if (!newPost.trim() || posting) return;
-    setPosting(true);
-
-    try {
-      const res = await fetch("/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ author: "rinomax", content: newPost, space: "General" }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setPosts((prev) => [data, ...prev]);
-        setNewPost("");
-      }
-    } finally {
-      setPosting(false);
-    }
-  };
 
   const handleLike = (id: string) => {
     if (liked.includes(id)) return;
@@ -82,28 +50,14 @@ export default function FeedPage() {
         <h1 className="text-3xl text-white font-semibold mb-2">Feed</h1>
         <p className="text-neutral-400 mb-8">What the community is building, solving, and sharing.</p>
 
-        {/* Create Post */}
-        <div className="bg-black/60 border border-neutral-700 rounded-2xl p-5 mb-8">
-          <textarea
-            className="w-full bg-transparent text-white placeholder-neutral-500 text-sm resize-none outline-none mb-4"
-            rows={3}
-            placeholder="Share something with the community — a solution, a question, a discovery..."
-            value={newPost}
-            onChange={(e) => setNewPost(e.target.value)}
+        <div className="mb-8">
+          <PostComposer
+            space="General"
+            onPostCreated={(post) => setPosts((prev) => [post, ...prev])}
+            placeholder="Share something with the community — a solution, a question, a discovery…"
           />
-          <div className="flex justify-between items-center">
-            <span className="text-neutral-500 text-xs">+5 points for posting</span>
-            <button
-              onClick={handlePost}
-              disabled={!newPost.trim() || posting}
-              className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-neutral-200 transition disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              {posting ? "Posting…" : "Post"}
-            </button>
-          </div>
         </div>
 
-        {/* Posts */}
         {loading ? (
           <div className="flex flex-col gap-4">
             {[1, 2, 3].map((n) => (
@@ -140,7 +94,47 @@ export default function FeedPage() {
                   </span>
                 </div>
 
-                <p className="text-neutral-200 text-sm leading-relaxed mb-4">{post.content}</p>
+                {post.content && (
+                  <p className="text-neutral-200 text-sm leading-relaxed mb-4">{post.content}</p>
+                )}
+
+                {post.media_urls?.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {post.media_urls.map((url, i) =>
+                      /\.(jpe?g|png|gif|webp)(\?|$)/i.test(url) ? (
+                        <a key={i} href={url} target="_blank" rel="noopener noreferrer">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={url}
+                            alt=""
+                            className="rounded-lg max-h-48 object-cover border border-neutral-700"
+                          />
+                        </a>
+                      ) : (
+                        <a
+                          key={i}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-neutral-300 hover:text-white transition"
+                        >
+                          📄 <span className="truncate max-w-[160px]">{url.split("/").pop()}</span>
+                        </a>
+                      )
+                    )}
+                  </div>
+                )}
+
+                {post.video_url && (
+                  <div className="mb-4 aspect-video rounded-xl overflow-hidden border border-neutral-700">
+                    <iframe
+                      src={post.video_url}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
 
                 <div className="flex items-center gap-5 text-neutral-500 text-xs">
                   <button

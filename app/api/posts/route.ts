@@ -51,6 +51,8 @@ export async function POST(request: Request) {
       author: body.author ?? "anonymous",
       content: body.content.trim(),
       space: body.space ?? "General",
+      media_urls: body.media_urls ?? [],
+      video_url: body.video_url ?? null,
     })
     .select()
     .single();
