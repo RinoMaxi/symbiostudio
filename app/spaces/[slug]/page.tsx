@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import PostComposer, { type Post } from "@/components/posts/PostComposer";
 
 const spaceData: Record<string, {
   name: string;
@@ -77,17 +78,6 @@ const topContributors = [
   { name: "Luca Ferretti", initials: "LF", posts: 12, role: "Founder" },
 ];
 
-type Post = {
-  id: string;
-  author: string;
-  content: string;
-  space: string;
-  likes: number;
-  comments: number;
-  points: number;
-  created_at: string;
-};
-
 function relativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
   const mins = Math.floor(diff / 60000);
@@ -122,7 +112,41 @@ function PostCard({ post, liked, onLike }: { post: Post; liked: boolean; onLike:
           </div>
         </div>
       </div>
-      <p className="text-neutral-300 text-sm leading-relaxed mb-4">{post.content}</p>
+      {post.content && (
+        <p className="text-neutral-300 text-sm leading-relaxed mb-4">{post.content}</p>
+      )}
+      {post.media_urls?.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {post.media_urls.map((url, i) =>
+            /\.(jpe?g|png|gif|webp)(\?|$)/i.test(url) ? (
+              <a key={i} href={url} target="_blank" rel="noopener noreferrer">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt="" className="rounded-lg max-h-48 object-cover border border-neutral-700" />
+              </a>
+            ) : (
+              <a
+                key={i}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-xs text-neutral-300 hover:text-white transition"
+              >
+                📄 <span className="truncate max-w-[160px]">{url.split("/").pop()}</span>
+              </a>
+            )
+          )}
+        </div>
+      )}
+      {post.video_url && (
+        <div className="mb-4 aspect-video rounded-xl overflow-hidden border border-neutral-700">
+          <iframe
+            src={post.video_url}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      )}
       <div className="flex items-center gap-5">
         <button
           onClick={() => onLike(post.id)}
@@ -158,8 +182,6 @@ export default function SpaceInteriorPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [draft, setDraft] = useState("");
-  const [posting, setPosting] = useState(false);
   const [joined, setJoined] = useState(false);
   const [liked, setLiked] = useState<string[]>([]);
 
@@ -177,25 +199,6 @@ export default function SpaceInteriorPage() {
   const handleLike = (id: string) => {
     if (liked.includes(id)) return;
     setLiked((prev) => [...prev, id]);
-  };
-
-  const handlePost = async () => {
-    if (!draft.trim() || posting) return;
-    setPosting(true);
-    try {
-      const res = await fetch("/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ author: "rinomax", content: draft.trim(), space: slug }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setPosts((prev) => [data, ...prev]);
-        setDraft("");
-      }
-    } finally {
-      setPosting(false);
-    }
   };
 
   return (
@@ -242,26 +245,13 @@ export default function SpaceInteriorPage() {
           <div className="flex flex-col gap-5">
 
             {/* Post Composer */}
-            <div className="bg-black/60 border border-neutral-700 rounded-2xl p-5">
-              <p className="text-white text-sm font-semibold mb-3">Post to this Space</p>
-              <textarea
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                placeholder="Share an insight, question or resource with this community…"
-                rows={4}
-                className="w-full bg-neutral-900 border border-neutral-700 rounded-xl px-4 py-3 text-white text-sm outline-none placeholder-neutral-500 resize-none focus:border-neutral-500 transition mb-3"
-              />
-              <div className="flex items-center justify-between">
-                <span className="text-neutral-600 text-xs">{draft.length} / 1000</span>
-                <button
-                  onClick={handlePost}
-                  disabled={!draft.trim() || posting}
-                  className="px-6 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-neutral-200 transition disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  {posting ? "Posting…" : "Post"}
-                </button>
-              </div>
-            </div>
+            <PostComposer
+              space={slug}
+              onPostCreated={(post) => setPosts((prev) => [post, ...prev])}
+              placeholder="Share an insight, question or resource with this community…"
+              title="Post to this Space"
+              rows={4}
+            />
 
             {/* Feed label */}
             <div className="flex items-center gap-3">
